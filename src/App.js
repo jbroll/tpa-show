@@ -2,24 +2,39 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {
+  createMuiTheme,
+  MuiThemeProvider
+} from "@material-ui/core/styles";
+
+import SearchAppBar from './SearchAppBar';
+import ProvideAuth from './auth/ProvideAuth';
+
+const thisTheme = createMuiTheme({
+  typography: {
+    button: {
+      textTransform: "none"
+    }
+  }
+});
+
+const styles = {
+    App: {
+        height: "100vh",
+        backgroundImage: "url(HainesFallsClove.jpg)",
+        backgroundSize: "cover"
+    }
+};
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProvideAuth>
+    <MuiThemeProvider theme={thisTheme}>
+      <div className="App" style={styles.App}>
+      <SearchAppBar position="static"></SearchAppBar>
+      </div>
+    </MuiThemeProvider>
+    </ProvideAuth>
   );
 }
 
