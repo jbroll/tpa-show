@@ -46,7 +46,7 @@ export default function MyArtEntry(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Close
+            Save
           </Button>
         </DialogActions>
       </Dialog>
