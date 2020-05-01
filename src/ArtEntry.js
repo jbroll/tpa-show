@@ -71,8 +71,8 @@ export default function MyArtEntry(props) {
 
   return (
       <div>
-          <Grid container directoin="column" >
-              <Grid item container direction="row" padding={1} xs={12}>
+          <Grid container direction="column" >
+            <Grid container spacing={4} direction="row">
                 <Grid item xs={6}>
                   <DocField
                     label="First Name"
@@ -81,7 +81,7 @@ export default function MyArtEntry(props) {
                     field="first"
                     value={name.first}
                     handleChange={e => handleNameChange(e, 'first')}
-                    width="90%" />
+                    width="100%" />
                 </Grid>
                 <Grid item xs={6}>
                   <DocField
@@ -91,11 +91,11 @@ export default function MyArtEntry(props) {
                     field="last"
                     value={name.last}
                     handleChange={e => handleNameChange(e, 'last')}
-                    width="90%" />
+                    width="100%" />
                 </Grid>
               </Grid>
 
-            <Grid item container xs={12}>
+            <Grid container direction="column">
                 <ArtItem n={1} item={entry && entry.item && entry.item[0]}/>
                 <ArtItem n={2} item={entry && entry.item && entry.item[1]}/>
             </Grid>
