@@ -113,7 +113,7 @@ export function SignIn() {
         <DialogTitle id="form-dialog-title">Sign In</DialogTitle>
         <DialogContent>
           <DialogContentText>
-              Registered artistis can sign in to update thier art show entries.
+              Registered artists can sign in to update their art show entries.
           </DialogContentText>
           <TextField
             onChange={handleEmailChange}
