@@ -1,37 +1,15 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
+import DocEdit from "./DocEdit";
+import DocField from "./DocField";
+
 const useStyles = makeStyles((theme) => ({
-    title: {
-      flexGrow: .1,
-      display: 'none',
-      "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
-    },
-    spacer: {
-      flexGrow: .1,
-      display: 'none',
-      "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      marginTop: "100%",
-      },
-      table: {
-        root: {
-            borderBottom: "none !important",
-            "background-color": "transparent !important",
-            "border-color": "transparent !important"
-          }
-      }
-    },
     image: {
-        width: 128,
-        height: 128,
+        width: 175,
+        height: 175,
     },
     img: {
         margin: 'auto',
@@ -44,20 +22,15 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'row',
       marginBottom: 10
     },
-    textField: {
-      width: '100%'
-    },
     imageBox: {
-      margin: 10
+      margin: 0
     },
 }));
 
 export default function ArtItem(props) {
   const classes = useStyles();
 
-  const handleTitleChange = () => {
-
-  };
+  const document = `entries/${props.email}!${props.n}`
 
   return <div className = {classes.divStyle}>
            <Grid item xs={4} className={classes.imageBox}>
@@ -66,57 +39,23 @@ export default function ArtItem(props) {
                </Button>
            </Grid>
            <Grid container spacing={4} direction="row">
-             <Grid item xs={12}>
-               <TextField
-                 onChange={handleTitleChange}
-                 margin="dense"
-                 id={"title" + props.n}
-                 label="Title"
-                 type="text"
-                 value=""
-                 className={classes.textField}
-               />
-             </Grid>
-             <Grid item xs={3}>
-               <TextField
-                 onChange={handleTitleChange}
-                 margin="dense"
-                 id={"media" + props.n}
-                 label="Media"
-                 type="text"
-                 className={classes.textField}
-               />
-             </Grid>
-             <Grid item xs={3}>
-               <TextField
-                 onChange={handleTitleChange}
-                 margin="dense"
-                 id={"height" + props.n}
-                 label="Height"
-                 type="text"
-                 className={classes.textField}
-               />
-             </Grid>
-             <Grid item xs={3}>
-               <TextField
-                 onChange={handleTitleChange}
-                 margin="dense"
-                 id={"width" + props.n}
-                 label="Width"
-                 type="text"
-                 className={classes.textField}
-               />
-             </Grid>
-             <Grid item xs={3}>
-               <TextField
-                 onChange={handleTitleChange}
-                 margin="dense"
-                 id={"price" + props.n}
-                 label="Price"
-                 type="text"
-                 className={classes.textField}
-               />
-             </Grid>
+            <DocEdit document={document}>
+                <Grid item xs={12}>
+                <DocField label="Title" field="title" />
+                </Grid>
+                <Grid item xs={3}>
+                <DocField label="Title" field="title" />
+                </Grid>
+                <Grid item xs={3}>
+                <DocField label="Height" field="height" />
+                </Grid>
+                <Grid item xs={3}>
+                <DocField label="Width" field="width" />
+                </Grid>
+                <Grid item xs={3}>
+                <DocField label="Price" field="price" />
+                </Grid>
+            </DocEdit>
            </Grid>
          </div>;
 }
