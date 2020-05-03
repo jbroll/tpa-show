@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import {
@@ -31,7 +30,7 @@ function App() {
     <ProvideAuth>
     <MuiThemeProvider theme={thisTheme}>
       <div className="App" style={styles.App}>
-      <SearchAppBar position="static"></SearchAppBar>
+        <SearchAppBar position="static"></SearchAppBar>
       </div>
     </MuiThemeProvider>
     </ProvideAuth>
