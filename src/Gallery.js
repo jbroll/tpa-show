@@ -20,15 +20,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Gallery(props) { 
-    const src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+export function ScaledImage(props) { 
+    const classes = useStyles();
+    const transparentPixel="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
+    function handleLoad(e) {
+        const img = e.currentTarget;
+        if (img.src === transparentPixel) {
+            return;
+        }
+        img.style.background="no-repeat url("+ img.src +") 50%";
+        img.style.backgroundSize="contain";  // Use "contain", "cover" or a % value
+        img.style.position="absolute";
+        img.style.width="100%";
+        img.style.height="100%";
+        img.src=transparentPixel;
+    }
+
+    // eslint-disable-next-line jsx-a11y/alt-text
+    return <img classes={classes.img} onLoad={handleLoad} {...props} />;
+}
+
+export default function Gallery(props) { 
     const classes = useStyles();
 
     const [current, setCurrent] = React.useState(0);
     const [imageUrls, setImageUrls] = React.useState([]);
-
-    const imageRefs = React.useRef([]);
 
     React.useEffect(() => {
         setImageUrls(props.imageUrls);
@@ -40,33 +57,11 @@ export default function Gallery(props) {
         }, 5000)
     }, [current, imageUrls, props.imageUrls]);
 
-    function handleLoad(e) {
-        const img = e.currentTarget;
-        if(img.isScaled) return;
-        img.style.background="no-repeat url("+ img.src +") 50%";
-        img.style.backgroundSize="contain";  // Use "contain", "cover" or a % value
-        img.style.width="100%";
-        img.style.height="100%";
-        img.isScaled=true; // Prevent triggering another onload on src change
-        img.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-    }
-
-    function pushRef(ref) {
-        imageRefs.current.push(ref);
-    }
-
-    for (var i = 0; i < imageUrls.length; i++) {
-        if (imageRefs.current[i] != null) {
-            imageRefs.current[i].isScaled = false;
-        }
-    }
-
     return (
         <div className={classes.galleryDiv}>
           {imageUrls.map((x, i) => 
-            <Fade in={current === i} timeout={1500}>
-                <img key={imageUrls[i]} ref={pushRef}
-            className={classes.img} onLoad={handleLoad} src={imageUrls[i]} alt="Art Gallery"/>
+            <Fade key={imageUrls[i]} in={current === i} timeout={1500}>
+                <ScaledImage className={classes.img} src={imageUrls[i]} alt="Art Gallery"/>
             </Fade>
             )}
         </div>
