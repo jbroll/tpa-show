@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MyArtEntry(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState(props.email);
+  const [email] = React.useState(props.email);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,7 +46,7 @@ export default function MyArtEntry(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Save
+            Close
           </Button>
         </DialogActions>
       </Dialog>

@@ -6,7 +6,7 @@ export const DocContext = React.createContext(null);
 export default function DocEdit(props) {
   const [value, setValue] = React.useState();
 
-  const unsub = React.useEffect(() => {
+  React.useEffect(() => {
     const [collection, document] = props.document.split('/');
     const doc = firebase.firestore().collection(collection).doc(document);
 
@@ -27,14 +27,21 @@ export default function DocEdit(props) {
     })
   }
 
-  const saveField = (context, field) => {
+  const saveField = (context, field, value) => {
+      if (value === undefined) {
+          value = context.value[field] 
+      }
+      if (value === undefined || value === null) {
+          return;
+      }
+
       const [collection, document] = context.document.split('/');
       const doc = firebase.firestore().collection(collection).doc(document);
 
       var data = {
-          [field]: context.value[field]
+        [field]: value
       }
-      doc.update(data);
+      doc.set(data, {merge: true});
   }
 
   return (
