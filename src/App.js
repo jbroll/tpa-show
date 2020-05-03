@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import DocGallery from './DocGallery.js'
 
 import {
   createMuiTheme,
@@ -20,21 +21,19 @@ const thisTheme = createMuiTheme({
 const styles = {
     App: {
         height: "100vh",
-        backgroundImage: "url(HainesFallsClove.jpg)",
-        backgroundSize: "cover"
+        background: 'lightgreen',
     }
 };
 
-function App() {
+export default function App() {
   return (
     <ProvideAuth>
     <MuiThemeProvider theme={thisTheme}>
       <div className="App" style={styles.App}>
         <SearchAppBar position="static"></SearchAppBar>
+        <DocGallery collection='entries' />
       </div>
     </MuiThemeProvider>
     </ProvideAuth>
   );
 }
-
-export default App;
