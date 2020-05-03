@@ -78,7 +78,7 @@ function OpenFileButton(props) {
             <input onChange={handleFileChange} ref={inputRef} type="file" style={{display:"none"}}/>
         </div>
 }
-export default function ArtImage(props) {
+export default function DocImage(props) {
     const classes = useStyles();
     const [here, setHere] = React.useState(false);
     const [drag, setDrag] = React.useState(false);
