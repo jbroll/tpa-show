@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ArtImage from "./ArtImage";
+import DocImage from "./DocImage";
 import DocEdit from "./DocEdit";
 import DocField from "./DocField";
 
@@ -26,7 +26,7 @@ export default function ArtItem(props) {
   return <div className = {classes.divStyle}>
     <DocEdit document={document}>
         <Grid item xs={4} className={classes.imageBox}>
-            <ArtImage field="image" image={image} />
+            <DocImage field="image" image={image} />
         </Grid>
         <Grid container spacing={4} direction="row">
             <Grid item xs={12}>
