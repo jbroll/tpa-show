@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     img: {
         margin: 'auto',
         display: 'block',
-        maxWidth: '100%',
-        maxHeight: '100%',
+        maxWidth: '175px',
+        maxHeight: '175px',
         textIndent: '100%',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
