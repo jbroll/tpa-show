@@ -25,23 +25,23 @@ export default function Gallery(props) {
     const classes = useStyles();
 
     const [current, setCurrent] = React.useState(0);
-    const [imageUrls, setImageUrls] = React.useState([]);
+    const [docs, setDocs] = React.useState([]);
 
     React.useEffect(() => {
-        setImageUrls(props.imageUrls);
+        setDocs(props.docs);
 
         setTimeout(() => {
-            const c = (current+1) % imageUrls.length;
+            const c = (current+1) % docs.length;
             setCurrent(c);
 
         }, 5000)
-    }, [current, imageUrls, props.imageUrls]);
+    }, [current, docs, props.docs]);
 
     return (
         <div className={classes.galleryDiv}>
-          {imageUrls.map((x, i) => 
-            <Fade key={imageUrls[i]} in={current === i} timeout={1500}>
-                <ScaledImage className={classes.img} src={imageUrls[i]} alt="Art Gallery"/>
+          {docs.map((x, i) => 
+            <Fade key={docs[i].image} in={current === i} timeout={1500}>
+                <ScaledImage className={classes.img} src={docs[i].image} alt="Art Gallery"/>
             </Fade>
             )}
         </div>

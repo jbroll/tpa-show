@@ -110,6 +110,9 @@ export default function SearchAppBar(props) {
             Twilight Park Art Show 2020
           </Typography>
           <Typography className={classes.title} variant="h6" noWrap>
+            Gallery
+          </Typography>
+          <Typography className={classes.title} variant="h6" noWrap>
             Catalog
           </Typography>
           <Typography className={classes.space} variant="h6" noWrap>

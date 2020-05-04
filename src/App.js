@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import DocGallery from './DocGallery.js'
 
 import {
   createMuiTheme,
@@ -9,6 +8,8 @@ import {
 
 import SearchAppBar from './SearchAppBar';
 import ProvideAuth from './auth/ProvideAuth';
+import Gallery from './Gallery.js'
+import DocCollection from './DocCollection.js';
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -31,7 +32,10 @@ export default function App() {
     <MuiThemeProvider theme={thisTheme}>
       <div className="App" style={styles.App}>
         <SearchAppBar position="static"></SearchAppBar>
-        <DocGallery collection='entries' />
+
+        <DocCollection collection='entries'>
+            { docs => (<Gallery docs={docs} />) }
+        </DocCollection>
       </div>
     </MuiThemeProvider>
     </ProvideAuth>
