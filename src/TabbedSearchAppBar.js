@@ -1,15 +1,10 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import SignInOrOut from './auth/SignIn'
 import SearchIcon from '@material-ui/icons/Search';
 import Fade from '@material-ui/core/Fade';
-import { IsAuth, useAuth } from './auth/ProvideAuth'
-import MyArtEntry from './MyArtEntry'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,11 +71,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar(props) {
+export default function TabbedSearchAppBar(props) {
   const classes = useStyles();
   const [moved, setMoved] = React.useState(true);
   const clearTimer = React.useRef(undefined);
-  const auth = useAuth();
 
   const setFadeTimer = () => {
     const timer = setTimeout(() => {
@@ -106,19 +100,7 @@ export default function SearchAppBar(props) {
       <Fade in={moved} timeout={1000}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Twilight Park Art Show 2020
-          </Typography>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Gallery
-          </Typography>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Catalog
-          </Typography>
-          <Typography className={classes.space} variant="h6" noWrap>
-          </Typography>
-          <IsAuth><MyArtEntry email={auth && auth.user && auth.user.email}/><Box/></IsAuth>
-          <SignInOrOut/>
+          {props.children}
 
           <div className={classes.search}>
             <div className={classes.searchIcon}>
