@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ArtEntry from './ArtEntry';
+import { useAuth } from './auth/ProvideAuth'
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -22,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 export default function MyArtEntry(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [email] = React.useState(props.email);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,6 +31,9 @@ export default function MyArtEntry(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const user = useAuth().user;
+  const email = user && user.email;
 
   return (
     <div>
@@ -50,6 +53,6 @@ export default function MyArtEntry(props) {
           </Button>
         </DialogActions>
       </Dialog>
-      </div>
+    </div>
   );
 }
