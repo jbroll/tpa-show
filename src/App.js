@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SignInOrOut from './auth/SignIn'
-import { IsAuth, useAuth } from './auth/ProvideAuth'
+import { IsAuth } from './auth/ProvideAuth'
 import ArtCatalog from './ArtCatalog'
 import MyArtEntry from './MyArtEntry'
 import { makeStyles } from '@material-ui/core/styles';
@@ -55,7 +55,6 @@ const styles = {
 
 export default function App() {
   const classes = useStyles();
-  const auth = useAuth();
   const [tab, setTab] = React.useState("Show");
 
   const handleClickShow = () => { setTab("Show"); }
@@ -85,7 +84,7 @@ export default function App() {
           </Button>
           <Typography className={classes.space} variant="h6" noWrap>
           </Typography>
-          <IsAuth><MyArtEntry email={auth && auth.user && auth.user.email}/><Box/></IsAuth>
+          <IsAuth><MyArtEntry /><Box /></IsAuth>
           <SignInOrOut/>
         </TabbedSearchAppBar>
 

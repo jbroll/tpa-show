@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -133,11 +132,11 @@ export function SignIn() {
             type="password"
             fullWidth
           />
-          <Typography className={classes.title} variant="body1" noWrap>
-            <Box pt={4} pb={2} fontWeight="fontWeightBold">
-              Or Sign in through another service:
-            </Box>
-          </Typography>
+          <Box pt={4} pb={2} fontWeight="fontWeightBold">
+            <Typography className={classes.title} variant="body1" noWrap>
+                Or Sign in through another service:
+            </Typography>
+          </Box>
           <Typography className={classes.title} variant="body1" noWrap>
           </Typography>
           <Table padding={"none"} size={"small"}>
