@@ -89,7 +89,25 @@ export default function App() {
         </TabbedSearchAppBar>
 
         {tab === "Show" ?
-          <div>This is the show page</div>
+          <div>
+            <p>
+              Twilight Park Artists 2020
+            </p>
+            <p>
+          Virtual Art Show
+            </p>
+          <p>
+          We are all finding new ways to continue our work and hobbies during the coronavirus pandemic of 2020. Since the Twilight Park Art Show is such a special event for us, we have decided to hold a virtual art show. We will miss seeing all of our friends this summer, but we want to support the artists and keep the spirit of the show strong for when we return to the club house.
+          </p>
+          
+          <p>
+          Artists are invited to participate by uploading images of their works. Please contact us here, if you would like to participate and have not received an invitation. You may sell your pieces by including direct contact information. We will not be handling sales, and we will not be charging any commissions. You are an important part of our community, and we want to support you during these difficult times.
+          </p>
+          
+          <p>
+          The virtual show will be live on August 1, 2020. Please share this with your fellow artists and art patrons.
+          </p>
+          </div>
           : null
         }
         {tab === "Gallery" ?
