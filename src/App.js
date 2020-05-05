@@ -94,14 +94,14 @@ export default function App() {
           : null
         }
         {tab === "Gallery" ?
-          <DocCollection collection='entries'>
-              { docs => (<Gallery docs={docs} />) }
+          <DocCollection collections={['entries']}>
+              { collections => (<Gallery entries={collections['entries']} />) }
           </DocCollection>
           : null
         }
         {tab === "Catalog" ?
-          <DocCollection collection='artists'>
-              { docs => (<ArtCatalog docs={docs} />) }
+          <DocCollection collections={['artists', 'entries']}>
+              { collections => (<ArtCatalog collections={collections} />) }
           </DocCollection>
           : null
         }
