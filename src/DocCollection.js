@@ -3,20 +3,31 @@ import * as firebase from "firebase/app";
 
 export const DocContext = React.createContext(null);
 
-export default function DocCollection(props) {
-  const [docs, setDocs] = React.useState([]);
+export default class DocCollection extends React.Component {
 
-  React.useEffect(() => {
-    const d = [];
+    constructor(props) {
+        super();
+        this.state = {};
+    }
 
-    firebase.firestore().collection(props.collection).get().then(
-      (reply) => {
-        reply.forEach(doc => {
-          d.push(doc.data());
-       });
-       setDocs(d);
-    });
-  }, [props.collection]);
+    componentDidMount() {
+        this.props.collections.forEach(collection => {
 
-  return <div>{props.children(docs)}</div>;
+            firebase.firestore().collection(collection).get().then(
+                (reply) => {
+                    const d = {};
+                    reply.forEach(doc => {
+                        d[doc.id] = doc.data(); 
+                    });
+
+                    this.setState((state, props) => ({
+                        [collection]: d
+                    }));
+            });
+        });
+    }
+  
+  render() {
+    return <div>{this.props.children(this.state)}</div>;
+  } 
 }

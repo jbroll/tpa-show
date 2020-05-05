@@ -24,24 +24,42 @@ const useStyles = makeStyles((theme) => ({
 export default function Gallery(props) { 
     const classes = useStyles();
 
+    const mapToList = function(o, f) {
+        var result = []
+        Object.keys(o).forEach(k => {
+            result.push(f(o[k], k, o));
+        });
+        return result;
+    }
+
     const [current, setCurrent] = React.useState(0);
-    const [docs, setDocs] = React.useState([]);
+    const [currentKey, setCurrentKey] = React.useState(0);
+    const [entries, setEnries] = React.useState({});
 
     React.useEffect(() => {
-        setDocs(props.docs);
+        if (props.entries == null) {
+            return;
+        }
+
+        setEnries(props.entries);
+
+        if (Object.keys(entries).length === 0) { return; }
+        setCurrentKey(Object.keys(entries)[current]);
 
         setTimeout(() => {
-            const c = (current+1) % docs.length;
+            const c = (current+1) % Object.keys(entries).length;
             setCurrent(c);
+            setCurrentKey(Object.keys(entries)[c]);
 
         }, 5000)
-    }, [current, docs, props.docs]);
+
+    }, [current, entries, props.entries]);
 
     return (
         <div className={classes.galleryDiv}>
-          {docs.map((x, i) => 
-            <Fade key={docs[i].image} in={current === i} timeout={1500}>
-                <ScaledImage className={classes.img} src={docs[i].image} alt="Art Gallery"/>
+          {mapToList(entries, (obj, key) => 
+            <Fade key={key} in={currentKey === key} timeout={1500}>
+                <ScaledImage className={classes.img} src={obj.image} alt="Art Gallery"/>
             </Fade>
             )}
         </div>
