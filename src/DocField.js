@@ -19,21 +19,14 @@ export default function DocField(props) {
 
                 const handleKeyDown = (e) => {
                     if (e.keyCode === 13) {
-                        context.saveField(context, props.field);
+                        context.fieldSave(context, props.field);
                     }
                 }
                 const handleBlur = (e) => {
-                    context.saveField(context, props.field);
+                    context.fieldSave(context, props.field);
                 }
                 const handleChange = (e) => {
                     context.handleChange(e, props.field);
-                }
-
-                var value;
-                if (context.value && context.value[props.field]) {
-                    value = context.value[props.field]; 
-                } else {
-                    value = ""; 
                 }
 
                 return (
@@ -42,7 +35,7 @@ export default function DocField(props) {
                         label={props.label}
                         margin="dense"
                         type="text"
-                        value={value}
+                        value={context.fieldValue(context, props.field)}
                     />);
             })}
         </DocContext.Consumer>
