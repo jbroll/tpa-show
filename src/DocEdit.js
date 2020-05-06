@@ -27,7 +27,7 @@ export default function DocEdit(props) {
     })
   }
 
-  const saveField = (context, field, value) => {
+  const fieldSave = (context, field, value) => {
       if (value === undefined) {
           value = context.value[field] 
       }
@@ -44,11 +44,26 @@ export default function DocEdit(props) {
       doc.set(data, {merge: true});
   }
 
+  const fieldValue = (context, field, default_value) => {
+        var value;
+        if (context.value && context.value[field]) {
+            value = context.value[field]; 
+        } else {
+            if (default_value == null) {
+                value = "";
+            } else {
+                value = default_value; 
+            }
+        }
+        return value;
+  }
+
   return (
     <DocContext.Provider value={{
         document: props.document,
         handleChange: handleChange,
-        saveField: saveField,
+        fieldSave: fieldSave,
+        fieldValue: fieldValue,
         value: value
     }}>
 

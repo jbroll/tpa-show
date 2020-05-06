@@ -1,11 +1,16 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Artist from './Artist';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({    
@@ -28,6 +33,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Catalog(props) { 
     const classes = useStyles();
+    const [openArtist, setOpenArtist] = React.useState(false);
+    const [openEntry, setOpenEntry] = React.useState(false);
+    const [entry, setEntry] = React.useState({})
+
+    const handleOpenEntry = (e) => {
+        setOpenEntry(true);
+        setEntry(e);
+    };
+
+    const handleCloseEntry = () => {
+        setOpenEntry(false);
+    };
+
+    const handleOpenArtist = (e) => {
+        setOpenEntry(true);
+        setEntry(e);
+    };
+
+    const handleCloseArtist = () => {
+        setOpenArtist(false);
+    };
 
     const mapToList = function(o, f) {
         var result = []
@@ -78,14 +104,42 @@ export default function Catalog(props) {
               <TableBody>
               {data.map(e => 
                   <TableRow key={e.key}>
-                    <TableCell>{e.artist}</TableCell>
-                    <TableCell>{e.title}</TableCell>
+                    <TableCell>
+                        <Link onClick={() => { handleOpenArtist(e) }}>{e.title}
+                        </Link>
+                    </TableCell>
+                    <TableCell>
+                        <Link onClick={() => { handleOpenEntry(e) }}>{e.title}
+                        </Link>
+                    </TableCell>
                     <TableCell>{e.media}</TableCell>
                     <TableCell>{e.price}</TableCell>
                   </TableRow>
               )}
               </TableBody>
           </Table>
+          <Dialog open={openEntry} maxWidth="md" fullWidth={true} onClose={handleCloseEntry} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Artist - {entry.artist}</DialogTitle>
+            <DialogContent>
+                <Artist entry1={entry}/>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseEntry} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog open={openArtist} maxWidth="md" fullWidth={true} onClose={handleCloseArtist} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Artist - {entry.artist}</DialogTitle>
+            <DialogContent>
+                <Artist entry1={entry}/>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseArtist} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+          </Dialog>
         </div>
     );
 }
