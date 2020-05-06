@@ -34,26 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Catalog(props) { 
     const classes = useStyles();
     const [openArtist, setOpenArtist] = React.useState(false);
-    const [openEntry, setOpenEntry] = React.useState(false);
-    const [entry, setEntry] = React.useState({})
-
-    const handleOpenEntry = (e) => {
-        setOpenEntry(true);
-        setEntry(e);
-    };
-
-    const handleCloseEntry = () => {
-        setOpenEntry(false);
-    };
-
-    const handleOpenArtist = (e) => {
-        setOpenEntry(true);
-        setEntry(e);
-    };
-
-    const handleCloseArtist = () => {
-        setOpenArtist(false);
-    };
+    const [artistEntries, setArtistEntries] = React.useState([{}])
 
     const mapToList = function(o, f) {
         var result = []
@@ -62,6 +43,22 @@ export default function Catalog(props) {
         });
         return result;
     }
+
+    const handleOpenArtist1 = (e) => {
+        setOpenArtist(true);
+        setArtistEntries([e]);
+    };
+
+    const handleOpenArtistN = (e) => {
+        setOpenArtist(true);
+        const akey = e.key.substr(0, e.key.length-2);
+        console.log(akey);
+        setArtistEntries(data.filter(e => e.key.startsWith(akey)));
+    };
+
+    const handleCloseArtist = () => {
+        setOpenArtist(false);
+    };
 
     const [entries, setEntries] = React.useState([]);
     const [artists, setArtists] = React.useState([]);
@@ -105,11 +102,11 @@ export default function Catalog(props) {
               {data.map(e => 
                   <TableRow key={e.key}>
                     <TableCell>
-                        <Link onClick={() => { handleOpenArtist(e) }}>{e.title}
+                        <Link onClick={() => { handleOpenArtistN(e) }}>{e.artist}
                         </Link>
                     </TableCell>
                     <TableCell>
-                        <Link onClick={() => { handleOpenEntry(e) }}>{e.title}
+                        <Link onClick={() => { handleOpenArtist1(e) }}>{e.title}
                         </Link>
                     </TableCell>
                     <TableCell>{e.media}</TableCell>
@@ -118,21 +115,10 @@ export default function Catalog(props) {
               )}
               </TableBody>
           </Table>
-          <Dialog open={openEntry} maxWidth="md" fullWidth={true} onClose={handleCloseEntry} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Artist - {entry.artist}</DialogTitle>
-            <DialogContent>
-                <Artist entry1={entry}/>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleCloseEntry} color="primary">
-                    Close
-                </Button>
-            </DialogActions>
-          </Dialog>
           <Dialog open={openArtist} maxWidth="md" fullWidth={true} onClose={handleCloseArtist} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Artist - {entry.artist}</DialogTitle>
+            <DialogTitle id="form-dialog-title">Artist - {artistEntries[0].artist}</DialogTitle>
             <DialogContent>
-                <Artist entry1={entry}/>
+                <Artist entries={artistEntries} size={800} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleCloseArtist} color="primary">

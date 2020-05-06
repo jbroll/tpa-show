@@ -10,8 +10,6 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         background: 'transparent',
         display: 'table',
-        height: 800,
-        width: 800,
         margin: '0 auto'
     },
     img: {
@@ -26,32 +24,29 @@ const useStyles = makeStyles((theme) => ({
 export default function Artist(props) {
   const classes = useStyles();
 
+  const entries = props.entries;
+  const nx = Math.floor( Math.sqrt(entries.length));
+  const tileSize = props.size/nx;
+
+  console.log(entries.length, nx, tileSize);
   return (
-    <div>
-        {props.entry1 == null ? null : 
-        <div>
         <Grid direction="row" container>
 
-        <Grid item><Typography>
-            {props.entry1.title}
-        </Typography></Grid>
-
-        <Grid item><Typography>
-            {props.entry1.media} 
-        </Typography></Grid>
-
-        <Grid item><Typography>
-            {props.entry1.height} x {props.entry1.width} 
-        </Typography></Grid>
-        <Grid item><Typography>
-            {props.entry1.price}
-        </Typography></Grid>
+            {entries.map((entry, i) => 
+                <Grid key={entry.key} item container xs={12} md={6} >
+                    <Grid direction="row" container>
+                        <Grid item xs={12} md={3} ><Typography> {entry.title} </Typography></Grid>
+                        <Grid item xs={12} md={3} ><Typography> {entry.media} </Typography></Grid>
+                        <Grid item xs={12} md={3} ><Typography> {entry.height} x {entry.width} </Typography></Grid>
+                        <Grid item xs={12} md={3} ><Typography> {entry.price} </Typography></Grid>
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                        <div style={{width: tileSize, height: tileSize}} className={classes.imageDiv}>
+                            <ScaledImage  className={classes.img} src={entry.image} alt={entry.title}/>
+                        </div>
+                    </Grid>
+                </Grid>
+            )}
         </Grid>
-        <div className={classes.imageDiv}>
-            <ScaledImage className={classes.img} src={props.entry1.image} alt="Art Gallery"/>
-        </div>
-        </div>
-        }
-    </div>
   );
 }
