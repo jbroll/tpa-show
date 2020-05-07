@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
 export default function ArtItem(props) {
   const classes = useStyles();
 
-  const document = `entries/${props.email}+${props.n}`
-  const image = `${props.email}-${props.n}`
+  const document = `entries/${props.uid}-${props.n}`
+  const image = `${props.uid}-${props.n}`
 
   return <div className = {classes.divStyle}>
     <DocEdit document={document}>

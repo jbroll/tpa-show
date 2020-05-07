@@ -138,7 +138,7 @@ export default function DocImage(props) {
                             .child(image)
                             .getDownloadURL()
                             .then(url => {
-                                context.saveField(context, props.field, url);
+                                context.fieldSave(context, props.field, url);
                             });
                     }
                 );

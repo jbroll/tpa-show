@@ -4,7 +4,7 @@ import * as firebase from "firebase/app";
 export const DocContext = React.createContext(null);
 
 export default function DocEdit(props) {
-  const [value, setValue] = React.useState();
+  const [value, setValue] = React.useState({});
 
   React.useEffect(() => {
     const [collection, document] = props.document.split('/');
@@ -28,11 +28,12 @@ export default function DocEdit(props) {
   }
 
   const fieldSave = (context, field, value) => {
-      if (value === undefined) {
-          value = context.value[field] 
-      }
-      if (value === undefined || value === null) {
-          return;
+      if (value == null) {
+          if (context.value[field] == null) {
+            return;
+          } else {
+            value = context.value[field];
+          }
       }
 
       const [collection, document] = context.document.split('/');

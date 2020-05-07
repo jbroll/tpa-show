@@ -33,7 +33,7 @@ export default function MyArtEntry(props) {
   };
 
   const user = useAuth().user;
-  const email = user && user.email;
+  const uid = user && user.uid;
 
   return (
     <div>
@@ -45,7 +45,7 @@ export default function MyArtEntry(props) {
       <Dialog open={open} maxWidth="md" fullWidth={true} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Twilight Art Show Entry</DialogTitle>
         <DialogContent>
-          <ArtEntry email={email}/>
+          <ArtEntry uid={uid}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

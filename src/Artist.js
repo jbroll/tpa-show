@@ -28,7 +28,6 @@ export default function Artist(props) {
   const nx = Math.floor( Math.sqrt(entries.length));
   const tileSize = props.size/nx;
 
-  console.log(entries.length, nx, tileSize);
   return (
         <Grid direction="row" container>
 
