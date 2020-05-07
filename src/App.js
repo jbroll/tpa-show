@@ -61,6 +61,7 @@ export default function App() {
   const handleClickGallery = () => { setTab("Gallery"); }
   const handleClickCatalog = () => { setTab("Catalog"); }
 
+  document.title = "TPA - 2020";
   return (
     <MuiThemeProvider theme={thisTheme}>
     <ProvideAuth>
