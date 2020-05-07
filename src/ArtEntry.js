@@ -11,7 +11,7 @@ export default function ArtEntry(props) {
       <div>
         <Grid container direction="column" >
             <Grid container spacing={4} direction="row">
-                <DocEdit document={`artists/${props.email}`}>
+                <DocEdit document={`artists/${props.uid}`}>
                     <Grid item xs={6}>
                         <DocField label="First Name" field="first"/>
                     </Grid>
@@ -21,8 +21,8 @@ export default function ArtEntry(props) {
                 </DocEdit>
             </Grid>
             <Grid container direction="column">
-                <ArtItem email={props.email} n={1} />
-                <ArtItem email={props.email} n={2} />
+                <ArtItem uid={props.uid} n={1} />
+                <ArtItem uid={props.uid} n={2} />
             </Grid>
           </Grid>
     </div>

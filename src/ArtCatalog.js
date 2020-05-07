@@ -52,7 +52,6 @@ export default function Catalog(props) {
     const handleOpenArtistN = (e) => {
         setOpenArtist(true);
         const akey = e.key.substr(0, e.key.length-2);
-        console.log(akey);
         setArtistEntries(data.filter(e => e.key.startsWith(akey)));
     };
 
