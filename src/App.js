@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: .1,
     display: 'none',
     "text-align": 'left',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('xs')]: {
       display: 'block',
     },
   },
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 2,
     display: 'none',
     "text-align": 'left',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('xs')]: {
       display: 'block',
     },
   },
@@ -69,16 +69,16 @@ export default function App() {
         <TabbedSearchAppBar position="static">
 
           <Button onClick={handleClickShow}>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography className={classes.title} className={classes.title} variant="h6" noWrap>
               Twilight Park Art Show 2020
             </Typography>
           </Button>
-          <Button onClick={handleClickGallery}>
+          <Button className={classes.title} onClick={handleClickGallery}>
             <Typography className={classes.title} variant="h6" noWrap>
               Gallery
             </Typography>
           </Button>
-          <Button onClick={handleClickCatalog}>
+          <Button className={classes.title} onClick={handleClickCatalog}>
             <Typography className={classes.title} variant="h6" noWrap>
               Catalog
             </Typography>
