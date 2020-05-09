@@ -149,7 +149,7 @@ export default function DocImage(props) {
                 hasImage = false;
             }
             const value = hasImage ? context.value[props.field] : "blue.png";
-            const fade = here || !hasImage;
+            const fade = here || drag || !hasImage;
 
             return (
                 <DragAndDrop onDrag={handleDrag} onDrop={handleFileChange}>
