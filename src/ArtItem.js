@@ -25,7 +25,7 @@ export default function ArtItem(props) {
 
   return <div className = {classes.divStyle}>
     <DocEdit document={document}>
-        <Grid item xs={4} className={classes.imageBox}>
+        <Grid item xs={6} sm={4} className={classes.imageBox}>
             <DocImage field="image" image={image} />
         </Grid>
         <Grid container spacing={4} direction="row">
