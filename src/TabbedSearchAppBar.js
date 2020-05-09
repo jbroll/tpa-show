@@ -97,11 +97,12 @@ export default function TabbedSearchAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <Fade in={moved} timeout={1000}>
+      <Fade in={true} timeout={1000}>
       <AppBar position="static">
         <Toolbar>
           {props.children}
 
+{ /*
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -115,6 +116,7 @@ export default function TabbedSearchAppBar(props) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+   */ }
         </Toolbar>
       </AppBar>
       </Fade>

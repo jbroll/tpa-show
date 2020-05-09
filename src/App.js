@@ -9,6 +9,10 @@ import ArtCatalog from './ArtCatalog'
 import MyArtEntry from './MyArtEntry'
 import { makeStyles } from '@material-ui/core/styles';
 
+import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
+import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
+import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
+
 import {
   createMuiTheme,
   MuiThemeProvider
@@ -20,11 +24,35 @@ import Gallery from './Gallery.js'
 import DocCollection from './DocCollection.js';
 
 const useStyles = makeStyles((theme) => ({
-  title: {
+  iconXS: {
     flexGrow: .1,
     display: 'none',
     "text-align": 'left',
-    [theme.breakpoints.up('xs')]: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'block',
+    },
+  },
+  iconSM: {
+    flexGrow: .1,
+    display: 'none',
+    "text-align": 'left',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    },
+  },
+  titleSM: {
+    flexGrow: .1,
+    display: 'none',
+    "text-align": 'left',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  titleMD: {
+    flexGrow: .1,
+    display: 'none',
+    "text-align": 'left',
+    [theme.breakpoints.up('md')]: {
       display: 'block',
     },
   },
@@ -69,17 +97,20 @@ export default function App() {
         <TabbedSearchAppBar position="static">
 
           <Button onClick={handleClickShow}>
-            <Typography className={classes.title} className={classes.title} variant="h6" noWrap>
+            <Box className={classes.iconSM}><HomeTwoToneIcon/></Box>
+            <Typography className={classes.titleMD} variant="h6" noWrap>
               Twilight Park Art Show 2020
             </Typography>
           </Button>
-          <Button className={classes.title} onClick={handleClickGallery}>
-            <Typography className={classes.title} variant="h6" noWrap>
+          <Button onClick={handleClickGallery}>
+            <Box className={classes.iconXS}><PhotoLibraryTwoToneIcon/></Box>
+            <Typography className={classes.titleSM} variant="h6" noWrap>
               Gallery
             </Typography>
           </Button>
-          <Button className={classes.title} onClick={handleClickCatalog}>
-            <Typography className={classes.title} variant="h6" noWrap>
+          <Button onClick={handleClickCatalog}>
+            <Box className={classes.iconXS}><ListTwoToneIcon/></Box>
+            <Typography className={classes.titleSM} variant="h6" noWrap>
               Catalog
             </Typography>
           </Button>
