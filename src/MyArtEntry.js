@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: .1,
       display: 'none',
       "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('xs')]: {
         display: 'block',
       },
     },
@@ -37,13 +37,13 @@ export default function MyArtEntry(props) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button className={classes.title} variant="outlined" onClick={handleClickOpen}>
       <Typography className={classes.title} variant="h6" noWrap>
         My Entry
       </Typography>
       </Button>
       <Dialog open={open} maxWidth="md" fullWidth={true} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Twilight Art Show Entry</DialogTitle>
+        <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry</DialogTitle>
         <DialogContent>
           <ArtEntry uid={uid}/>
         </DialogContent>

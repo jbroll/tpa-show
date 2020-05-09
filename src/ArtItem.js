@@ -32,16 +32,16 @@ export default function ArtItem(props) {
             <Grid item xs={12}>
                 <DocField label="Title" field="title" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6} sm={3}>
                 <DocField label="Media" field="media" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6} sm={3}>
                 <DocField label="Height" field="height" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6} sm={3}>
                 <DocField label="Width" field="width" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6} sm={3}>
                 <DocField label="Price" field="price" />
             </Grid>
         </Grid>

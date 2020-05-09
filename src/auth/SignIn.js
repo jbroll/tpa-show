@@ -19,7 +19,7 @@ import { IsAuth, useAuth } from './ProvideAuth'
 const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: .1,
-      display: 'none',
+      display: 'block',
       "text-align": 'left',
       [theme.breakpoints.up('sm')]: {
         display: 'block',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: .1,
       display: 'none',
       "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('xs')]: {
         display: 'block',
       marginTop: "100%",
       },
