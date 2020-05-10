@@ -97,7 +97,7 @@ export default function TabbedSearchAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <Fade in={true} timeout={1000}>
+      <Fade in={moved} timeout={1000}>
       <AppBar position="static">
         <Toolbar>
           {props.children}

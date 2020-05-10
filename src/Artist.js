@@ -10,7 +10,9 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         background: 'transparent',
         display: 'table',
-        margin: '0 auto'
+        margin: '0 auto',
+        maxWidth: "400px",
+        maxHeight: "400px"
     },
     img: {
         position: 'absolute',
@@ -34,12 +36,12 @@ export default function Artist(props) {
             {entries.map((entry, i) => 
                 <Grid key={entry.key} item container xs={12} md={6} >
                     <Grid direction="row" container>
-                        <Grid item xs={12} md={3} ><Typography> {entry.title} </Typography></Grid>
-                        <Grid item xs={12} md={3} ><Typography> {entry.media} </Typography></Grid>
-                        <Grid item xs={12} md={3} ><Typography> {entry.height} x {entry.width} </Typography></Grid>
-                        <Grid item xs={12} md={3} ><Typography> {entry.price} </Typography></Grid>
+                        <Grid item xs={3} md={5} ><Typography> {entry.title} </Typography></Grid>
+                        <Grid item xs={3} md={2} ><Typography> {entry.media} </Typography></Grid>
+                        <Grid item xs={3} md={2} ><Typography> {entry.height} x {entry.width} </Typography></Grid>
+                        <Grid item xs={3} md={2} ><Typography> {entry.price} </Typography></Grid>
                     </Grid>
-                    <Grid item xs={12} md={7}>
+                    <Grid item xs={12} md={12} lg={6}>
                         <div style={{width: tileSize, height: tileSize}} className={classes.imageDiv}>
                             <ScaledImage  className={classes.img} src={entry.image} alt={entry.title}/>
                         </div>
