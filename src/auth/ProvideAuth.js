@@ -13,12 +13,19 @@ export default function ProvideAuth({ children }) {
 
 export function IsAuth({ children }) {
   const auth = useAuth();
-  return <div>{auth.user ? children[0] : children[1]}</div>;
+  var index = 0;
+  if (auth.user != null) {
+    index = 1;
+  }
+  if (auth.user != null && auth.claims.reg) {
+    index = Math.min(2, children.length -1);;
+  }
+  return <div>{children[index]}</div>;
 }
 
 export function IsAdmin({ children }) {
   const auth = useAuth();
-  const isAdmin = (auth.user && auth.user.email === "john@rkroll.com") || (auth.user && auth.user.token && auth.user.token.isAdmin);
+  const isAdmin = (auth.user && auth.user.email === "john@rkroll.com") || auth.claims.adm;
   return <div>{isAdmin ? children[0] : children[1]}</div>;
 }
 
@@ -31,6 +38,7 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const [claims, setClaims] = useState({});
   
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
@@ -98,7 +106,13 @@ function useProvideAuth() {
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setUser(user);
+        user.getIdTokenResult().then((token) => {
+          setUser(user);
+          setClaims({
+            adm: !!token.claims.adm,
+            reg: !!token.claims.reg
+          });
+        });
       } else {
         setUser(false);
       }
@@ -111,6 +125,7 @@ function useProvideAuth() {
   // Return the user object and auth methods
   return {
     user,
+    claims,
     signin,
     signup,
     signout,
