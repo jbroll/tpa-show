@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
 import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 import {
   createMuiTheme,
@@ -119,7 +120,7 @@ export default function App() {
           </Button>
           <IsAdmin>
             <Button onClick={handleClickUsers}>
-              <Box className={classes.iconXS}><ListTwoToneIcon/></Box>
+              <Box className={classes.iconXS}><PeopleAltIcon/></Box>
               <Typography className={classes.titleSM} variant="h6" noWrap>
                 Users
               </Typography>
