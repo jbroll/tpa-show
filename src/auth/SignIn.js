@@ -13,6 +13,10 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import * as firebase from "firebase/app";
+import "firebase/auth";
+
 import { IsAuth, useAuth } from './ProvideAuth'
 
 
@@ -72,6 +76,24 @@ export function SignIn() {
   const [emailOk, setEmailOk] = React.useState(false);
   const auth = useAuth();
 
+  const aa = firebase.auth();
+
+  // Configure FirebaseUI.
+const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'popup',
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: '/signedIn',
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      "microsoft.com",
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+    credentialHelper: 'none'
+  };
+
   const handleClickSignIn = () => {
       auth.signin(email, password);
   }
@@ -109,73 +131,13 @@ export function SignIn() {
       </Typography>
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Sign In</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+           Registered artists can sign in and update their entries
+
+            </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-              Registered artists can sign in to update their art show entries.
-          </DialogContentText>
-          <TextField
-            onChange={handleEmailChange}
-            error={!(email === "" || emailOk)}
-            autoFocus
-            margin="dense"
-            id="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
-          <TextField
-            onChange={handlePasswordChange}
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-          />
-          <Box pt={4} pb={2} fontWeight="fontWeightBold">
-            <Typography className={classes.title} variant="body1" noWrap>
-                Or Sign in through another service:
-            </Typography>
-          </Box>
-          <Typography className={classes.title} variant="body1" noWrap>
-          </Typography>
-          <Table padding={"none"} size={"small"}>
-            <TableBody>
-            <TableRow>
-            <TableCell style={{width: "100%"}}>
-                <Button style={{width: "100%"}} variant="outlined" onClick={handleClickOpen}> 
-                    <Typography className={classes.title} variant="body1" noWrap>
-                        Sign in with Facebook
-                    </Typography>
-                </Button>
-            </TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell style={{width: "100%"}}>
-                <Button style={{width: "100%"}} variant="outlined" onClick={handleClickOpen}> 
-                    <Typography className={classes.title} variant="body1" noWrap>
-                        Sign in with Google
-                    </Typography>
-                </Button>
-            </TableCell>
-            </TableRow>
-            </TableBody>
-          </Table>
+        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button disabled={!emailOk} onClick={handleClickReset} color="primary">
-            Reset Password
-          </Button>
-          <Button disabled={!emailOk || password === ""} onClick={handleClickSignUp} color="primary">
-            Register
-          </Button>
-          <Button disabled={!emailOk || password === ""} onClick={handleClickSignIn} color="primary">
-            Sign In
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

@@ -16,6 +16,12 @@ export function IsAuth({ children }) {
   return <div>{auth.user ? children[0] : children[1]}</div>;
 }
 
+export function IsAdmin({ children }) {
+  const auth = useAuth();
+  const isAdmin = (auth.user && auth.user.email === "john@rkroll.com") || (auth.user && auth.user.token && auth.user.token.isAdmin);
+  return <div>{isAdmin ? children[0] : children[1]}</div>;
+}
+
 // Hook for child components to get the auth object ...
 // ... and re-render when it changes.
 export const useAuth = () => {

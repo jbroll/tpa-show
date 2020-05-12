@@ -4,8 +4,10 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SignInOrOut from './auth/SignIn'
-import { IsAuth } from './auth/ProvideAuth'
+import { IsAuth, IsAdmin } from './auth/ProvideAuth'
 import ArtCatalog from './ArtCatalog'
+import UserData from './UserData'
+import Users from './Users'
 import MyArtEntry from './MyArtEntry'
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -88,6 +90,7 @@ export default function App() {
   const handleClickShow = () => { setTab("Show"); }
   const handleClickGallery = () => { setTab("Gallery"); }
   const handleClickCatalog = () => { setTab("Catalog"); }
+  const handleClickUsers = () => { setTab("Users"); }
 
   document.title = "Art Show 2020";
   return (
@@ -114,6 +117,15 @@ export default function App() {
               Catalog
             </Typography>
           </Button>
+          <IsAdmin>
+            <Button onClick={handleClickUsers}>
+              <Box className={classes.iconXS}><ListTwoToneIcon/></Box>
+              <Typography className={classes.titleSM} variant="h6" noWrap>
+                Users
+              </Typography>
+            </Button>
+            <Box />
+          </IsAdmin>
           <Typography className={classes.space} variant="h6" noWrap>
           </Typography>
           <IsAuth><MyArtEntry /><Box /></IsAuth>
@@ -167,6 +179,12 @@ export default function App() {
           <DocCollection collections={['artists', 'entries']}>
               { collections => (<ArtCatalog collections={collections} />) }
           </DocCollection>
+          : null
+        }
+        {tab === "Users" ?
+          <UserData>
+              { props => (<Users users={props.users} setClaim={props.setClaim} />) }
+          </UserData>
           : null
         }
       </div>
