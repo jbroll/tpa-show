@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'table',
         margin: '0 auto'
     },
+    titleDiv: {
+        position: 'absolute',
+        top: "-45px"
+    },
     img: {
         position: 'absolute',
         top: 0,
