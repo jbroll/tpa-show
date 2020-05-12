@@ -2,12 +2,14 @@ import React from 'react';
 import './App.css';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import ConfirmRegistration from './ConfirmRegistration';
 import Typography from '@material-ui/core/Typography';
 import SignInOrOut from './auth/SignIn'
 import { IsAuth, IsAdmin } from './auth/ProvideAuth'
 import ArtCatalog from './ArtCatalog'
 import UserData from './UserData'
 import Users from './Users'
+import IconButton from './IconButton'
 import MyArtEntry from './MyArtEntry'
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -27,38 +29,6 @@ import Gallery from './Gallery.js'
 import DocCollection from './DocCollection.js';
 
 const useStyles = makeStyles((theme) => ({
-  iconXS: {
-    flexGrow: .1,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.down('xs')]: {
-      display: 'block',
-    },
-  },
-  iconSM: {
-    flexGrow: .1,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.down('sm')]: {
-      display: 'block',
-    },
-  },
-  titleSM: {
-    flexGrow: .1,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  titleMD: {
-    flexGrow: .1,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-    },
-  },
   space: {
     flexGrow: 2,
     display: 'none',
@@ -100,36 +70,19 @@ export default function App() {
       <div className="App" style={styles.App}>
         <TabbedSearchAppBar position="static">
 
-          <Button onClick={handleClickShow}>
-            <Box className={classes.iconSM}><HomeTwoToneIcon/></Box>
-            <Typography className={classes.titleMD} variant="h6" noWrap>
-              Twilight Park Art Show 2020
-            </Typography>
-          </Button>
-          <Button onClick={handleClickGallery}>
-            <Box className={classes.iconXS}><PhotoLibraryTwoToneIcon/></Box>
-            <Typography className={classes.titleSM} variant="h6" noWrap>
-              Gallery
-            </Typography>
-          </Button>
-          <Button onClick={handleClickCatalog}>
-            <Box className={classes.iconXS}><ListTwoToneIcon/></Box>
-            <Typography className={classes.titleSM} variant="h6" noWrap>
-              Catalog
-            </Typography>
-          </Button>
+          <IconButton onClick={handleClickShow}     icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
+          <IconButton onClick={handleClickGallery}  icon={PhotoLibraryTwoToneIcon}  text="Gallery" />
+          <IconButton onClick={handleClickCatalog}  icon={ListTwoToneIcon}          text="Catalog" />
           <IsAdmin>
-            <Button onClick={handleClickUsers}>
-              <Box className={classes.iconXS}><PeopleAltIcon/></Box>
-              <Typography className={classes.titleSM} variant="h6" noWrap>
-                Users
-              </Typography>
-            </Button>
+            <IconButton onClick={handleClickUsers}  icon={PeopleAltIcon}            text="Users" />
             <Box />
           </IsAdmin>
-          <Typography className={classes.space} variant="h6" noWrap>
-          </Typography>
-          <IsAuth><MyArtEntry /><Box /></IsAuth>
+          <Typography className={classes.space} variant="h6" noWrap> </Typography>
+          <IsAuth>
+            <Box />
+            <ConfirmRegistration />
+            <MyArtEntry />
+           </IsAuth>
           <SignInOrOut/>
         </TabbedSearchAppBar>
 
@@ -160,7 +113,8 @@ export default function App() {
           invitation. You may sell your pieces by including direct contact information. 
           We will not be handling sales, and we will not be charging any commissions. 
           You are an important part of our community, and we want to support you during 
-          these difficult times.
+          these diffiimport { IconButton } from '@material-ui/core/IconButton';
+cult times.
           </p>
           
           <p>

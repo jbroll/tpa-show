@@ -48,8 +48,8 @@ function validateEmail(email) {
 export default function SignInOrOut({ children }) {
     return (
           <IsAuth>
-            <SignOut/>
             <SignIn/>
+            <SignOut/>
         </IsAuth>);
 }
 
