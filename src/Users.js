@@ -1,11 +1,12 @@
 import React from 'react';
 import ArtEntry from './ArtEntry';
+import DialogButton from './DialogButton';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
+import MuiTableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,7 +15,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
-import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+
+const TableCell = withStyles({
+    root: {
+      borderBottom: "none",
+      padding: "2px"
+    }
+  })(MuiTableCell);
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -41,6 +50,8 @@ export default function Users(props) {
     const [openDeleteUser, setOpenDeleteUser] = React.useState(false);
     const [user, setUser] = React.useState(false);
     const [openCreateUser, setOpenCreateUser] = React.useState(false);
+    const [newuser, setNewUser] = React.useState("");
+    const [emailOk, setEmailOk] = React.useState(false);
 
     const handleOpenEntryOf = (uid) => {
         setOpenArtEntry(true);
@@ -63,7 +74,9 @@ export default function Users(props) {
         setOpenDeleteUser(false);
     }
     const handleDeleteUser = (uid) => {
-        props.deleteUser(uid);
+        props.deleteUser(uid).then(() => {
+            setOpenDeleteUser(false);
+        });
     }
 
     const handleOpenCreateUser = (user) => {
@@ -74,7 +87,22 @@ export default function Users(props) {
     }
 
     const handleCreateUser = (uid) => {
-        props.createUser(uid);
+        if (newuser !== "" && emailOk) {
+            props.createUser(uid).then((user) => {
+                setOpenCreateUser(false)
+            });
+        }
+    }
+
+    const handleNewUserChange = (e) => {
+        setNewUser(e.target.value);
+        setEmailOk(validateEmail(e.target.value));
+    }
+
+    const validateEmail = (email) => {
+        const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$/;
+        return re.test(String(email).toUpperCase());
+
     }
 
     const users = props.users;
@@ -137,17 +165,29 @@ export default function Users(props) {
             </DialogTitle>
             <DialogContent>
                 Are you sure you want to delete {user.email}?
-                <Button onClick={handleCloseDeleteUser}>Cancel</Button>
-                <Button onClick={e => { handleDeleteUser(user.uid)}}>Delete</Button>
             </DialogContent>
+            <DialogActions>
+                <DialogButton onClick={handleCloseDeleteUser}>Cancel</DialogButton>
+                <DialogButton onClick={e => { handleDeleteUser(user.uid)}}>Delete</DialogButton>
+            </DialogActions>
           </Dialog>
           <Dialog   open={openCreateUser} maxWidth="md" 
                     onClose={handleCloseCreateUser} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Create User</DialogTitle>
             <DialogContent>
-                <Button onClick={handleCloseCreateUser}>Cancel</Button>
-                <Button onClick={e => { handleCreateUser(user.uid)}}>Create</Button>
+                <TextField className={classes.textField}
+                    onChange={handleNewUserChange} 
+                    label="newuser"
+                    margin="dense"
+                    type="text"
+                    error={!emailOk}
+                    value={newuser}
+                />
             </DialogContent>
+            <DialogActions>
+                <DialogButton onClick={handleCloseCreateUser}>Cancel</DialogButton>
+                <DialogButton onClick={e => { handleCreateUser(newuser)}} >Create</DialogButton>
+            </DialogActions>
           </Dialog>
         </div>
     );
