@@ -1,7 +1,6 @@
 import React from 'react';
 import * as firebase from "firebase/app";
-
-export const DocContext = React.createContext(null);
+import { AuthContext } from './auth/ProvideAuth'
 
 export default class UserData extends React.Component {
 
@@ -56,28 +55,6 @@ export default class UserData extends React.Component {
             });
     }
 
-    handleCreateUser = (user) => {
-        return new Promise(resolve => {
-            this.createUser({ email: user }).then(reply => {
-                this.setState((state, props) => {
-                    const users = { 
-                        ...state.users,
-                        [reply.data.uid]: { 
-                            uid: reply.data.uid,
-                            email: reply.data.email,
-                            'claims': {},
-                        }
-                    };
-
-                    return {
-                        users: users
-                    }
-                });
-                resolve();
-            });
-        });
-    }
-
     mapToList = function(o, f) {
         var result = []
         Object.keys(o).forEach(k => {
@@ -104,13 +81,46 @@ export default class UserData extends React.Component {
             admin: !!(e.claims && e.claims.adm)
         }
     });
-    const props = { 
-        users: users, 
-        setClaim: this.handleSetClaim,
-        deleteUser: this.handleDeleteUser,
-        createUser: this.handleCreateUser
-    }
 
-    return <div>{this.props.children(props)}</div>;
+
+    return <AuthContext.Consumer>
+        {auth => {
+            const handleCreateUser = (user) => {
+                const claims = { reg: true, adm: false };
+
+                return new Promise(resolve => {
+                    this.createUser({ email: user }).then(reply => {
+                        this.setClaims({ uid: reply.data.uid, claims: claims }).then(() => {
+                            auth.sendPasswordResetEmail(reply.data.email);
+                            this.setState((state, props) => {
+                                const users = { 
+                                    ...state.users,
+                                    [reply.data.uid]: { 
+                                        uid: reply.data.uid,
+                                        email: reply.data.email,
+                                        claims: claims
+                                    }
+                                };
+
+                                return {
+                                    users: users
+                                }
+                            });
+                            resolve();
+                        });
+                    });
+                });
+            }
+
+            const props = { 
+                users: users, 
+                setClaim: this.handleSetClaim,
+                deleteUser: this.handleDeleteUser,
+                createUser: handleCreateUser
+            }
+
+            return <div>{this.props.children(props)}</div>;
+        }}
+        </AuthContext.Consumer>
   } 
 }
