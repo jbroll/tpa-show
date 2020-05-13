@@ -22,7 +22,6 @@ exports.setClaims = functions.https.onCall((data, context) => {
 });
 
 exports.getUsers = functions.https.onCall((data, context) => {
-  console.log(context.auth.uid);
   if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
     !(context.auth && context.auth.token && context.auth.token.adm)) {
     console.log("No Auth");
@@ -42,3 +41,28 @@ exports.getUsers = functions.https.onCall((data, context) => {
       return reply;
     })
 })
+
+exports.createUser = functions.https.onCall((data, context) => {
+  if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
+    !(context.auth && context.auth.token && context.auth.token.adm)) {
+    console.log("No Auth");
+    return null;
+  }
+
+    return admin.auth().createUser(data.email).then(user => {
+	return user;
+    })
+})
+
+exports.deleteUser = functions.https.onCall((data, context) => {
+  if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
+    !(context.auth && context.auth.token && context.auth.token.adm)) {
+    console.log("No Auth");
+    return null;
+  }
+
+    return admin.auth().deleteUser(data.uid).then(() => {
+	return true;
+    })
+})
+

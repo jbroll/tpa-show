@@ -137,7 +137,7 @@ export default function App() {
         }
         {tab === "Users" ?
           <UserData>
-              { props => (<Users users={props.users} setClaim={props.setClaim} />) }
+              { props => (<Users {...props} />) }
           </UserData>
           : null
         }

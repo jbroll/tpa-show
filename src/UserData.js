@@ -11,6 +11,7 @@ export default class UserData extends React.Component {
     }
     getUsers = firebase.functions().httpsCallable('getUsers');
     setClaims = firebase.functions().httpsCallable('setClaims');
+    deleteUser = firebase.functions().httpsCallable('deleteUser');
 
     handleSetClaim = (uid, claim, value) => {
         const data = {
@@ -32,8 +33,27 @@ export default class UserData extends React.Component {
                             'claims': reply.data.claims,
                         }
                     }
-                } });
+                } 
+            });
         });
+    }
+
+    handleDeleteUser = (uid) => {
+        this.deleteUser({ uid: uid }).then(
+            reply => {
+                this.setState((state, props) => {
+                    const users = { ...state.users };
+                    delete users[uid];
+
+                    return {
+                        users: users
+                    }
+                }) 
+            }); 
+    }
+
+    handleCreateUser = () => {
+        console.log("Create USer");
     }
 
     mapToList = function(o, f) {
@@ -64,7 +84,9 @@ export default class UserData extends React.Component {
     });
     const props = { 
         users: users, 
-        setClaim: this.handleSetClaim 
+        setClaim: this.handleSetClaim,
+        deleteUser: this.handleDeleteUser,
+        createUser: this.handleCreateUser
     }
 
     return <div>{this.props.children(props)}</div>;
