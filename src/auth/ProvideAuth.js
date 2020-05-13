@@ -14,10 +14,10 @@ export default function ProvideAuth({ children }) {
 export function IsAuth({ children }) {
   const auth = useAuth();
   var index = 0;
-  if (auth.user != null) {
+  if (auth.user) {
     index = 1;
   }
-  if (auth.user != null && auth.claims.reg) {
+  if (auth.user && auth.claims.reg) {
     index = Math.min(2, children.length -1);;
   }
   return <div>{children[index]}</div>;

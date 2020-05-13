@@ -113,8 +113,7 @@ export default function App() {
           invitation. You may sell your pieces by including direct contact information. 
           We will not be handling sales, and we will not be charging any commissions. 
           You are an important part of our community, and we want to support you during 
-          these diffiimport { IconButton } from '@material-ui/core/IconButton';
-cult times.
+          these difficult times.
           </p>
           
           <p>
