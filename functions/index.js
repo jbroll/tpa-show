@@ -28,18 +28,18 @@ exports.getUsers = functions.https.onCall((data, context) => {
     return null;
   }
 
-    return admin.auth().listUsers(1000).then(listUsersResult => {
-      reply = {};
-      listUsersResult.users.forEach(user => {
+  return admin.auth().listUsers(1000).then(listUsersResult => {
+    reply = {};
+    listUsersResult.users.forEach(user => {
 
-          reply[user.uid] = {
-            uid: user.uid,
-            email: user.email,
-            claims: user.customClaims
-        }
-      })
-      return reply;
+        reply[user.uid] = {
+          uid: user.uid,
+          email: user.email,
+          claims: user.customClaims
+      }
     })
+    return reply;
+  })
 })
 
 exports.createUser = functions.https.onCall((data, context) => {
@@ -49,9 +49,10 @@ exports.createUser = functions.https.onCall((data, context) => {
     return null;
   }
 
-    return admin.auth().createUser(data.email).then(user => {
-	return user;
-    })
+
+  return admin.auth().createUser(data).then(user => {
+    return user;
+  })
 })
 
 exports.deleteUser = functions.https.onCall((data, context) => {
@@ -61,8 +62,8 @@ exports.deleteUser = functions.https.onCall((data, context) => {
     return null;
   }
 
-    return admin.auth().deleteUser(data.uid).then(() => {
-	return true;
-    })
+  return admin.auth().deleteUser(data.uid).then(() => {
+    return true;
+  })
 })
 
