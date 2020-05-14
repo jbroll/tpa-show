@@ -45,21 +45,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Users(props) { 
     const classes = useStyles();
-    const [openArtEntry, setOpenArtEntry] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState("");
     const [artEntry, setArtEntry] = React.useState("")
-    const [openDeleteUser, setOpenDeleteUser] = React.useState(false);
     const [user, setUser] = React.useState(false);
-    const [openCreateUser, setOpenCreateUser] = React.useState(false);
     const [newuser, setNewUser] = React.useState("");
     const [emailOk, setEmailOk] = React.useState(false);
 
     const handleOpenEntryOf = (uid) => {
-        setOpenArtEntry(true);
+        setOpenDialog("ArtEntry");
         setArtEntry(uid);
     };
 
-    const handleCloseArtEntry = () => {
-        setOpenArtEntry(false);
+    const handleOpenCreateUser = () => {
+        setOpenDialog("CreateUser");
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog("");
     };
 
     const handleSetClaim = (uid, claim, value) => {
@@ -68,28 +70,19 @@ export default function Users(props) {
 
     const handleOpenDeleteUser = (user) => {
         setUser(user);
-        setOpenDeleteUser(true);
-    }
-    const handleCloseDeleteUser = () => {
-        setOpenDeleteUser(false);
-    }
-    const handleDeleteUser = (uid) => {
-        props.deleteUser(uid).then(() => {
-            setOpenDeleteUser(false);
-        });
+        setOpenDialog("DeleteUser");
     }
 
-    const handleOpenCreateUser = (user) => {
-        setOpenCreateUser(true);
-    }
-    const handleCloseCreateUser = () => {
-        setOpenCreateUser(false);
+    const handleDeleteUser = (uid) => {
+        props.deleteUser(uid).then(() => {
+            setOpenDialog("");
+        });
     }
 
     const handleCreateUser = (uid) => {
         if (newuser !== "" && emailOk) {
             props.createUser(uid).then((user) => {
-                setOpenCreateUser(false)
+                setOpenDialog("")
             });
         }
     }
@@ -148,10 +141,11 @@ export default function Users(props) {
               )}
               </TableBody>
           </Table>
-          <Dialog   open={openArtEntry} maxWidth="md" fullWidth={true} 
-                    onClose={handleCloseArtEntry} aria-labelledby="form-dialog-title">
+
+          <Dialog   open={openDialog === "ArtEntry"} maxWidth="md" fullWidth={true} 
+                    onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Artist - {artEntry.email}
-                <Button onClick={handleCloseArtEntry} color="primary">
+                <Button onClick={handleCloseDialog} color="primary">
                     Close
                 </Button>
             </DialogTitle>
@@ -159,20 +153,22 @@ export default function Users(props) {
                 <ArtEntry uid={artEntry.uid} />
             </DialogContent>
           </Dialog>
-          <Dialog   open={openDeleteUser} maxWidth="md" 
-                    onClose={handleCloseDeleteUser} aria-labelledby="form-dialog-title">
+
+          <Dialog   open={openDialog === "DeleteUser"} maxWidth="md" 
+                    onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Delete User - {user.email}
             </DialogTitle>
             <DialogContent>
                 Are you sure you want to delete {user.email}?
             </DialogContent>
             <DialogActions>
-                <DialogButton onClick={handleCloseDeleteUser}>Cancel</DialogButton>
+                <DialogButton onClick={handleCloseDialog}>Cancel</DialogButton>
                 <DialogButton onClick={e => { handleDeleteUser(user.uid)}}>Delete</DialogButton>
             </DialogActions>
           </Dialog>
-          <Dialog   open={openCreateUser} maxWidth="md" 
-                    onClose={handleCloseCreateUser} aria-labelledby="form-dialog-title">
+
+          <Dialog   open={openDialog === "CreateUser"} maxWidth="md" 
+                    onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Create User</DialogTitle>
             <DialogContent>
                 <TextField className={classes.textField}
@@ -185,7 +181,7 @@ export default function Users(props) {
                 />
             </DialogContent>
             <DialogActions>
-                <DialogButton onClick={handleCloseCreateUser}>Cancel</DialogButton>
+                <DialogButton onClick={handleCloseDialog}>Cancel</DialogButton>
                 <DialogButton onClick={e => { handleCreateUser(newuser)}} >Create</DialogButton>
             </DialogActions>
           </Dialog>
