@@ -2,14 +2,23 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+const superUser ='cfI6yrANPyTvhCrfB9HXBU2i1Hc2' 
+
+function checkAuth(context) {
+  if ( context.auth.uid === superUser ) {
+    return true;
+  }
+  if ( context.auth && context.auth.token && context.auth.token.adm ) {
+    return true;
+  }
+
+  return false;
+}
 exports.setClaims = functions.https.onCall((data, context) => {
-  if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
-    !(context.auth && context.auth.token && context.auth.token.adm)) {
-    console.log("No Auth");
+  if (!checkAuth(context)) {
     return null;
   }
 
-  console.log(data);
   return admin.auth().setCustomUserClaims(data.uid, {
     ...data.claims
   }).then(() => {
@@ -22,9 +31,7 @@ exports.setClaims = functions.https.onCall((data, context) => {
 });
 
 exports.getUsers = functions.https.onCall((data, context) => {
-  if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
-    !(context.auth && context.auth.token && context.auth.token.adm)) {
-    console.log("No Auth");
+  if (!checkAuth(context)) {
     return null;
   }
 
@@ -43,12 +50,9 @@ exports.getUsers = functions.https.onCall((data, context) => {
 })
 
 exports.createUser = functions.https.onCall((data, context) => {
-  if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
-    !(context.auth && context.auth.token && context.auth.token.adm)) {
-    console.log("No Auth");
+  if (!checkAuth(context)) {
     return null;
   }
-
 
   return admin.auth().createUser(data).then(user => {
     return user;
@@ -56,10 +60,8 @@ exports.createUser = functions.https.onCall((data, context) => {
 })
 
 exports.deleteUser = functions.https.onCall((data, context) => {
-  if (context.auth.uid !== 'cfI6yrANPyTvhCrfB9HXBU2i1Hc2' && 
-    !(context.auth && context.auth.token && context.auth.token.adm)) {
-    console.log("No Auth");
-    return null;
+  if (!checkAuth(context)) {
+    return false;
   }
 
   return admin.auth().deleteUser(data.uid).then(() => {
