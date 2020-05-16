@@ -88,11 +88,8 @@ export default function App() {
 
         {tab === "Show" ?
           <div>
-            <p>
-              Twilight Park Artists 2020
-            </p>
-            <p>
-          Virtual Art Show
+          <p>
+            <b>Twilight Park Artists</b> Online Art Show 2020
             </p>
             <Button onClick={handleClickGallery}>
             <Typography className={classes.title} variant="h6" noWrap>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Fade from '@material-ui/core/Fade';
 import ScaledImage from './ScaledImage';
+import _ from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({    
@@ -28,42 +29,56 @@ const useStyles = makeStyles((theme) => ({
 export default function Gallery(props) { 
     const classes = useStyles();
 
-    const mapToList = function(o, f) {
-        var result = []
-        Object.keys(o).forEach(k => {
-            result.push(f(o[k], k, o));
-        });
-        return result;
-    }
-
+    const nbuffer = 4;
     const [current, setCurrent] = React.useState(0);
-    const [currentKey, setCurrentKey] = React.useState(0);
-    const [entries, setEnries] = React.useState({});
+    const [cbuffer, setCBuffer] = React.useState(0);
+    const [entries, setEnries] = React.useState([]);
 
     React.useEffect(() => {
         if (props.entries == null) {
             return;
         }
 
-        setEnries(props.entries);
+        const entries = _.map(props.entries, (entry, key) => {
+            return { ...entry, key: key }
+        });
+        console.log(entries);
+        setEnries(entries);
+    }, [props.entries]);
 
-        if (Object.keys(entries).length === 0) { return; }
-        setCurrentKey(Object.keys(entries)[current]);
+    React.useEffect(() => {
+        if (entries.length === 0) { return; }
 
         setTimeout(() => {
-            const c = (current+1) % Object.keys(entries).length;
+            const c = (current+1) % entries.length;
+            const b = (cbuffer+1) % nbuffer;
             setCurrent(c);
-            setCurrentKey(Object.keys(entries)[c]);
+            setCBuffer(b);
 
         }, 5000)
 
-    }, [current, entries, props.entries]);
+    }, [cbuffer, current, entries]);
+
+    const buffers = [];
+    var key;
+    if (entries != null && entries.length !== 0) {
+        for ( var i = 0; i < nbuffer; i++ ) {
+            const nth = (current - 1 + i) % entries.length;
+
+            const entry = _.nth(entries, nth);
+            buffers[i] = {
+                key: entry.key,
+                image: entry.image
+            }
+        }
+        key = entries[current].key;
+    }
 
     return (
         <div className={classes.galleryDiv}>
-          {mapToList(entries, (obj, key) => 
-            <Fade key={key} in={currentKey === key} timeout={1500}>
-                <ScaledImage className={classes.img} src={obj.image} alt="Art Gallery"/>
+          {buffers.map((buff, i) => 
+            <Fade key={buff.key} in={buff.key === key} timeout={1500}>
+                <ScaledImage className={classes.img} src={buff.image} alt="Art Gallery"/>
             </Fade>
             )}
         </div>
