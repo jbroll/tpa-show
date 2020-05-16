@@ -11,10 +11,13 @@
     "firebaseui": "^4.5.0",
     "googleapis": "^39.2.0",
     "image-thumbnail": "^1.0.8",
+    "install": "^0.13.0",
     "lodash": "^4.17.15",
+    "npm": "^6.14.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-firebaseui": "^4.1.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "source-map-explorer": "^2.4.2"
   },
