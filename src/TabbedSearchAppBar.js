@@ -5,6 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Fade from '@material-ui/core/Fade';
+import Grow from '@material-ui/core/Grow';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +80,7 @@ export default function TabbedSearchAppBar(props) {
   const setFadeTimer = () => {
     const timer = setTimeout(() => {
       setMoved(false);
+
     }, 5000);
     return () => clearTimeout(timer);
   }
@@ -95,10 +97,13 @@ export default function TabbedSearchAppBar(props) {
       setMoved(true);
   });
 
+  const display = moved ? "block" : "none";
+  console.log(display);
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{ display: display }}>
       <Fade in={moved} timeout={1000}>
-      <AppBar position="static">
+      <AppBar  position="static">
         <Toolbar>
           {props.children}
 

@@ -42,7 +42,6 @@ export default function Gallery(props) {
         const entries = _.map(props.entries, (entry, key) => {
             return { ...entry, key: key }
         });
-        console.log(entries);
         setEnries(entries);
     }, [props.entries]);
 
