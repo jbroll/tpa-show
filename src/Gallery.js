@@ -7,19 +7,19 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
         position: 'relative',
-        height: '90vh',
-        width: '90%',
+        height: '100vh',
+        width: '100%',
         background: 'transparent',
         display: 'table',
         margin: '0 auto'
     },
     titleDiv: {
         position: 'absolute',
-        top: "-45px"
+        top: "5px"
     },
     img: {
         position: 'absolute',
-        top: 0,
+        top: "0",
         left: 0,
         heigth: "100%",
         width: "100%"
@@ -39,9 +39,9 @@ export default function Gallery(props) {
             return;
         }
 
-        const entries = _.map(props.entries, (entry, key) => {
+        const entries = _.shuffle(_.map(props.entries, (entry, key) => {
             return { ...entry, key: key }
-        });
+        }));
         setEnries(entries);
     }, [props.entries]);
 

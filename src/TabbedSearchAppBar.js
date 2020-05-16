@@ -6,10 +6,12 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Fade from '@material-ui/core/Fade';
 import Grow from '@material-ui/core/Grow';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: 'inherit'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -97,13 +99,13 @@ export default function TabbedSearchAppBar(props) {
       setMoved(true);
   });
 
-  const display = moved ? "block" : "none";
-  console.log(display);
+  const display0 = moved ? "none" : "block";
+  const display1 = moved ? "block" : "none";
 
   return (
-    <div className={classes.root} style={{ display: display }}>
+    <div className={classes.root} >
       <Fade in={moved} timeout={1000}>
-      <AppBar  position="static">
+      <AppBar  position="static" style={{ display: display1 }}>
         <Toolbar>
           {props.children}
 
