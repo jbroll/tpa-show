@@ -93,7 +93,9 @@ export function Welcome() {
   const auth = useAuth();
 
   const handleClickReset = () => {
-      auth.sendPasswordResetEmail(email);
+    auth.sendPasswordResetEmail(email).then(() => {
+      alert(`An email with a reset password link has been set to ${email}`)
+    });
   }
 
   const handleEmailChange = (e) => {
@@ -112,7 +114,7 @@ export function Welcome() {
       <Typography className={classes.title} >
         If you received our email invitation to participate in this years online show you should enter your 
         email address below and click "Reset Password".  You will be sent a reset password link which you can
-        use to set an initial pasword and then use the normal "Sign In" menu option in the top right. 
+        use to set an initial password and then use the normal "Sign In" menu option in the top right. 
       </Typography>
       <br />
       <Box display="inline-block">
@@ -141,7 +143,7 @@ export function Welcome() {
         <Box pt={4} pb={2} fontWeight="fontWeightBold">
             <Typography className={classes.title} variant="body1" >
                 If the email where you received your Art Show invitation is also being used
-                for one of your sociel media accounts you can sing in via that provider.
+                for one of your sociel media accounts you can sign in via that provider.
             </Typography>
           </Box>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
@@ -163,7 +165,9 @@ export function SignInPage() {
   }
 
   const handleClickReset = () => {
-      auth.sendPasswordResetEmail(email);
+    auth.sendPasswordResetEmail(email).then(() => {
+      alert(`An email with a reset password link has been set to ${email}`)
+    });
   }
 
   const handleEmailChange = (e) => {
