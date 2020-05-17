@@ -11,7 +11,6 @@ export default class DocCollection extends React.Component {
     componentDidMount() {
         this.props.collections.forEach(collection => {
 
-            console.log(collection);
             firebase.firestore().collection(collection).get().then(
                 (reply) => {
                     const d = {};
