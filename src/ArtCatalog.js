@@ -122,15 +122,14 @@ export default function Catalog(props) {
               </TableBody>
           </Table>
           <RDialog open={openArtist} onClose={handleCloseArtist} >
-            <DialogTitle id="form-dialog-title">Artist - {artistEntries[0].artist}</DialogTitle>
+            <DialogTitle id="form-dialog-title">Artist - {artistEntries[0].artist}
+                <Button onClick={handleCloseArtist} color="primary" style={{ float: "right" }}>
+                    Close
+                </Button>
+            </DialogTitle>
             <DialogContent>
                 <Artist entries={artistEntries} size={800} />
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleCloseArtist} color="primary">
-                    Close
-                </Button>
-            </DialogActions>
           </RDialog>
         </div>
     );
