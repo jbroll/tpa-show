@@ -2,12 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     iconXS: {
@@ -52,7 +47,7 @@ export default function IconLink(props) {
     const classes = useStyles();
     return <Link to={props.to} style={{textDecoration: "none"}}>
         <Box m={1} mr={3} className={classes.iconSM}><props.icon /></Box>
-        <Box mr={3}className={classes.titleMD} >
+        <Box mr={2}className={classes.titleMD} >
 
         <Typography className={classes.titleMD} variant="h6" noWrap>
             {props.text}
