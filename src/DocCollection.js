@@ -1,5 +1,6 @@
 import React from 'react';
 import * as firebase from "firebase/app";
+import "firebase/firestore";
 
 export default class DocCollection extends React.Component {
 

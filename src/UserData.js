@@ -1,6 +1,7 @@
 import React from 'react';
-import * as firebase from "firebase/app";
 import { AuthContext } from './auth/ProvideAuth'
+import * as firebase from "firebase/app";
+import "firebase/functions";
 
 export default class UserData extends React.Component {
 
