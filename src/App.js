@@ -10,6 +10,7 @@ import UserData from './UserData'
 import Users from './Users'
 import IconLink from './IconLink'
 import MyArtEntry from './MyArtEntry'
+import {Helmet} from "react-helmet";
 import { makeStyles } from '@material-ui/core/styles';
 
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
@@ -63,13 +64,16 @@ const styles = {
 export default function App() {
   const classes = useStyles();
 
-  document.title = "Art Show 2020";
   return (
     <MuiThemeProvider theme={thisTheme}>
     <ProvideAuth>
       <Router>
 
       <div className="App" style={styles.App}>
+        <Helmet>
+          <title>Art Show 2020</title>
+          <meta name="description" content="Twilight Park Artists Online Art Show - 2020" />
+        </Helmet>
         <TabbedSearchAppBar position="static" >
 
           <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
@@ -90,11 +94,19 @@ export default function App() {
 
         <Switch>
           <Route path="/gallery">
+            <Helmet>
+              <title>Image Gallery</title>
+              <meta name="description" content="Twilight Park Artists Online Art Show - 2020 Image Gallery" />
+            </Helmet>
             <DocCollection collections={['entries']}>
                 { collections => (<Gallery entries={collections['entries']} />) }
             </DocCollection>
           </Route>
           <Route path="/catalog">
+            <Helmet>
+              <title>Catalog of Entries</title>
+              <meta name="description" content="Twilight Park Artists Online Art Show - 2020 Catalog of Entries" />
+            </Helmet>
             <DocCollection collections={['artists', 'entries']}>
                 { collections => (<ArtCatalog collections={collections} />) }
             </DocCollection>
