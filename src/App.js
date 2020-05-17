@@ -12,6 +12,7 @@ import IconLink from './IconLink'
 import MyArtEntry from './MyArtEntry'
 import {Helmet} from "react-helmet";
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
@@ -131,19 +132,23 @@ export default function App() {
             <Redirect to="/" />
           </Route>
           <Route path="/">
-            <div>
+            <Container fixed>
+            <br />
+            <br />
+            <Typography className={classes.title} >
+              Registered artists sign in to update show their entries
               <p>
                 <b>Twilight Park Artists</b> Online Art Show 2020
-                </p>
+              </p>
                 <Link to="gallery" >
                 <Typography className={classes.title} variant="h6" noWrap>
                   View the Gallery
                 </Typography>
               </Link>
               <p>
-              We are all finding new ways to continue our work and hobbies during the i
+              We are all finding new ways to continue our work and hobbies during the
               coronavirus pandemic of 2020.  Since the Twilight Park Art Show is such a 
-              special event for us, we have decided to hold a virtual art show. i
+              special event for us, we have decided to hold a virtual art show.
               We will miss seeing all of our friends this summer, but we want to support 
               the artists and keep the spirit of the show strong for when we return to the club house.
               </p>
@@ -156,12 +161,17 @@ export default function App() {
               You are an important part of our community, and we want to support you during 
               these difficult times.
               </p>
+              <p>
+                If you have already received an email invitation to participate please proceed here to 
+                the <Link to="/welcome" >Welcome</Link> page obtain your Art Show password 
+              </p>
               
               <p>
               The virtual show will be live on August 1, 2020. Please share this with your 
               fellow artists and art patrons.
               </p>
-            </div>
+            </Typography>
+            </Container>
           </Route>
         </Switch>
       </div>
