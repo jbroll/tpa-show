@@ -183,7 +183,7 @@ export function SignInPage() {
       <Typography className={classes.title} variant="h6" noWrap>
          Participating Artist Sign In
       </Typography>
-          <Container fixed>
+      <Container fixed>
       <br />
       <br />
       <Typography className={classes.title} noWrap>
