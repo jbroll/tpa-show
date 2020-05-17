@@ -3,7 +3,7 @@ import './App.css';
 import Box from '@material-ui/core/Box';
 import ConfirmRegistration from './ConfirmRegistration';
 import Typography from '@material-ui/core/Typography';
-import SignInOrOut from './auth/SignIn'
+import { SignInOrOut, SignInPage, Welcome } from './auth/SignIn'
 import { IsAuth, IsAdmin } from './auth/ProvideAuth'
 import ArtCatalog from './ArtCatalog'
 import UserData from './UserData'
@@ -120,6 +120,12 @@ export default function App() {
               </UserData>
               <Redirect to="/" />
             </IsAdmin>
+          </Route>
+          <Route path="/welcome">
+            <Welcome />
+          </Route>
+          <Route path="/signIn">
+            <SignInPage />
           </Route>
           <Route path="/signedIn">
             <Redirect to="/" />
