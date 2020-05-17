@@ -77,7 +77,9 @@ function useProvideAuth() {
       .auth()
       .signOut()
       .then(() => {
+        console.log('false user');
         setUser(false);
+        setClaims({});
       });
   };
 
