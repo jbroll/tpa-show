@@ -136,7 +136,6 @@ export default function App() {
             <br />
             <br />
             <Typography className={classes.title} >
-              Registered artists sign in to update show their entries
               <p>
                 <b>Twilight Park Artists</b> Online Art Show 2020
               </p>
