@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
@@ -44,15 +43,14 @@ export default function MyArtEntry(props) {
       </Typography>
       </Button>
       <RDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry</DialogTitle>
+        <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry 
+          <Button onClick={handleClose} color="primary" style={{ float: "right" }}>
+            Close
+          </Button>
+        </DialogTitle>
         <DialogContent>
           <ArtEntry uid={uid}/>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
       </RDialog>
     </div>
   );
