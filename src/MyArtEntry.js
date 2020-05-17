@@ -10,6 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import ArtEntry from './ArtEntry';
 import { useAuth } from './auth/ProvideAuth'
+import RDialog from './RDialog';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -37,9 +38,6 @@ export default function MyArtEntry(props) {
   const user = useAuth().user;
   const uid = user && user.uid;
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
-
   return (
     <div>
       <Button className={classes.title} variant="outlined" onClick={handleClickOpen}>
@@ -47,7 +45,7 @@ export default function MyArtEntry(props) {
         My Entry
       </Typography>
       </Button>
-      <Dialog open={open} maxWidth="md" fullWidth={true} fullScreen={fullScreen} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <RDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry</DialogTitle>
         <DialogContent>
           <ArtEntry uid={uid}/>
@@ -57,7 +55,7 @@ export default function MyArtEntry(props) {
             Close
           </Button>
         </DialogActions>
-      </Dialog>
+      </RDialog>
     </div>
   );
 }
