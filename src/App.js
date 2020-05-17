@@ -96,18 +96,20 @@ export default function App() {
           <Route path="/gallery">
             <Helmet>
               <title>Image Gallery</title>
-              <meta name="description" content="Twilight Park Artists Online Art Show - 2020 Image Gallery" />
+              <meta name="description" 
+                    content="A slide show of images submitted by participating artists" />
             </Helmet>
-            <DocCollection collections={['entries']}>
+            <DocCollection key='gallery' collections={['entries']}>
                 { collections => (<Gallery entries={collections['entries']} />) }
             </DocCollection>
           </Route>
           <Route path="/catalog">
             <Helmet>
               <title>Catalog of Entries</title>
-              <meta name="description" content="Twilight Park Artists Online Art Show - 2020 Catalog of Entries" />
+              <meta name="description" 
+                    content="A catalog of art show entries with links ot artist's pages and individual show entries" />
             </Helmet>
-            <DocCollection collections={['artists', 'entries']}>
+            <DocCollection key='catalog' collections={['artists', 'entries']}>
                 { collections => (<ArtCatalog collections={collections} />) }
             </DocCollection>
           </Route>
