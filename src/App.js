@@ -113,10 +113,13 @@ export default function App() {
                 { collections => (<ArtCatalog collections={collections} />) }
             </DocCollection>
           </Route>
-          <Route path="/users">
-            <UserData>
-                { props => (<Users {...props} />) }
-            </UserData>
+            <Route path="/users">
+            <IsAdmin>
+              <UserData>
+                  { props => (<Users {...props} />) }
+              </UserData>
+              <Redirect to="/" />
+            </IsAdmin>
           </Route>
           <Route path="/signedIn">
             <Redirect to="/" />
