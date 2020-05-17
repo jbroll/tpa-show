@@ -1,31 +1,15 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-  Route,
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
 import { IsAuth, useAuth } from './ProvideAuth'
-
 
 const useStyles = makeStyles((theme) => ({
     title: {
