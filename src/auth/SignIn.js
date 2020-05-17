@@ -14,6 +14,13 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+  Link
+} from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
@@ -22,6 +29,7 @@ import { IsAuth, useAuth } from './ProvideAuth'
 
 const useStyles = makeStyles((theme) => ({
     title: {
+      color: "black",
       flexGrow: .1,
       display: 'block',
       "text-align": 'left',
@@ -61,11 +69,11 @@ export function SignOut() {
         auth.signout();
     }
 
-    return <Button variant="outlined" onClick={handleClickSignOut}>
-      <Typography className={classes.title} variant="h6" noWrap>
-        Sign Out
-      </Typography>
-      </Button>;
+    return <Link to="/" onClick={handleClickSignOut} style={{textDecoration: "none"}}>
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Sign Out
+                </Typography>
+                </Link>;
 }
 
 export function SignIn() {
@@ -125,11 +133,11 @@ const uiConfig = {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Link to="/" onClick={handleClickOpen} style={{textDecoration: "none"}}>
       <Typography className={classes.title} variant="h6" noWrap>
         Sign In
       </Typography>
-      </Button>
+      </Link>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
            Registered artists can sign in and update their entries

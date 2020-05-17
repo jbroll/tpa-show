@@ -7,6 +7,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Fade from '@material-ui/core/Fade';
 import Grow from '@material-ui/core/Grow';
 import Box from '@material-ui/core/Box';
+import { useRouteMatch } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,13 +100,14 @@ export default function TabbedSearchAppBar(props) {
       setMoved(true);
   });
 
-  const display0 = moved ? "none" : "block";
-  const display1 = moved ? "block" : "none";
+  const gallery=useRouteMatch("/gallery");
+  const fadeIn = gallery == null || moved;
+  const display = fadeIn ? "block" : "none";
 
   return (
     <div className={classes.root} >
-      <Fade in={moved} timeout={1000}>
-      <AppBar  position="static" style={{ display: display1 }}>
+      <Fade in={fade} timeout={1000}>
+      <AppBar  position="static" style={{ display: display }}>
         <Toolbar>
           {props.children}
 

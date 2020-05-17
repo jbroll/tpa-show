@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import ConfirmRegistration from './ConfirmRegistration';
 import Typography from '@material-ui/core/Typography';
 import SignInOrOut from './auth/SignIn'
@@ -20,8 +19,9 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
   BrowserRouter as Router,
   Switch,
+  Redirect,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
 
 import {
@@ -70,7 +70,7 @@ export default function App() {
       <Router>
 
       <div className="App" style={styles.App}>
-        <TabbedSearchAppBar position="static">
+        <TabbedSearchAppBar position="static" >
 
           <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
           <IconLink to="/gallery" icon={PhotoLibraryTwoToneIcon}  text="Gallery" />
@@ -83,7 +83,7 @@ export default function App() {
           <IsAuth>
             <Box />
             <ConfirmRegistration />
-            <MyArtEntry />
+            <Box mr={2}><MyArtEntry /> </Box>
            </IsAuth>
           <SignInOrOut/>
         </TabbedSearchAppBar>
@@ -103,6 +103,9 @@ export default function App() {
             <UserData>
                 { props => (<Users {...props} />) }
             </UserData>
+          </Route>
+          <Route path="/signedIn">
+            <Redirect to="/" />
           </Route>
           <Route path="/">
             <div>
