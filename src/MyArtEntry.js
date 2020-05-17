@@ -5,7 +5,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import ArtEntry from './ArtEntry';
 import { useAuth } from './auth/ProvideAuth'
 
@@ -35,6 +37,9 @@ export default function MyArtEntry(props) {
   const user = useAuth().user;
   const uid = user && user.uid;
 
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+
   return (
     <div>
       <Button className={classes.title} variant="outlined" onClick={handleClickOpen}>
@@ -42,7 +47,7 @@ export default function MyArtEntry(props) {
         My Entry
       </Typography>
       </Button>
-      <Dialog open={open} maxWidth="md" fullWidth={true} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} maxWidth="md" fullWidth={true} fullScreen={fullScreen} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry</DialogTitle>
         <DialogContent>
           <ArtEntry uid={uid}/>
