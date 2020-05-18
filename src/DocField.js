@@ -29,13 +29,16 @@ export default function DocField(props) {
                     context.handleChange(e, props.field);
                 }
 
+                const {field, size, ...rest} = props; 
+
                 return (
                     <TextField className={classes.textField}
                         onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur}
-                        label={props.label}
+                        value={context.fieldValue(context, field)}
+                        inputProps={{ size: size }}
                         margin="dense"
                         type="text"
-                        value={context.fieldValue(context, props.field)}
+                        {...rest}
                     />);
             })}
         </DocContext.Consumer>
