@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ArtEntry from './ArtEntry';
-import { useAuth } from './auth/ProvideAuth'
+import { useAuth } from './ProvideAuth'
 import RDialog from './RDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.up('xs')]: {
         display: 'block',
       },
-    },
+      '&:hover': {
+        background: "lightblue",
+        borderRadius: "1em",
+      }
+    }, 
 }));
 
 export default function MyArtEntry(props) {
@@ -30,6 +34,7 @@ export default function MyArtEntry(props) {
 
   const handleClose = () => {
     setOpen(false);
+    props.onClose();
   };
 
   const user = useAuth().user;

@@ -5,15 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-    iconXS: {
-        color: "black",
-      flexGrow: .1,
-      display: 'none',
-      "text-align": 'left',
-      [theme.breakpoints.down('xs')]: {
-        display: 'block',
-      },
-    },
     iconSM: {
         color: "black",
       flexGrow: .1,
@@ -22,34 +13,45 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down('sm')]: {
         display: 'block',
       },
+      '&:hover': {
+        background: "lightblue",
+        borderRadius: 2,
+      }
     },
-    titleSM: {
-        color: "black",
+    title: {
+      color: "black",
       flexGrow: .1,
-      display: 'none',
+      display: 'block',
+      padding: 2,
       "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
+      '&:hover': {
+        background: "lightblue",
+        borderRadius: "1em",
+      }
     },
     titleMD: {
-        color: "black",
+      color: "black",
       flexGrow: .1,
       display: 'none',
+      padding: 2,
       "text-align": 'left',
       [theme.breakpoints.up('md')]: {
         display: 'block',
       },
+      '&:hover': {
+        background: "lightblue",
+        borderRadius: "1em",
+      }
     },
 }));
 
 export default function IconLink(props) {
     const classes = useStyles();
-    return <Link to={props.to} style={{textDecoration: "none"}}>
-        <Box m={1} mr={3} className={classes.iconSM}><props.icon /></Box>
-        <Box mr={2}className={classes.titleMD} >
+    return <Link to={props.to} onClick={props.onClick} style={{textDecoration: "none"}}>
+        { props.icon ? <Box m={2} mr={3} className={classes.iconSM}><props.icon /></Box> : null}
 
-        <Typography className={classes.titleMD} variant="h6" noWrap>
+        <Box mr={2} className={props.icon ? classes.titleMD : classes.title} >
+        <Typography className={classes.title} variant="h6" noWrap>
             {props.text}
         </Typography>
         </Box>
