@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ArtEntry from './ArtEntry';
-import { useAuth } from './auth/ProvideAuth'
+import { useAuth } from './ProvideAuth'
 
 const useStyles = makeStyles((theme) => ({
     title: {

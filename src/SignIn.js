@@ -12,6 +12,8 @@ import { IsAuth, useAuth } from './ProvideAuth'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+import IconLink from './IconLink';
+
 const useStyles = makeStyles((theme) => ({
     title: {
       color: "black",
@@ -50,27 +52,17 @@ export function SignInOrOut({ children }) {
 }
 
 export function SignOut() {
-    const classes = useStyles();
     const auth = useAuth();
 
     const handleClickSignOut = () => {
         auth.signout();
     }
 
-    return <Link to="/" onClick={handleClickSignOut} style={{textDecoration: "none"}}>
-                <Typography className={classes.title} variant="h6" noWrap>
-                  Sign Out
-                </Typography>
-              </Link>;
+    return <IconLink to="/" onClick={handleClickSignOut} text="Sign Out" />;
 }
 
 export function SignIn() {
-  const classes = useStyles();
-  return <Link to="/signIn" style={{textDecoration: "none"}}>
-              <Typography className={classes.title} variant="h6" noWrap>
-                Sign In
-              </Typography>
-              </Link>;
+  return <IconLink to="/signIn" text="Sign In" />
 }
 
 // Configure FirebaseUI.
@@ -105,10 +97,11 @@ export function Welcome() {
     
   return (
     <div>
+      <Container fixed>
+        <br />
       <Typography className={classes.title} variant="h6" noWrap>
          Welcome Participating Artists!!
       </Typography>
-          <Container fixed>
       <br />
       <br />
       <Typography className={classes.title} >
@@ -143,7 +136,8 @@ export function Welcome() {
         <Box pt={4} pb={2} fontWeight="fontWeightBold">
             <Typography className={classes.title} variant="body1" >
                 If the email where you received your Art Show invitation is also being used
-                for one of your sociel media accounts you can sign in via that provider.
+                for one of your sociel media accounts you can sign in via that provider and 
+                yuo will not have to remember a separate password for the art show.
             </Typography>
           </Box>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
@@ -160,7 +154,6 @@ export function SignInPage() {
   const auth = useAuth();
 
   const handleClickSignIn = () => {
-    console.log("HERE");
       auth.signin(email, password);
   }
 
