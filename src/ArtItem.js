@@ -2,9 +2,11 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useConfig } from "./DocConfig";
 import DocImage from "./DocImage";
 import DocEdit from "./DocEdit";
 import DocField from "./DocField";
+import { Format } from "./DocField";
 
 const useStyles = makeStyles((theme) => ({
     divStyle: {
@@ -19,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ArtItem(props) {
   const classes = useStyles();
+  const config = useConfig();
 
   const document = `entries/${props.uid}-${props.n}`
   const image = `${props.uid}-${props.n}`
@@ -33,16 +36,16 @@ export default function ArtItem(props) {
                 <DocField label="Title" field="title" />
             </Grid>
             <Grid item xs={6} sm={3}>
-                <DocField label="Media" field="media" />
+                <DocField label="Media" field="media" options={config.value.media}/>
             </Grid>
             <Grid item xs={6} sm={3}>
-                <DocField label="Height" field="height" />
+                <DocField label="Height" field="height" format={Format.NUMBER}/>
             </Grid>
             <Grid item xs={6} sm={3}>
-                <DocField label="Width" field="width" />
+                <DocField label="Width" field="width" format={Format.NUMBER}/>
             </Grid>
             <Grid item xs={6} sm={3}>
-                <DocField label="Price" field="price" />
+                <DocField label="Price" field="price" format={Format.DOLLAR}/>
             </Grid>
         </Grid>
     </DocEdit>

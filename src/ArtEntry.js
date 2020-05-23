@@ -11,25 +11,28 @@ export default function ArtEntry(props) {
   return (
       <div>
         <Grid container direction="column" >
-            <Grid container spacing={4} direction="row">
-                <DocEdit document={`artists/${props.uid}`}>
-                    <Grid container item spacing={1} xs={6}>
+            <DocEdit document={`artists/${props.uid}`}>
+                <Grid container spacing={4} direction="row">
+                    <Grid container item spacing={1} xs={12} md={6}>
                         <Grid item xs={6}>
                             <DocField label="First Name" field="first" size={30}/>
                         </Grid> <br />
                         <Grid item xs={6}>
                             <DocField label="Last Name" field="last"  size={30}/>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={12}>
                             <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" />
                         </Grid>
+                        <Grid item xs={12} md={12}>
+                            <DocField label="Web Address" field="url" size={80}/>
+                        </Grid> <br />
                     </Grid>
-                    <Grid item xs={6}>
-                        <DocField label="Description" field="description" multiline={true} rows={4} rowsMax={4}/>
+                    <Grid item xs={12} md={6}>
+                        <DocField label="Description" field="description" multiline={true} rows={7} rowsMax={7}/>
 
                     </Grid>
-                </DocEdit>
-            </Grid>
+                </Grid>
+            </DocEdit>
             <Grid container direction="column">
                 <ArtItem uid={props.uid} n={1} />
                 <ArtItem uid={props.uid} n={2} />

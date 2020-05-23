@@ -38,6 +38,7 @@ import TabbedSearchAppBar from './TabbedSearchAppBar';
 import ProvideAuth from './ProvideAuth';
 import Gallery from './Gallery.js'
 import DocCollection from './DocCollection.js';
+import DocConfig from './DocConfig.js';
 
 const useStyles = makeStyles((theme) => ({
   space: {
@@ -76,6 +77,8 @@ export default function App() {
   return (
     <MuiThemeProvider theme={thisTheme}>
     <ProvideAuth>
+      <DocConfig document="config/tpa-2020">
+
       <Router>
 
       <div className="App" style={styles.App}>
@@ -176,6 +179,7 @@ export default function App() {
         </Switch>
       </div>
       </Router>
+      </DocConfig>
     </ProvideAuth>
     </MuiThemeProvider>
   );
