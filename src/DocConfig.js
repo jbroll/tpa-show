@@ -17,6 +17,7 @@ export default function DocConfig(props) {
     return doc.onSnapshot((reply) => {
       const data = reply.data()
       if ( data ) {
+          data.media.sort();
           setValue(data);
       }
     });
