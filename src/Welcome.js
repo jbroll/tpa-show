@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
@@ -67,6 +68,8 @@ EMail:
   return (
     <div>
       <Container fixed>
+      <Grid item md={8}>
+
       <br />
       <Typography className={classes.title} variant="h6" noWrap>
          Welcome Participating Artists!!
@@ -77,7 +80,7 @@ EMail:
         If you received our email invitation to participate in this years online show you should enter your 
         email address below and click "Reset Password".  You will be sent a reset password link which you can
         use to set an initial password and then use the normal "Sign In" menu option in the top right.  If you 
-        did not receive an invitation please request one by sending an email to 
+        did not receive an invitation please request one by sending an email to&ensp;
           <a target="_top"
                 rel="noopener noreferrer"
                 href={`mailto:twilightartshow@gmail.com?subject=Online Art Show Registration Request&body=${body}`} >
@@ -116,6 +119,7 @@ EMail:
             </Typography>
           </Box>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+      </Grid>
           </Container>
     </div>
   );
