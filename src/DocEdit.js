@@ -18,12 +18,12 @@ export default function DocEdit(props) {
     });
   }, [props.document]);
 
-  const handleChange = (e, field) => {
+  const handleChange = (v, field) => {
     setValue({
       // Merge the updated name field into the existing state
       // using the spread operator
       ...value,
-      [field]: e.target.value
+      [field]: v
     })
   }
 
