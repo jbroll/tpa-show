@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DragAndDrop from './DraqAndDrop';
 import { DocContext } from './DocEdit'
 import * as firebase from "firebase/app";
+import CircularProgress from '@material-ui/core/CircularProgress'
 import "firebase/storage";
 
 const getId = function() {
@@ -56,6 +57,18 @@ const useStyles = makeStyles((theme) => ({
         verticalAlign: 'middle',
         fontSize: '20px',
         backgroundColor: 'rgba(256,256,256,0.5)'
+    },
+    progress: {
+        position: 'absolute',
+        //top: 0, 
+        //left: 0,
+        //bottom: 0, 
+        //right: 0,
+
+        //display: 'inline-flex',
+        //textAlign: 'center',
+        //alignItems: 'center',
+        //verticalAlign: 'middle',
     }
 }));
 
@@ -82,6 +95,7 @@ export default function DocImage(props) {
     const classes = useStyles();
     const [here, setHere] = React.useState(false);
     const [drag, setDrag] = React.useState(false);
+    const [progress, setProgress] = React.useState(-1);
     
     const handleMouseEnter = () => {
         setHere(true);
@@ -121,15 +135,12 @@ export default function DocImage(props) {
                     "state_changed",
                     snapshot => {
                         // progress function ...
-                        const progress = Math.round(
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        );
-                        //this.setState({ progress });
-                        console.log(progress);
+                        setProgress(Math.round(
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                        ));
                     },
                     error => {
-                        // Error function ...
-                        console.log(error);
+                        setProgress(-1);
                     },
                     () => {
                         // complete function ...
@@ -138,7 +149,10 @@ export default function DocImage(props) {
                             .child(image)
                             .getDownloadURL()
                             .then(url => {
-                                context.fieldSave(context, props.field, url);
+                                setProgress(100);
+                                context.fieldSave(context, props.field, url).then(() => {
+                                    setProgress(-1);
+                                });
                             });
                     }
                 );
@@ -160,6 +174,7 @@ export default function DocImage(props) {
                         className={classes.button}>
                         <img 
                             className={classes.img} src={value} alt="Art Entry" />
+                        {progress > 0 ? <CircularProgress size={100} variant="static" value={progress} className={classes.progress} /> :
                         <Fade in={fade} >
                             <Typography
                                 className={classes.text}>
@@ -168,7 +183,7 @@ export default function DocImage(props) {
                                     "Drop the image now!"
                                 }
                             </Typography>
-                        </Fade>
+                        </Fade>}
                     </OpenFileButton>
                 </DragAndDrop>
             );

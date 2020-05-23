@@ -107,7 +107,7 @@ export default function TabbedSearchAppBar(props) {
   return (
     <div className={classes.root} >
       <Fade in={fadeIn} timeout={1000}>
-      <AppBar  position="static" style={{ display: display }}>
+      <AppBar  color="default" position="static" style={{ display: display }}>
         <Toolbar>
           {props.children}
 

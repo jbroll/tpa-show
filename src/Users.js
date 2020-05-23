@@ -16,6 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const TableCell = withStyles({
@@ -50,6 +51,7 @@ export default function Users(props) {
     const [user, setUser] = React.useState(false);
     const [newuser, setNewUser] = React.useState("");
     const [emailOk, setEmailOk] = React.useState(false);
+    const [sendResetEMail, setSendResetEMail] = React.useState(false);
 
     const handleOpenEntryOf = (uid) => {
         setOpenDialog("ArtEntry");
@@ -90,6 +92,10 @@ export default function Users(props) {
     const handleNewUserChange = (e) => {
         setNewUser(e.target.value);
         setEmailOk(validateEmail(e.target.value));
+    }
+
+    const handleSetSendResetEMail = (e) => {
+        setSendResetEMail(e.target.checked);
     }
 
     const validateEmail = (email) => {
@@ -178,6 +184,13 @@ export default function Users(props) {
                     type="text"
                     error={!emailOk}
                     value={newuser}
+                />
+                <FormControlLabel label="Send Reset EMail"
+                    control={
+                <Checkbox   checked={sendResetEMail} 
+                            onChange={handleSetSendResetEMail} 
+                            name="sendReset" inputProps={{ 'aria-label': 'Send Reset EMail' }} />
+                    }
                 />
             </DialogContent>
             <DialogActions>

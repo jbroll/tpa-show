@@ -42,7 +42,7 @@ export default function DocEdit(props) {
       var data = {
         [field]: value
       }
-      doc.set(data, {merge: true});
+      return doc.set(data, {merge: true});
   }
 
   const fieldValue = (context, field, default_value) => {

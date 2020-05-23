@@ -86,13 +86,15 @@ export default class UserData extends React.Component {
 
     return <AuthContext.Consumer>
         {auth => {
-            const handleCreateUser = (user) => {
+            const handleCreateUser = (user, sendLink) => {
                 const claims = { reg: true, adm: false };
 
                 return new Promise(resolve => {
                     this.createUser({ email: user }).then(reply => {
                         this.setClaims({ uid: reply.data.uid, claims: claims }).then(() => {
-                            auth.sendPasswordResetEmail(reply.data.email);
+                            if (sendLink) {
+                                auth.sendPasswordResetEmail(reply.data.email);
+                            }
                             this.setState((state, props) => {
                                 const users = { 
                                     ...state.users,

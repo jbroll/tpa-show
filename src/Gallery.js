@@ -39,7 +39,6 @@ export default function Gallery(props) {
             return;
         }
 
-        console.log("fetch");
         const entries = _.shuffle(_.map(props.entries, (entry, key) => {
             return { ...entry, key: key }
         }));
@@ -49,7 +48,6 @@ export default function Gallery(props) {
     React.useEffect(() => {
         if (entries.length === 0) { return; }
 
-        console.log("timer");
         setTimeout(() => {
             const c = (current+1) % entries.length;
             const b = (cbuffer+1) % nbuffer;
