@@ -115,7 +115,7 @@ EMail:
             <Typography className={classes.title} variant="body1" >
                 If the email where you received your Art Show invitation is also being used
                 for one of your sociel media accounts you can sign in via that provider and 
-                yuo will not have to remember a separate password for the art show.
+                you will not have to remember a separate password for the art show.
             </Typography>
           </Box>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
