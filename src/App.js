@@ -4,7 +4,8 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import ConfirmRegistration from './ConfirmRegistration';
 import Typography from '@material-ui/core/Typography';
-import { SignInOrOut, SignInPage, Welcome } from './SignIn'
+import { SignInOrOut, SignInPage } from './SignIn'
+import Welcome from './Welcome.js'
 import { IsAuth, IsAdmin } from './ProvideAuth'
 import ArtCatalog from './ArtCatalog'
 import UserData from './UserData'
@@ -14,6 +15,7 @@ import MyArtEntry from './MyArtEntry'
 import {Helmet} from "react-helmet";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import grey from '@material-ui/core/colors/grey';
 
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
@@ -59,7 +61,7 @@ const thisTheme = createMuiTheme({
 const styles = {
     App: {
         height: "100vh",
-        background: 'lightgreen',
+        background: grey[200],
     }
 };
 
@@ -141,13 +143,12 @@ export default function App() {
             <Container fixed>
             <br />
             <br />
-            <Grid container>
+            <Grid container direction="row">
 
-            <Grid direction="row" md={6} item>
-            <Typography className={classes.title} >
-              <p>
-                <b>Twilight Park Artists</b> Online Art Show 2020
-              </p>
+            <Grid md={6} item>
+              <Typography className={classes.title} >
+                  <b>Twilight Park Artists</b> Online Art Show 2020
+              </Typography>
               <p>
               We will miss seeing all of our friends this summer, but we want to support 
               the artists and keep the spirit of the show strong for when we return to the club house.
@@ -157,14 +158,12 @@ export default function App() {
                 If you have already received an email invitation to participate, please proceed to 
                 the <Link to="/welcome" >Welcome</Link> page to obtain your Art Show password.  
               </p>
-              
               <p>
               The show will be live on August 1, 2020. Please share this with your 
               fellow artists and art patrons.
               </p>
-            </Typography>
             </Grid>
-            <Grid md={6} height="100%" alignItems="center" item>
+            <Grid md={6} height="100%" item>
                 <Link to="gallery" >
                 <Typography className={classes.title} variant="h6" noWrap>
                   View the Gallery

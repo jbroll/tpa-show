@@ -49,8 +49,10 @@ export default function MyArtEntry(props) {
       </Button>
       <RDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry 
-          <Button onClick={handleClose} color="primary" style={{ float: "right" }}>
-            Close
+          <Button onClick={handleClose} variant="outlined" color="primary" style={{ float: "right" }}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              OK
+            </Typography>
           </Button>
         </DialogTitle>
         <DialogContent>

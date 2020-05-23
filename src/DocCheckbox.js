@@ -13,7 +13,6 @@ export default function DocCheckbox(props) {
                     context.fieldSave(context, props.field, e.target.checked);
                 };
 
-                console.log(props.field, props.label);
                 return (
                     <FormControlLabel
                     control={

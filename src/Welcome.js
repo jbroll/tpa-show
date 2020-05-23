@@ -4,15 +4,13 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { Redirect } from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
-import { IsAuth, useAuth } from './ProvideAuth'
+import { useAuth } from './ProvideAuth'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-
-import IconLink from './IconLink';
+import { validateEmail, uiConfig } from './SignIn';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -38,55 +36,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function validateEmail(email) {
-    const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$/;
-    return re.test(String(email).toUpperCase());
-}
-
-export function SignInOrOut({ children }) {
-    return (
-          <IsAuth>
-            <SignIn/>
-            <SignOut/>
-        </IsAuth>);
-}
-
-export function SignOut() {
-    const auth = useAuth();
-
-    const handleClickSignOut = () => {
-        auth.signout();
-    }
-
-    return <IconLink to="/" onClick={handleClickSignOut} text="Sign Out" />;
-}
-
-export function SignIn() {
-  return <IconLink to="/signIn" text="Sign In" />
-}
-
-// Configure FirebaseUI.
-export const uiConfig = {
-  signInFlow: 'redirect',
-  signInSuccessUrl: '/signedIn',
-  signInOptions: [
-    // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    "microsoft.com",
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-  ],
-  credentialHelper: 'none'
-};
-
-export function SignInPage() {
+export default function Welcome() {
   const classes = useStyles();
   const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [emailOk, setEmailOk] = React.useState(false);
   const auth = useAuth();
 
-  const handleClickSignIn = () => {
-      auth.signin(email, password);
+  const handleClickReset = () => {
+    auth.sendPasswordResetEmail(email).then(() => {
+      alert(`An email with a reset password link has been set to ${email}`)
+    });
   }
 
   const handleEmailChange = (e) => {
@@ -94,28 +53,40 @@ export function SignInPage() {
     setEmailOk(validateEmail(email));
   };
     
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+    const body = encodeURI(
+`
+I'm interested in registering for the Twilight Park 2020 Online Art Show.  Here is my contact information:
 
-  if (auth.user) {
-    return Redirect("/");
-  }
+Name:
+Mailing address:
+EMail:
+
+  Thanks!!
+  `)
+
   return (
     <div>
       <Container fixed>
       <br />
       <Typography className={classes.title} variant="h6" noWrap>
-         Participating Artist Sign In
+         Welcome Participating Artists!!
       </Typography>
       <br />
       <br />
-      <Typography className={classes.title} noWrap>
-         Registered artists sign in to update show their entries
+      <Typography className={classes.title} >
+        If you received our email invitation to participate in this years online show you should enter your 
+        email address below and click "Reset Password".  You will be sent a reset password link which you can
+        use to set an initial password and then use the normal "Sign In" menu option in the top right.  If you 
+        did not receive an invitation please request one by sending an email to 
+          <a target="_top"
+                rel="noopener noreferrer"
+                href={`mailto:twilightartshow@gmail.com?subject=Online Art Show Registration Request&body=${body}`} >
+            twilightartshow@gmail.com
+          </a>
       </Typography>
       <br />
       <Box display="inline-block">
-          <Box display="flex" justifyContent="flex-start" >
+          <Box mr={4} display="inline-flex" justifyContent="flex-start" >
           <TextField
             onChange={handleEmailChange}
             error={!(email === "" || emailOk)}
@@ -124,24 +95,13 @@ export function SignInPage() {
             id="email"
             label="Email Address"
             type="email"
+            size="medium"
             inputProps={{ size: 30 }}
           />
           </Box>
-          <br />
-          <Box mr={4} display="inline-flex" justifyContent="flex-start" >
-
-          <TextField
-            onChange={handlePasswordChange}
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            inputProps={{ size: 30 }}
-          />
-          </Box>
-          <Button variant="contained" color="primary" size="medium" onClick={handleClickSignIn} >
+          <Button variant="contained" color="primary" size="medium" onClick={handleClickReset} >
             <Typography className={classes.title} variant="h6" noWrap>
-                Sign In
+               Reset Password
             </Typography>
           </Button>
         </Box>
@@ -149,8 +109,10 @@ export function SignInPage() {
         <br />
         <br />
         <Box pt={4} pb={2} fontWeight="fontWeightBold">
-            <Typography className={classes.title} variant="body1" noWrap>
-                Or Sign in through another service:
+            <Typography className={classes.title} variant="body1" >
+                If the email where you received your Art Show invitation is also being used
+                for one of your sociel media accounts you can sign in via that provider and 
+                yuo will not have to remember a separate password for the art show.
             </Typography>
           </Box>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
@@ -158,3 +120,4 @@ export function SignInPage() {
     </div>
   );
 }
+
