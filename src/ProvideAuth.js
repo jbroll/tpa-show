@@ -20,7 +20,7 @@ export function IsAuth({ children }) {
   if (auth.user && auth.claims.reg) {
     index = Math.min(2, children.length -1);;
   }
-  return <div>{children[index]}</div>;
+  return children[index];
 }
 
 export function IsAdmin({ children }) {

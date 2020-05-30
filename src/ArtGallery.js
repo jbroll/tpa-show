@@ -15,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import _ from 'lodash';
 
 import ArtistDialog from './ArtistDialog'
+import TabGalleryEmpty from './TabGalleryEmpty';
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
-        position: 'relative',
+        position: 'absolute',
         height: '100vh',
         width: '100%',
         background: 'transparent',
@@ -162,7 +163,7 @@ export default function ArtGallery(props) {
     var entry;
     var key;
     var title;
-    if (entries != null && entries.length !== 0) {
+    if (entries.length !== 0) {
         for ( var i = 0; i < Math.min(nbuffer, entries.length); i++ ) {
             const nth = (current - 1 + i) % entries.length;
 
@@ -179,11 +180,13 @@ export default function ArtGallery(props) {
 
     return (
         <div className={classes.galleryDiv}>
-            {buffers.map((buff, i) => 
-                <Fade key={buff.key} in={buff.key === key} timeout={1500}>
-                    <ScaledImage className={classes.img} src={buff.image} alt="Art Gallery"/>
-                </Fade>
-              )
+            { props.collections.entries && entries.length <= 0 ?
+                <TabGalleryEmpty className={classes.img}/> :
+                buffers.map((buff, i) => 
+                    <Fade key={buff.key} in={buff.key === key} timeout={1500}>
+                        <ScaledImage className={classes.img} src={buff.image} alt="Art Gallery"/>
+                    </Fade>
+                )
             }
             <Backdrop className={classes.backdrop} open={moved !== 0} invisible={true}>
                 <Grid
@@ -220,18 +223,20 @@ export default function ArtGallery(props) {
                 <div>
                     <AppNavBar position="static" onForceRender={props.onForceRender} />
                 </div>
-                <Grid container justify='space-between' padding={4} className={classes.info}>
-                    <Grid item>
-                        <Typography variant='h5' >
-                            {title}
-                        </Typography>
+                { title == null ? null :
+                    <Grid container justify='space-between' padding={4} className={classes.info}>
+                        <Grid item>
+                            <Typography variant='h5' >
+                                {title}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant='h5' >
+                                <Link onClick={handleOpenArtist} >More...</Link>
+                            </Typography>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Typography variant='h5' >
-                            <Link onClick={handleOpenArtist} >More...</Link>
-                        </Typography>
-                    </Grid>
-                </Grid>
+                }
                 <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={[entry]} />
             </Backdrop>
         </div>

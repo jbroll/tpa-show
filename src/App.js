@@ -29,6 +29,7 @@ import ArtGallery from './ArtGallery'
 import DocCollection from './DocCollection';
 import DocConfig from './DocConfig';
 import TabMainPage from './TabMainPage';
+import TabShowIsClosed from './TabShowIsClosed';
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -56,6 +57,7 @@ function AppTabRoutes() {
   const config = useConfig(); 
 
   const uidFilter = (id, doc) => {
+      if (config.value.showIsEmpty) { return false; }
       if (config.value.showIsOpen) { return true; }
 
       if (auth && auth.claims && auth.claims.reg && id.startsWith(auth.user.uid)) { return true; }
@@ -70,7 +72,7 @@ function AppTabRoutes() {
           <meta name="description" content="Twilight Park Artists Online Art Show - 2020" />
         </Helmet>
 
-        { useRouteMatch("/gallery") ? null :
+        { useRouteMatch("/gallery") && (config.value.showIsOpen || (auth.claims && auth.claims.reg)) ? null :
           <AppNavBar position="static" onForceRender={forceRender} />
         }
 
@@ -81,9 +83,12 @@ function AppTabRoutes() {
               <meta name="description" 
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
-            <DocCollection key='gallery' collections={['artists', 'entries']} filter={uidFilter}>
-                { collections => (<ArtGallery collections={collections} onForceRender={forceRender}/>) }
-            </DocCollection>
+            { config.value.showIsOpen || (auth.claims && auth.claims.reg) ?
+              <DocCollection key='gallery' collections={['artists', 'entries']} filter={uidFilter}>
+                  { collections => (<ArtGallery collections={collections} onForceRender={forceRender}/>) }
+              </DocCollection> :
+              <TabShowIsClosed />
+            }
           </Route>
           <Route key={x} path="/catalog">
             <Helmet>
@@ -91,9 +96,12 @@ function AppTabRoutes() {
               <meta name="description" 
                     content="A catalog of art show entries with links ot artist's pages and individual show entries" />
             </Helmet>
-            <DocCollection key='catalog' collections={['artists', 'entries']} filter={uidFilter}>
-                { collections => (<ArtCatalog collections={collections} />) }
-            </DocCollection>
+            { config.value.showIsOpen || (auth.claims && auth.claims.reg) ?
+              <DocCollection key='catalog' collections={['artists', 'entries']} filter={uidFilter}>
+                  { collections => (<ArtCatalog collections={collections} />) }
+              </DocCollection> :
+              <TabShowIsClosed />
+            }
           </Route>
             <Route path="/users">
             <IsAdmin>
