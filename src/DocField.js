@@ -62,21 +62,21 @@ export default function DocField(props) {
 
                 const handleKeyDown = (e) => {
                     if (e.keyCode === 13) {
-                        context.fieldSave(context, props.field);
+                        context.fieldSave(props.field);
                     }
                 }
                 const handleBlur = (e) => {
-                    context.fieldSave(context, props.field);
+                    context.fieldSave(props.field);
                 }
                 const handleChange = (e, value) => {
                     if (value == null) {
                         value = checkFormat(props.format, e.target.value);
                     }
-                    context.handleChange(value, props.field);
+                    context.onChange(value, props.field);
                 }
 
                 const {field, size, format, ...rest} = props; 
-                const value = checkFormat(format, context.fieldValue(context, props.field));
+                const value = checkFormat(format, context.fieldValue(props.field));
 
                 const textfield = (
                     <TextField className={classes.textField}
