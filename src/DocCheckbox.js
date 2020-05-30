@@ -13,10 +13,15 @@ export default function DocCheckbox(props) {
                     context.fieldSave(context, props.field, e.target.checked);
                 };
 
+                var checked = context.fieldValue(context, props.field);
+                if (checked === "") {
+                    checked = false;
+                }
+
                 return (
                     <FormControlLabel
                     control={
-                        <Checkbox   checked={context.fieldValue(context, props.field)}
+                        <Checkbox   checked={checked}
                                     onChange={handleChange} 
                                     name={props.field} inputProps={{ 'aria-label': props.label }} />
                         }

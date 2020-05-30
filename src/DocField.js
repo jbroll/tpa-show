@@ -93,7 +93,6 @@ export default function DocField(props) {
                         <Autocomplete
                             onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur}
                             value={value}
-                            id="free-solo-demo"
                             freeSolo
                             options={props.options}
                             renderInput={(params) => (
