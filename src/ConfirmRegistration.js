@@ -6,7 +6,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import ArtEntry from './ArtEntry';
 import { useAuth } from './ProvideAuth'
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +47,7 @@ export default function ConfirmRegistration(props) {
             We are sorry that the email address with which you have signed in is 
             not on the list of pre-registered artists.  To register and be approved
             to post your work to the show please contact the Twilight Park Artists show 
-            committee at rkroll@rkroll.com.  Thank you!
+            committee at xxxxxx@xxxxxx.com.  Thank you!
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

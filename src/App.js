@@ -1,32 +1,25 @@
 import React from 'react';
 import './App.css';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import ConfirmRegistration from './ConfirmRegistration';
 import Typography from '@material-ui/core/Typography';
-import { SignInOrOut, SignInPage } from './SignIn'
 import Welcome from './Welcome.js'
-import { IsAuth, IsAdmin } from './ProvideAuth'
 import ArtCatalog from './ArtCatalog'
 import UserData from './UserData'
 import Users from './Users'
-import IconLink from './IconLink'
-import MyArtEntry from './MyArtEntry'
 import {Helmet} from "react-helmet";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { SignInPage } from './SignIn'
+import { IsAdmin } from './ProvideAuth'
 import grey from '@material-ui/core/colors/grey';
 
-import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
-import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
-import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
   BrowserRouter as Router,
   Switch,
   Redirect,
   Route,
   Link,
+  useRouteMatch,
 } from "react-router-dom";
 
 import {
@@ -34,7 +27,7 @@ import {
   MuiThemeProvider
 } from "@material-ui/core/styles";
 
-import TabbedSearchAppBar from './TabbedSearchAppBar';
+import AppNavBar from './AppNavBar';
 import ProvideAuth from './ProvideAuth';
 import Gallery from './Gallery.js'
 import DocCollection from './DocCollection.js';
@@ -66,7 +59,7 @@ const styles = {
     }
 };
 
-export default function App() {
+function AppPageTabs() {
   const classes = useStyles();
   const [x, setX] = React.useState(1);
 
@@ -75,34 +68,15 @@ export default function App() {
   }
 
   return (
-    <MuiThemeProvider theme={thisTheme}>
-    <ProvideAuth>
-      <DocConfig document="config/tpa-2020">
-
-      <Router>
-
       <div className="App" style={styles.App}>
         <Helmet>
           <title>Art Show 2020</title>
           <meta name="description" content="Twilight Park Artists Online Art Show - 2020" />
         </Helmet>
-        <TabbedSearchAppBar position="static" >
 
-          <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
-          <IconLink to="/gallery" icon={PhotoLibraryTwoToneIcon}  text="Gallery" />
-          <IconLink to="/catalog" icon={ListTwoToneIcon}          text="Catalog" />
-          <IsAdmin>
-            <IconLink to="/users" icon={PeopleAltIcon}            text="Users" />
-            <Box />
-          </IsAdmin>
-          <Typography className={classes.space} variant="h6" noWrap> </Typography>
-          <IsAuth>
-            <Box />
-            <ConfirmRegistration />
-            <Box mr={2}><MyArtEntry onClose={forceRender}/> </Box>
-           </IsAuth>
-          <SignInOrOut/>
-        </TabbedSearchAppBar>
+        { useRouteMatch("/gallery") ? null :
+          <AppNavBar position="static" onForceRender={forceRender} />
+        }
 
         <Switch>
           <Route key={x} path="/gallery">
@@ -178,7 +152,17 @@ export default function App() {
           </Route>
         </Switch>
       </div>
-      </Router>
+
+  );
+}
+export default function App() {
+  return (
+    <MuiThemeProvider theme={thisTheme}>
+    <ProvideAuth>
+      <DocConfig document="config/tpa-2020">
+        <Router>
+          <AppPageTabs />
+        </Router>
       </DocConfig>
     </ProvideAuth>
     </MuiThemeProvider>
