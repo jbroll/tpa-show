@@ -24,15 +24,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
       },
     },
-    spacer: {
-      flexGrow: .1,
-      display: 'none',
-      "text-align": 'left',
-      [theme.breakpoints.up('xs')]: {
-        display: 'block',
-      marginTop: "100%",
-      },
-    },
     textField: {
       width: 200,
     },

@@ -8,8 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import ArtistDialog from './ArtistDialog';
-import DocEdit from './DocEdit';
-import DocCheckbox from './DocCheckbox';
 
 const TableCell = withStyles({
     root: {
@@ -93,9 +91,6 @@ export default function Catalog(props) {
 
     return (
         <div className={classes.galleryDiv}>
-          <DocEdit document="config/tpa-2020">
-            <DocCheckbox label="Show Open" field="show-open" />
-          </DocEdit>
           <Table>
               <TableHead>
                   <TableRow>
