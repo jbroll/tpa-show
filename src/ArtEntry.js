@@ -24,11 +24,11 @@ export default function ArtEntry(props) {
                             <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" />
                         </Grid>
                         <Grid item xs={12} md={12}>
-                            <DocField label="Web Address" field="url" size={80}/>
+                            <DocField label="Web Site" field="url" size={80}/>
                         </Grid> <br />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <DocField label="Description" field="description" multiline={true} rows={7} rowsMax={7}/>
+                        <DocField label="Artist Description" field="description" multiline={true} rows={7} rowsMax={7}/>
 
                     </Grid>
                 </Grid>
