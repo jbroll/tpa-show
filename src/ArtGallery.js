@@ -9,10 +9,10 @@ import ArrowBackIosSharpIcon from '@material-ui/icons/ArrowBackIosSharp';
 import ArrowForwardIosSharpIcon from '@material-ui/icons/ArrowForwardIosSharp';
 import AppNavBar from './AppNavBar';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
-import _ from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import _ from 'lodash';
 
 import ArtistDialog from './ArtistDialog'
 
@@ -25,20 +25,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'table',
         margin: '0 auto'
     },
-    titleDiv: {
-        position: 'absolute',
-        top: "5px"
-    },
     img: {
         position: 'absolute',
         top: "0",
         left: 0,
         heigth: "100%",
         width: "100%"
-    },
-    navDiv: {
-        display: 'block',
-        width: "100%",
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
@@ -70,13 +62,12 @@ const iconStyle = {
     };
 
 
-export default function Gallery(props) { 
+export default function ArtGallery(props) { 
     const classes = useStyles();
 
     var nbuffer = 4;
     const [current, setCurrent] = React.useState(0);
     const [cbuffer, setCBuffer] = React.useState(0);
-    const [entries, setEnries] = React.useState([]);
     const [playing, setPlaying] = React.useState(true);
     const [wasPlaying, setWasPlaying] = React.useState(false);
     const [moved, setMoved] = React.useState(0);
@@ -102,16 +93,21 @@ export default function Gallery(props) {
         return () => clearTimeout(timer);
     }, [moved]);
 
+    const [entries, setEntries] = React.useState([]);
+    const [artists, setArtists] = React.useState([]);
+
     React.useEffect(() => {
-        if (props.entries == null) {
+        if (props.collections.artists == null || props.collections.entries == null) {
             return;
         }
 
-        const entries = _.shuffle(_.map(props.entries, (entry, key) => {
+        const entries = _.shuffle(_.map(props.collections.entries, (entry, key) => {
             return { ...entry, key: key }
         }));
-        setEnries(entries);
-    }, [props.entries]);
+
+        setArtists(props.collections.artists);
+        setEntries(entries);
+    }, [props.collections.artists, props.collections.entries]);
 
     const wrap = (n, len) => {
         n = n % len;
@@ -134,9 +130,6 @@ export default function Gallery(props) {
         }, 5000)
         return () => clearTimeout(timer);
     }, [advance, cbuffer, current, entries, playing]);
-
-    const forceRender = () => {
-    };
 
     const handleGoBack = () => {
         advance(-1);
@@ -224,8 +217,8 @@ export default function Gallery(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <div className={classes.navDiv}>
-                    <AppNavBar position="static" onForceRender={forceRender} />
+                <div>
+                    <AppNavBar position="static" onForceRender={props.onForceRender} />
                 </div>
                 <Grid container justify='space-between' padding={4} className={classes.info}>
                     <Grid item>

@@ -1,14 +1,10 @@
 import React from 'react';
 import './App.css';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Welcome from './Welcome.js'
+import TabWelcome from './TabWelcome.js'
 import ArtCatalog from './ArtCatalog'
 import UserData from './UserData'
 import Users from './Users'
 import {Helmet} from "react-helmet";
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { SignInPage } from './SignIn'
 import { IsAdmin, useAuth } from './ProvideAuth'
 import { useConfig } from "./DocConfig";
@@ -19,7 +15,6 @@ import {
   Switch,
   Redirect,
   Route,
-  Link,
   useRouteMatch,
 } from "react-router-dom";
 
@@ -30,21 +25,10 @@ import {
 
 import AppNavBar from './AppNavBar';
 import ProvideAuth from './ProvideAuth';
-import ArtGallery from './ArtGallery.js'
-import DocCollection from './DocCollection.js';
-import DocConfig from './DocConfig.js';
-import { fieldValue } from './DocEdit';
-
-const useStyles = makeStyles((theme) => ({
-  space: {
-    flexGrow: 2,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.up('xs')]: {
-      display: 'block',
-    },
-  },
-}));
+import ArtGallery from './ArtGallery'
+import DocCollection from './DocCollection';
+import DocConfig from './DocConfig';
+import TabMainPage from './TabMainPage';
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -61,8 +45,7 @@ const styles = {
     }
 };
 
-function AppPageTabs() {
-  const classes = useStyles();
+function AppTabRoutes() {
   const [x, setX] = React.useState(1);
 
   const forceRender = () => {
@@ -98,8 +81,8 @@ function AppPageTabs() {
               <meta name="description" 
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
-            <DocCollection key='gallery' collections={['entries']} filter={uidFilter}>
-                { collections => (<ArtGallery entries={collections['entries']} />) }
+            <DocCollection key='gallery' collections={['artists', 'entries']} filter={uidFilter}>
+                { collections => (<ArtGallery collections={collections} onForceRender={forceRender}/>) }
             </DocCollection>
           </Route>
           <Route key={x} path="/catalog">
@@ -121,7 +104,7 @@ function AppPageTabs() {
             </IsAdmin>
           </Route>
           <Route path="/welcome">
-            <Welcome />
+            <TabWelcome />
           </Route>
           <Route path="/signIn">
             <SignInPage />
@@ -130,38 +113,7 @@ function AppPageTabs() {
             <Redirect to="/" />
           </Route>
           <Route path="/">
-            <Container fixed>
-            <br />
-            <br />
-            <Grid container direction="row">
-
-            <Grid md={6} item>
-              <Typography className={classes.title} >
-                  <b>Twilight Park Artists</b> Online Art Show 2020
-              </Typography>
-              <p>
-              We will miss seeing all of our friends this summer, but we want to support 
-              the artists and keep the spirit of the show strong for when we return to the club house.
-              </p>
-              <p>
-                Artists are invited to participate by uploading images of their works. 
-                If you have already received an email invitation to participate, please proceed to 
-                the <Link to="/welcome" >Welcome</Link> page to obtain your Art Show password.  
-              </p>
-              <p>
-              The show will be live on August 1, 2020. Please share this with your 
-              fellow artists and art patrons.
-              </p>
-            </Grid>
-            <Grid md={6} height="100%" item>
-                <Link to="gallery" >
-                <Typography className={classes.title} variant="h6" noWrap>
-                  View the Gallery
-                </Typography>
-              </Link>
-            </Grid>
-            </Grid>
-            </Container>
+            <TabMainPage />
           </Route>
         </Switch>
       </div>
@@ -174,7 +126,7 @@ export default function App() {
     <ProvideAuth>
       <DocConfig document="config/tpa-2020">
         <Router>
-          <AppPageTabs />
+          <AppTabRoutes />
         </Router>
       </DocConfig>
     </ProvideAuth>

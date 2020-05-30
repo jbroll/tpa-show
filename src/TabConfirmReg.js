@@ -5,22 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { useAuth } from './ProvideAuth'
-
-const useStyles = makeStyles((theme) => ({
-    title: {
-      flexGrow: .1,
-      display: 'none',
-      "text-align": 'left',
-      [theme.breakpoints.up('xs')]: {
-        display: 'block',
-      },
-    },
-}));
 
 export default function ConfirmRegistration(props) {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -31,13 +17,10 @@ export default function ConfirmRegistration(props) {
     setOpen(false);
   };
 
-  const user = useAuth().user;
-  const uid = user && user.uid;
-
   return (
     <div>
-      <Button className={classes.title} variant="outlined" onClick={handleClickOpen}>
-      <Typography className={classes.title} variant="h6" noWrap>
+      <Button variant="outlined" onClick={handleClickOpen}>
+      <Typography variant="h6" noWrap>
         Confirm EMail
       </Typography>
       </Button>

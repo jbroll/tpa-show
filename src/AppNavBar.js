@@ -1,11 +1,11 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+//import InputBase from '@material-ui/core/InputBase';
+//import { fade, makeStyles } from '@material-ui/core/styles';
+//import SearchIcon from '@material-ui/icons/Search';
 import Box from '@material-ui/core/Box';
-import ConfirmRegistration from './ConfirmRegistration';
+import TabConfirmReg from './TabConfirmReg';
 import { SignInOrOut } from './SignIn'
 import { IsAuth, IsAdmin } from './ProvideAuth'
 import IconLink from './IconLink'
@@ -15,30 +15,8 @@ import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
 import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
+/*
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    background: 'inherit'
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: .1,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.up('xs')]: {
-      display: 'block',
-    },
-  },
-  space: {
-    flexGrow: 2,
-    display: 'none',
-    "text-align": 'left',
-    [theme.breakpoints.up('xs')]: {
-      display: 'block',
-    },
-  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -80,12 +58,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+*/
 
 export default function AppNavBar(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
 
   return (
-    <div className={classes.root} >
+    <div>
       <AppBar  color="default" position="static">
         <Toolbar>
             <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
@@ -97,7 +76,7 @@ export default function AppNavBar(props) {
             </IsAdmin>
             <IsAuth>
               <Box />
-              <ConfirmRegistration />
+              <TabConfirmReg />
               <Box mr={2}><MyArtEntry onClose={props.onForceRender}/> </Box>
             </IsAuth>
             <SignInOrOut/>
