@@ -150,7 +150,7 @@ export default function DocImage(props) {
                             .getDownloadURL()
                             .then(url => {
                                 setProgress(100);
-                                context.fieldSave(context, props.field, url).then(() => {
+                                context.fieldSave(props.field, url).then(() => {
                                     setProgress(-1);
                                 });
                             });

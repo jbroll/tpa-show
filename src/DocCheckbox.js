@@ -10,10 +10,10 @@ export default function DocCheckbox(props) {
         <DocContext.Consumer>
             {(context => {
                 const handleChange = (e) => {
-                    context.fieldSave(context, props.field, e.target.checked);
+                    context.fieldSave(props.field, e.target.checked);
                 };
 
-                var checked = context.fieldValue(context, props.field);
+                var checked = context.fieldValue(props.field);
                 if (checked === "") {
                     checked = false;
                 }

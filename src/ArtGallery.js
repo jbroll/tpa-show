@@ -1,7 +1,6 @@
 import React from 'react';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Backdrop from '@material-ui/core/Backdrop';
 import IconButton from '@material-ui/core/IconButton';
 import ScaledImage from './ScaledImage';
@@ -67,11 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const iconStyle = {
         fontSize: '300%',
-        color: "black",
-        '&:hover': {
-        background: "lightblue",
-        borderRadius: 2,
-      }
+        color: "black"
     };
 
 
@@ -161,7 +156,6 @@ export default function Gallery(props) {
     };
 
     const handleOpenArtist = () => {
-        console.log("open");
         setWasPlaying(playing);
         setPlaying(false);
         setOpenArtist(true);

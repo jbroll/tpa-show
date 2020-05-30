@@ -1,35 +1,23 @@
 import React from 'react';
-import * as firebase from "firebase/app";
+
+import { loadCollection, docContext } from './DocEdit';
 
 export const ConfigContext = React.createContext(null);
-
 export const useConfig = () => {
     return React.useContext(ConfigContext);
-  };
+};
 
 export default function DocConfig(props) {
   const [value, setValue] = React.useState({});
 
   React.useEffect(() => {
-    const [collection, document] = props.document.split('/');
-    const doc = firebase.firestore().collection(collection).doc(document);
-
-    return doc.onSnapshot((reply) => {
-      const data = reply.data()
-      if ( data ) {
-          data.media.sort();
-          setValue(data);
-      }
-    });
+    loadCollection(props.document, setValue);
   }, [props.document]);
 
+  const context = docContext(props.document, value);
 
   return (
-    <ConfigContext.Provider value={{
-        document: props.document,
-        value: value
-    }}>
-
+    <ConfigContext.Provider value={context}>
         {props.children}
     </ConfigContext.Provider>
   );

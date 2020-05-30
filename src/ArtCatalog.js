@@ -1,18 +1,15 @@
 import React from 'react';
-import Artist from './Artist';
 import Link from '@material-ui/core/Link';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import MuiTableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import RDialog from './RDialog';
 
-import OkButton from './OkButton';
 import ArtistDialog from './ArtistDialog';
+import DocEdit from './DocEdit';
+import DocCheckbox from './DocCheckbox';
 
 const TableCell = withStyles({
     root: {
@@ -96,6 +93,9 @@ export default function Catalog(props) {
 
     return (
         <div className={classes.galleryDiv}>
+          <DocEdit document="config/tpa-2020">
+            <DocCheckbox label="Show Open" field="show-open" />
+          </DocEdit>
           <Table>
               <TableHead>
                   <TableRow>

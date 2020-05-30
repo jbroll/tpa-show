@@ -1,21 +1,72 @@
 import React from 'react';
 import * as firebase from "firebase/app";
+import _ from 'lodash';
 
 export const DocContext = React.createContext(null);
+export const useDocContext = () => {
+    return React.useContext(DocContext);
+};
 
-export default function DocEdit(props) {
-  const [value, setValue] = React.useState({});
-
-  React.useEffect(() => {
-    const [collection, document] = props.document.split('/');
+export function loadCollection(docpath, onSetValue) {
+    const [collection, document] = docpath.split('/');
     const doc = firebase.firestore().collection(collection).doc(document);
 
     return doc.onSnapshot((reply) => {
       const data = reply.data()
       if ( data ) {
-          setValue(data);
+          onSetValue(data);
       }
     });
+}
+
+export function fieldSave(field, value) {
+    if (value == null) {
+        if (this.value == null || this.value[field] == null) {
+          return;
+        } else {
+          value = this.value[field];
+        }
+    }
+
+    const [collection, document] = this.document.split('/');
+    const doc = firebase.firestore().collection(collection).doc(document);
+
+    var data = {
+      [field]: value
+    }
+    return doc.set(data, {merge: true});
+}
+
+export function fieldValue(field, default_value) {
+    var value;
+    if (this.value && this.value[field]) {
+        value = this.value[field]; 
+    } else {
+        if (default_value == null) {
+            value = "";
+        } else {
+            value = default_value; 
+        }
+    }
+    return value;
+}
+
+export function docContext(document, value) {
+  const context = {};
+  _.extend(context, {
+      document: document,
+      fieldSave: fieldSave.bind(context),
+      fieldValue: fieldValue.bind(context),
+      value: value
+  });
+  return context;
+}
+
+export default function DocEdit(props) {
+  const [value, setValue] = React.useState({});
+
+  React.useEffect(() => {
+    loadCollection(props.document, setValue);
   }, [props.document]);
 
   const handleChange = (v, field) => {
@@ -27,47 +78,11 @@ export default function DocEdit(props) {
     })
   }
 
-  const fieldSave = (context, field, value) => {
-      if (value == null) {
-          if (context.value[field] == null) {
-            return;
-          } else {
-            value = context.value[field];
-          }
-      }
-
-      const [collection, document] = context.document.split('/');
-      const doc = firebase.firestore().collection(collection).doc(document);
-
-      var data = {
-        [field]: value
-      }
-      return doc.set(data, {merge: true});
-  }
-
-  const fieldValue = (context, field, default_value) => {
-        var value;
-        if (context.value && context.value[field]) {
-            value = context.value[field]; 
-        } else {
-            if (default_value == null) {
-                value = "";
-            } else {
-                value = default_value; 
-            }
-        }
-        return value;
-  }
+  const context = docContext(props.document, value);
+  _.extend(context, { onChange: handleChange })
 
   return (
-    <DocContext.Provider value={{
-        document: props.document,
-        handleChange: handleChange,
-        fieldSave: fieldSave,
-        fieldValue: fieldValue,
-        value: value
-    }}>
-
+    <DocContext.Provider value={context}>
         {props.children}
     </DocContext.Provider>
   );
