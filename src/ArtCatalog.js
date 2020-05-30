@@ -1,6 +1,5 @@
 import React from 'react';
 import Artist from './Artist';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +10,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import RDialog from './RDialog';
+
+import OkButton from './OkButton';
+import ArtistDialog from './ArtistDialog';
 
 const TableCell = withStyles({
     root: {
@@ -120,16 +122,7 @@ export default function Catalog(props) {
               )}
               </TableBody>
           </Table>
-          <RDialog open={openArtist} onClose={handleCloseArtist} >
-            <DialogTitle id="form-dialog-title">Artist - {artistEntries[0].artist}
-                <Button onClick={handleCloseArtist} color="primary" style={{ float: "right" }}>
-                    Close
-                </Button>
-            </DialogTitle>
-            <DialogContent>
-                <Artist entries={artistEntries} size={800} />
-            </DialogContent>
-          </RDialog>
+          <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={artistEntries} />
         </div>
     );
 }

@@ -29,7 +29,7 @@ import {
 
 import AppNavBar from './AppNavBar';
 import ProvideAuth from './ProvideAuth';
-import Gallery from './Gallery.js'
+import ArtGallery from './ArtGallery.js'
 import DocCollection from './DocCollection.js';
 import DocConfig from './DocConfig.js';
 
@@ -86,7 +86,7 @@ function AppPageTabs() {
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
             <DocCollection key='gallery' collections={['entries']}>
-                { collections => (<Gallery entries={collections['entries']} />) }
+                { collections => (<ArtGallery entries={collections['entries']} />) }
             </DocCollection>
           </Route>
           <Route key={x} path="/catalog">
