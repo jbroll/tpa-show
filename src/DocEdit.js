@@ -66,7 +66,7 @@ export default function DocEdit(props) {
   const [value, setValue] = React.useState({});
 
   React.useEffect(() => {
-    loadCollection(props.document, setValue);
+    return loadCollection(props.document, setValue);
   }, [props.document]);
 
   const handleChange = (v, field) => {
