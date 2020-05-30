@@ -10,7 +10,8 @@ import {Helmet} from "react-helmet";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { SignInPage } from './SignIn'
-import { IsAdmin } from './ProvideAuth'
+import { IsAdmin, useAuth } from './ProvideAuth'
+import { useConfig } from "./DocConfig";
 import grey from '@material-ui/core/colors/grey';
 
 import {
@@ -32,6 +33,7 @@ import ProvideAuth from './ProvideAuth';
 import ArtGallery from './ArtGallery.js'
 import DocCollection from './DocCollection.js';
 import DocConfig from './DocConfig.js';
+import { fieldValue } from './DocEdit';
 
 const useStyles = makeStyles((theme) => ({
   space: {
@@ -67,6 +69,17 @@ function AppPageTabs() {
     setX(Math.random());
   }
 
+  const auth = useAuth();
+  const config = useConfig(); 
+
+  const uidFilter = (id, doc) => {
+      if (config.value.showIsOpen) { return true; }
+
+      if (auth && auth.claims && auth.claims.reg && id.startsWith(auth.user.uid)) { return true; }
+
+      return false;
+  }
+
   return (
       <div className="App" style={styles.App}>
         <Helmet>
@@ -85,7 +98,7 @@ function AppPageTabs() {
               <meta name="description" 
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
-            <DocCollection key='gallery' collections={['entries']}>
+            <DocCollection key='gallery' collections={['entries']} filter={uidFilter}>
                 { collections => (<ArtGallery entries={collections['entries']} />) }
             </DocCollection>
           </Route>
@@ -95,7 +108,7 @@ function AppPageTabs() {
               <meta name="description" 
                     content="A catalog of art show entries with links ot artist's pages and individual show entries" />
             </Helmet>
-            <DocCollection key='catalog' collections={['artists', 'entries']}>
+            <DocCollection key='catalog' collections={['artists', 'entries']} filter={uidFilter}>
                 { collections => (<ArtCatalog collections={collections} />) }
             </DocCollection>
           </Route>

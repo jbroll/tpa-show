@@ -73,7 +73,7 @@ const iconStyle = {
 export default function Gallery(props) { 
     const classes = useStyles();
 
-    const nbuffer = 4;
+    var nbuffer = 4;
     const [current, setCurrent] = React.useState(0);
     const [cbuffer, setCBuffer] = React.useState(0);
     const [entries, setEnries] = React.useState([]);
@@ -120,10 +120,10 @@ export default function Gallery(props) {
     };
     const advance = React.useCallback((n) => {
         const c = wrap(current+n, entries.length);
-        const b = wrap(cbuffer+n, nbuffer);
+        const b = wrap(cbuffer+n, Math.min(nbuffer, entries.length));
         setCurrent(c);
         setCBuffer(b);
-    }, [cbuffer, current, entries]);
+    }, [cbuffer, current, entries.length, nbuffer]);
 
     React.useEffect(() => {
         if (entries.length === 0) { return; }
@@ -170,7 +170,7 @@ export default function Gallery(props) {
     var key;
     var title;
     if (entries != null && entries.length !== 0) {
-        for ( var i = 0; i < nbuffer; i++ ) {
+        for ( var i = 0; i < Math.min(nbuffer, entries.length); i++ ) {
             const nth = (current - 1 + i) % entries.length;
 
             const entry = _.nth(entries, nth);

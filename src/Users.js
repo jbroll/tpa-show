@@ -17,6 +17,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import DocEdit from './DocEdit';
+import DocCheckbox from './DocCheckbox';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const TableCell = withStyles({
@@ -108,6 +110,9 @@ export default function Users(props) {
 
     return (
         <div className={classes.galleryDiv}>
+          <DocEdit document="config/tpa-2020">
+            <DocCheckbox label="Art Show is Open" field="showIsOpen" />
+          </DocEdit>
           <Table>
               <TableHead>
                   <TableRow>
