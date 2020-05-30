@@ -69,10 +69,10 @@ export default function Gallery(props) {
     const [cbuffer, setCBuffer] = React.useState(0);
     const [entries, setEnries] = React.useState([]);
     const [playing, setPlaying] = React.useState(true);
-    const [moved, setMoved] = React.useState(true);
+    const [moved, setMoved] = React.useState(0);
 
     const movedEvent = () => {
-        setMoved(true);
+        setMoved(Math.random()+1);
     };
 
     React.useEffect(() => {
@@ -86,7 +86,7 @@ export default function Gallery(props) {
         if (!moved) { return; }
 
         const timer = setTimeout(() => {
-            setMoved(false);
+            setMoved(0);
         }, 5000)
         return () => clearTimeout(timer);
     }, [moved]);
@@ -129,17 +129,18 @@ export default function Gallery(props) {
 
     const handleGoBack = () => {
         advance(-1);
-        setMoved(true);
+        movedEvent();
     };
     const handleGoForward = () => {
         advance(1);
-        setMoved(true);
+        movedEvent();
     };
 
     const handlePauseOrPlay = () => {
         setPlaying(!playing);
         if (!playing) {
             advance(1);
+            setMoved(0);
         }
     };
 
