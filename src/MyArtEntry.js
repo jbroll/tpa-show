@@ -12,11 +12,7 @@ import RDialog from './RDialog';
 const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: .1,
-      display: 'none',
       "text-align": 'left',
-      [theme.breakpoints.up('xs')]: {
-        display: 'block',
-      },
       '&:hover': {
         background: "lightblue",
         borderRadius: "1em",

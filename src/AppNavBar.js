@@ -4,10 +4,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import Fade from '@material-ui/core/Fade';
-import Grow from '@material-ui/core/Grow';
 import Box from '@material-ui/core/Box';
-import { useRouteMatch } from "react-router-dom";
+import ConfirmRegistration from './ConfirmRegistration';
+import { SignInOrOut } from './SignIn'
+import { IsAuth, IsAdmin } from './ProvideAuth'
+import IconLink from './IconLink'
+import MyArtEntry from './MyArtEntry'
+import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
+import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
+import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,41 +81,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TabbedSearchAppBar(props) {
+export default function AppNavBar(props) {
   const classes = useStyles();
-  const [moved, setMoved] = React.useState(true);
-  const clearTimer = React.useRef(undefined);
-
-  const setFadeTimer = () => {
-    const timer = setTimeout(() => {
-      setMoved(false);
-
-    }, 5000);
-    return () => clearTimeout(timer);
-  }
-
-  React.useEffect(() => {
-      clearTimer.current = setFadeTimer();
-  }, []);
-
-  document.addEventListener('mousemove', (e) => {
-      if (clearTimer.current) {
-      	clearTimer.current();
-      }
-      clearTimer.current = setFadeTimer();
-      setMoved(true);
-  });
-
-  const gallery=useRouteMatch("/gallery");
-  const fadeIn = gallery == null || moved;
-  const display = fadeIn ? "block" : "none";
 
   return (
     <div className={classes.root} >
-      <Fade in={fadeIn} timeout={1000}>
-      <AppBar  color="default" position="static" style={{ display: display }}>
+      <AppBar  color="default" position="static">
         <Toolbar>
-          {props.children}
+            <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
+            <IconLink to="/gallery" icon={PhotoLibraryTwoToneIcon}  text="Gallery" />
+            <IconLink to="/catalog" icon={ListTwoToneIcon}          text="Catalog" />
+            <IsAdmin>
+              <IconLink to="/users" icon={PeopleAltIcon}            text="Users" />
+              <Box />
+            </IsAdmin>
+            <IsAuth>
+              <Box />
+              <ConfirmRegistration />
+              <Box mr={2}><MyArtEntry onClose={props.onForceRender}/> </Box>
+            </IsAuth>
+            <SignInOrOut/>
 
 { /*
           <div className={classes.search}>
@@ -128,7 +119,6 @@ export default function TabbedSearchAppBar(props) {
    */ }
         </Toolbar>
       </AppBar>
-      </Fade>
     </div>
   );
 }

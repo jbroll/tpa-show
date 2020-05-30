@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 function dollar(dolar, docents) {
     var cents;
 
-    dolar = dolar.toString().replace(/\$|\,|\s/g,'');
+    dolar = dolar.toString().replace(/\$|,|\s/g,'');
 
     if (isNaN(dolar)) dolar = "0";
 
