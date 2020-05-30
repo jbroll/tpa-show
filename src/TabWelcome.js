@@ -37,6 +37,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const body = encodeURI(
+`
+I'm interested in registering for the Twilight Park 2020 Online Art Show.  Here is my contact information:
+
+Name:
+EMail:
+
+Mailing address:
+  Street:
+  City:
+  State:
+  ZIP:
+
+  Thanks!!
+  `)
+const mailTo=`mailto:twilightartshow@gmail.com?subject=Online Art Show Registration Request&body=${body}`;
+
+export function MailToTPA() {
+    return (
+          <a target="_top"
+                rel="noopener noreferrer"
+                href={mailTo} >
+            twilightartshow@gmail.com
+          </a>
+    );
+}
+
 export default function Welcome() {
   const classes = useStyles();
   const [email, setEmail] = React.useState("");
@@ -54,17 +81,6 @@ export default function Welcome() {
     setEmailOk(validateEmail(email));
   };
     
-    const body = encodeURI(
-`
-I'm interested in registering for the Twilight Park 2020 Online Art Show.  Here is my contact information:
-
-Name:
-Mailing address:
-EMail:
-
-  Thanks!!
-  `)
-
   return (
     <div>
       <Container fixed>
@@ -81,11 +97,7 @@ EMail:
         email address below and click "Reset Password".  You will be sent a reset password link which you can
         use to set an initial password and then use the normal "Sign In" menu option in the top right.  If you 
         did not receive an invitation please request one by sending an email to&ensp;
-          <a target="_top"
-                rel="noopener noreferrer"
-                href={`mailto:twilightartshow@gmail.com?subject=Online Art Show Registration Request&body=${body}`} >
-            twilightartshow@gmail.com
-          </a>
+        <MailToTPA/>
       </Typography>
       <br />
       <Box display="inline-block">

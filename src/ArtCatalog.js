@@ -4,6 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import MuiTableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
+import TabGalleryEmpty from './TabGalleryEmpty';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
@@ -25,13 +26,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'table',
         margin: '0 auto'
     },
-    img: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        heigth: "100%",
-        width: "100%"
-    }
 }));
 
 export default function Catalog(props) { 
@@ -88,6 +82,11 @@ export default function Catalog(props) {
             }
         )
     ).filter(v => v != null);
+
+    if (props.collections.entries && data.length <= 0) {
+        return <TabGalleryEmpty />;
+    }
+    console.log(entries.length);
 
     return (
         <div className={classes.galleryDiv}>

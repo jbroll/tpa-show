@@ -112,6 +112,7 @@ export default function Users(props) {
         <div className={classes.galleryDiv}>
           <DocEdit document="config/tpa-2020">
             <DocCheckbox label="Art Show is Open" field="showIsOpen" />
+            <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
           </DocEdit>
           <Table>
               <TableHead>
