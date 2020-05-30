@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ArtEntry from './ArtEntry';
 import { useAuth } from './ProvideAuth'
 import RDialog from './RDialog';
+import OkButton from './OkButton';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -44,12 +45,8 @@ export default function MyArtEntry(props) {
       </Typography>
       </Button>
       <RDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Twilight Park Art Show Entry 
-          <Button onClick={handleClose} variant="outlined" color="primary" style={{ float: "right" }}>
-            <Typography className={classes.title} variant="h6" noWrap>
-              OK
-            </Typography>
-          </Button>
+        <DialogTitle >Twilight Park Art Show Entry 
+          <OkButton onClick={handleClose} />
         </DialogTitle>
         <DialogContent>
           <ArtEntry uid={uid}/>

@@ -12,6 +12,10 @@ import AppNavBar from './AppNavBar';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import _ from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
+import ArtistDialog from './ArtistDialog'
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -47,7 +51,17 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 auto'
     },
     backBox: {
+        position: 'absolute',
         height: "100%",
+        top: 0
+    },
+    info: {
+        position: 'relative',
+        topMargin: 10,
+        zIndex: theme.zIndex.drawer + 3,
+        background: 'rgba(240, 240, 240, .8)',
+        padding: 10,
+        borderRadius: "3em",
     },
 }));
 
@@ -69,7 +83,9 @@ export default function Gallery(props) {
     const [cbuffer, setCBuffer] = React.useState(0);
     const [entries, setEnries] = React.useState([]);
     const [playing, setPlaying] = React.useState(true);
+    const [wasPlaying, setWasPlaying] = React.useState(false);
     const [moved, setMoved] = React.useState(0);
+    const [openArtist, setOpenArtist] = React.useState(false);
 
     const movedEvent = () => {
         setMoved(Math.random()+1);
@@ -144,10 +160,21 @@ export default function Gallery(props) {
         }
     };
 
+    const handleOpenArtist = () => {
+        console.log("open");
+        setWasPlaying(playing);
+        setPlaying(false);
+        setOpenArtist(true);
+    }
+    const handleCloseArtist = () => {
+        setOpenArtist(false);
+        setPlaying(wasPlaying);
+    }
+
     const buffers = [];
     var entry;
     var key;
-    var artist;
+    var title;
     if (entries != null && entries.length !== 0) {
         for ( var i = 0; i < nbuffer; i++ ) {
             const nth = (current - 1 + i) % entries.length;
@@ -160,7 +187,7 @@ export default function Gallery(props) {
         }
         entry = entries[current];
         key = entry.key;
-        artist = entry.artist;
+        title = entry.title;
     }
 
     return (
@@ -171,15 +198,7 @@ export default function Gallery(props) {
                 </Fade>
               )
             }
-            <Backdrop className={classes.backdrop} open={moved} invisible={true}>
-                <div className={classes.navDiv}>
-                    <AppNavBar position="static" onForceRender={forceRender} />
-                </div>
-                {/* 
-                <Box item container background='white' padding={5}>
-                    {artist}
-                </Box>
-                */}
+            <Backdrop className={classes.backdrop} open={moved !== 0} invisible={true}>
                 <Grid
                         container
                         spacing={0}
@@ -211,6 +230,22 @@ export default function Gallery(props) {
                         </Grid>
                     </Grid>
                 </Grid>
+                <div className={classes.navDiv}>
+                    <AppNavBar position="static" onForceRender={forceRender} />
+                </div>
+                <Grid container justify='space-between' padding={4} className={classes.info}>
+                    <Grid item>
+                        <Typography variant='h5' >
+                            {title}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant='h5' >
+                            <Link onClick={handleOpenArtist} >More...</Link>
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={[entry]} />
             </Backdrop>
         </div>
     );
