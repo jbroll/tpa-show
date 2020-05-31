@@ -2,20 +2,16 @@ import React from 'react';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
 import Backdrop from '@material-ui/core/Backdrop';
-import IconButton from '@material-ui/core/IconButton';
-import ScaledImage from './ScaledImage';
-import PlayCircleOutlineSharpIcon from '@material-ui/icons/PlayCircleOutlineSharp';
-import ArrowBackIosSharpIcon from '@material-ui/icons/ArrowBackIosSharp';
-import ArrowForwardIosSharpIcon from '@material-ui/icons/ArrowForwardIosSharp';
-import AppNavBar from './AppNavBar';
-import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import _ from 'lodash';
 
+import AppNavBar from './AppNavBar';
 import ArtistDialog from './ArtistDialog'
+import ScaledImage from './ScaledImage';
 import TabGalleryEmpty from './TabGalleryEmpty';
+import ArtGalleryNav from './ArtGalleryNav';
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -42,11 +38,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'table',
         margin: '0 auto'
     },
-    backBox: {
-        position: 'absolute',
-        height: "100%",
-        top: 0
-    },
     info: {
         position: 'relative',
         topMargin: 10,
@@ -56,12 +47,6 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "3em",
     },
 }));
-
-const iconStyle = {
-        fontSize: '300%',
-        color: "black"
-    };
-
 
 export default function ArtGallery(props) { 
     const classes = useStyles();
@@ -73,6 +58,9 @@ export default function ArtGallery(props) {
     const [wasPlaying, setWasPlaying] = React.useState(false);
     const [moved, setMoved] = React.useState(0);
     const [openArtist, setOpenArtist] = React.useState(false);
+    const [entries, setEntries] = React.useState([]);
+    const [artists, setArtists] = React.useState([]);
+
 
     const movedEvent = () => {
         setMoved(Math.random()+1);
@@ -88,14 +76,13 @@ export default function ArtGallery(props) {
     React.useEffect(() => {
         if (!moved) { return; }
 
-        const timer = setTimeout(() => {
-            setMoved(0);
-        }, 5000)
-        return () => clearTimeout(timer);
-    }, [moved]);
-
-    const [entries, setEntries] = React.useState([]);
-    const [artists, setArtists] = React.useState([]);
+        if (entries.length > 0) {
+            const timer = setTimeout(() => {
+                setMoved(0);
+            }, 5000)
+            return () => clearTimeout(timer);
+        }
+    }, [entries, moved]);
 
     React.useEffect(() => {
         if (props.collections.artists == null || props.collections.entries == null) {
@@ -132,21 +119,18 @@ export default function ArtGallery(props) {
         return () => clearTimeout(timer);
     }, [advance, cbuffer, current, entries, playing]);
 
-    const handleGoBack = () => {
-        advance(-1);
-        movedEvent();
-    };
-    const handleGoForward = () => {
-        advance(1);
-        movedEvent();
-    };
-
-    const handlePauseOrPlay = () => {
-        setPlaying(!playing);
-        if (!playing) {
-            advance(1);
-            setMoved(0);
+    const handleNavClick = (n) => {
+        if ( n === 0) {
+            setPlaying(!playing);
+            if (!playing) {
+                advance(1);
+                setMoved(0);
+            }
+            return;
         }
+
+        advance(n);
+        movedEvent();
     };
 
     const handleOpenArtist = () => {
@@ -184,9 +168,13 @@ export default function ArtGallery(props) {
         title = entry.title;
     }
 
+    const showBackdrop = moved !== 0 || entries.length <= 0;
+    const showTabEmpty = props.collections.entries && entries.length <= 0;
+    const showNav = showBackdrop && entries.length > 0;
+
     return (
         <div className={classes.galleryDiv}>
-            { props.collections.entries && entries.length <= 0 ?
+            { showTabEmpty ?
                 <TabGalleryEmpty className={classes.img}/> :
                 buffers.map((buff, i) => 
                     <Fade key={buff.key} in={buff.key === key} timeout={1500}>
@@ -194,41 +182,9 @@ export default function ArtGallery(props) {
                     </Fade>
                 )
             }
-            <Backdrop className={classes.backdrop} open={moved !== 0} invisible={true}>
-                <Grid
-                        container
-                        spacing={0}
-                        align="center"
-                        justify="center"
-                        direction="column"
-                        className={classes.backBox} >
-                    <Grid item container justify='space-between' >
-                        <Grid item>
-                            <IconButton onClick={handleGoBack}>
-                                <ArrowBackIosSharpIcon style={iconStyle}/>
-                            </IconButton>
-                        </Grid>
-                        <Grid item >
-                            { playing ?
-                                <IconButton onClick={handlePauseOrPlay}>
-                                    <PlayCircleOutlineSharpIcon style={iconStyle}/>
-                                </IconButton>
-                            :
-                                <IconButton onClick={handlePauseOrPlay}>
-                                    <PauseCircleOutlineIcon style={iconStyle}/>
-                                </IconButton>
-                            }
-                        </Grid>
-                        <Grid item>
-                            <IconButton onClick={handleGoForward}>
-                                <ArrowForwardIosSharpIcon style={iconStyle}/>
-                            </IconButton>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <div>
-                    <AppNavBar position="static" onForceRender={props.onForceRender} />
-                </div>
+            <Backdrop className={classes.backdrop} open={showBackdrop} invisible={true}>
+                { showNav ? <ArtGalleryNav playing={playing} onClick={handleNavClick}/> : null }
+                <AppNavBar position="static" onForceRender={props.onForceRender} />
                 { title == null ? null :
                     <Grid container justify='space-between' padding={4} className={classes.info}>
                         <Grid item>

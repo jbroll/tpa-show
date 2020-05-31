@@ -1,10 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { makeStyles } from '@material-ui/core/styles';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 

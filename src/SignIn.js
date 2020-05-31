@@ -1,16 +1,16 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Redirect } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
 import { IsAuth, useAuth } from './ProvideAuth'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 
 import IconLink from './IconLink';
 

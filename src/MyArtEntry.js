@@ -7,8 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import ArtEntry from './ArtEntry';
 import { useAuth } from './ProvideAuth'
-import RDialog from './RDialog';
 import OkButton from './OkButton';
+import RDialog from './RDialog';
 
 const useStyles = makeStyles((theme) => ({
     title: {

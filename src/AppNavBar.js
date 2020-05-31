@@ -5,15 +5,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 //import { fade, makeStyles } from '@material-ui/core/styles';
 //import SearchIcon from '@material-ui/icons/Search';
 import Box from '@material-ui/core/Box';
-import TabConfirmReg from './TabConfirmReg';
-import { SignInOrOut } from './SignIn'
-import { IsAuth, IsAdmin } from './ProvideAuth'
-import IconLink from './IconLink'
-import MyArtEntry from './MyArtEntry'
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
 import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+
+import IconLink from './IconLink'
+import { IsAuth, IsAdmin } from './ProvideAuth'
+import MyArtEntry from './MyArtEntry'
+import TabConfirmReg from './TabConfirmReg';
+import { SignInOrOut } from './SignIn'
 
 /*
 const useStyles = makeStyles((theme) => ({

@@ -13,7 +13,7 @@ export default function(props) {
         <Grid container direction="row">
 
         <Grid md={6} item>
-            <Typography >
+            <Typography variant="h6">
                 <b>Twilight Park Artists</b> Online Art Show 2020
             </Typography>
             <p>
