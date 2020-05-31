@@ -5,12 +5,19 @@ import ArtItem from "./ArtItem";
 import DocEdit from "./DocEdit";
 import DocField from "./DocField";
 import DocCheckbox from "./DocCheckbox";
+import { useAuth } from './ProvideAuth';
 
 export default function ArtEntry(props) {
 
-  return (
-      <div>
-        <Grid container direction="column" >
+    const auth = useAuth();
+
+    const handleEMailSave = (field, checked, doc) => {
+        doc.fieldSave("email", checked ? auth.user.email : "");
+    }
+
+    return (
+        <div>
+          <Grid container direction="column" >
             <DocEdit document={`artists/${props.uid}`}>
                 <Grid container spacing={4} direction="row">
                     <Grid container item spacing={1} xs={12} md={6}>
@@ -21,7 +28,8 @@ export default function ArtEntry(props) {
                             <DocField label="Last Name" field="last"  size={30}/>
                         </Grid>
                         <Grid item xs={12} md={12}>
-                            <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" />
+                            <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" 
+                                onSave={handleEMailSave} />
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <DocField label="Web Site" field="url" size={80}/>
@@ -38,6 +46,6 @@ export default function ArtEntry(props) {
                 <ArtItem uid={props.uid} n={2} />
             </Grid>
           </Grid>
-    </div>
-  );
+        </div>
+    );
 }

@@ -1,16 +1,17 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
+import MailTo from './MailTo'
 import { useAuth } from './ProvideAuth'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { validateEmail, uiConfig } from './SignIn';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const body = encodeURI(
-`
+const body = `
 I'm interested in registering for the Twilight Park 2020 Online Art Show.  Here is my contact information:
 
 Name:
@@ -51,17 +51,10 @@ Mailing address:
   ZIP:
 
   Thanks!!
-  `)
-const mailTo=`mailto:twilightartshow@gmail.com?subject=Online Art Show Registration Request&body=${body}`;
+`;
 
 export function MailToTPA() {
-    return (
-          <a target="_top"
-                rel="noopener noreferrer"
-                href={mailTo} >
-            twilightartshow@gmail.com
-          </a>
-    );
+    return <MailTo email="twilightartshow@gmail.com" subject="Online Art Show Registration Request" body={body} />;
 }
 
 export default function Welcome() {

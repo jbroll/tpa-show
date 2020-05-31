@@ -1,10 +1,10 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
-import Grid from '@material-ui/core/Grid';
 import Backdrop from '@material-ui/core/Backdrop';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 
 import AppNavBar from './AppNavBar';
@@ -152,6 +152,7 @@ export default function ArtGallery(props) {
     var entry;
     var key;
     var title;
+    var artistName;
     if (entries.length !== 0) {
         for ( var i = 0; i < Math.min(nbuffer, entries.length); i++ ) {
             const nth = (current - 1 + i) % entries.length;
@@ -166,6 +167,7 @@ export default function ArtGallery(props) {
         entry.artist = getArtist(entry.key);
         key = entry.key;
         title = entry.title;
+        artistName = `${entry.artist.first} ${entry.artist.last}`; 
     }
 
     const showTabEmpty = props.collections.entries && entries.length <= 0;
@@ -186,18 +188,17 @@ export default function ArtGallery(props) {
                 <AppNavBar position="static" onForceRender={props.onForceRender} />
                 { showTabEmpty ? <TabGalleryEmpty className={classes.img}/> : null }
                 { title == null ? null :
-                    <Grid container justify='space-between' padding={4} className={classes.info}>
-                        <Grid item>
-                            <Typography variant='h5' >
+                    <Box className={classes.info} tm={4} display="grid" maxWidth={600} >
+                            <Typography variant='h6' >
                                 {title}
                             </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant='h5' >
-                                <Link onClick={handleOpenArtist} >More...</Link>
+                            <Typography variant='h6' >
+                                {entry.media}
                             </Typography>
-                        </Grid>
-                    </Grid>
+                            <Typography variant='h6' >
+                                by <Link onClick={handleOpenArtist} >{artistName}</Link>
+                            </Typography>
+                    </Box>
                 }
                 { entry == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={[entry]} />}
             </Backdrop>
