@@ -3,11 +3,12 @@ import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import DragAndDrop from './DraqAndDrop';
-import { DocContext } from './DocEdit'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import * as firebase from "firebase/app";
 import "firebase/storage";
+
+import { DocContext } from './DocEdit'
+import DragAndDrop from './DraqAndDrop';
 
 const getId = function() {
     const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

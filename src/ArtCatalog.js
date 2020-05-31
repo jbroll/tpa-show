@@ -82,7 +82,9 @@ export default function Catalog(props) {
         )
     ).filter(v => v != null);
 
-    if (props.collections.entries && data.length <= 0) {
+    if (props.collections.entries == null) { return null }
+
+    if (data.length <= 0) {
         return <TabGalleryEmpty />;
     }
 
