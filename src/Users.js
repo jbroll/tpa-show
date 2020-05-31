@@ -2,11 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import MuiTableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,19 +10,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ArtEntry from './ArtEntry';
 import DialogButton from './DialogButton';
 import DocEdit from './DocEdit';
 import DocCheckbox from './DocCheckbox';
-
-const TableCell = withStyles({
-    root: {
-      borderBottom: "none",
-      padding: 0
-    }
-  })(MuiTableCell);
+import OkButton from './OkButton';
+import Sortable from './Sortable';
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -110,6 +100,51 @@ export default function Users(props) {
 
     }
 
+    const renderPlus = () => {
+        return (
+            <Button onClick={handleOpenCreateUser}>
+                <AddCircleTwoToneIcon />
+            </Button>
+        )
+    }
+
+    const renderArtEntry = (cell, index, cellConfig, row, rowConfig) => {
+        return (
+            <Link onClick={() => { handleOpenEntryOf(row) }}>{cell}
+            </Link>
+        );
+    }
+
+    const renderRegistered = (cell, index, cellConfig, row, rowConfig) => {
+        return (
+            <Checkbox checked={cell} className={classes.checkbox}
+                onChange={e => { handleSetClaim(row.uid, 'reg', e.target.checked) }}
+                name="registered" inputProps={{ 'aria-label': 'Registered' }} />
+        );
+    }
+    const renderAdmin = (cell, index, cellConfig, row, rowConfig) => {
+        return (
+            <Checkbox checked={cell} className={classes.checkbox}
+                onChange={e => { handleSetClaim(row.uid, 'adm', e.target.checked) }}
+                name="admin" inputProps={{ 'aria-label': 'Admin' }} />
+        );
+    }
+
+    const renderDelete = (cell, index, cellConfig, row, rowConfig) => {
+        return (
+            <Button onClick={e => { handleOpenDeleteUser(user) }} >
+                <DeleteIcon />
+            </Button>
+        );
+    }
+
+    const tableConfig = [
+    { id: 'email',        label: 'EMail',         sortable: true,  cellRender: renderArtEntry},
+    { id: 'registered',   label: 'Registered',    sortable: true,  cellRender: renderRegistered},
+    { id: 'admin',        label: 'Admin',         sortable: true,  cellRender: renderAdmin},
+    { id: 'delete',       label: '',              sortable: false, cellRender: renderDelete, headRender: renderPlus},
+    ];
+
     const users = props.users;
 
     return (
@@ -118,52 +153,12 @@ export default function Users(props) {
             <DocCheckbox label="Art Show is Open" field="showIsOpen" />
             <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
           </DocEdit>
-          <Table stickyHeader>
-              <TableHead>
-                  <TableRow>
-                    <TableCell>User</TableCell>
-                    <TableCell>Registered</TableCell>
-                    <TableCell>Admin</TableCell>
-                    <TableCell>
-                        <Button onClick={handleOpenCreateUser}>
-                            <AddCircleTwoToneIcon/>
-                        </Button>
-                    </TableCell>
-                  </TableRow>
-              </TableHead>
-              <TableBody>
-              {users.map(user => 
-                  <TableRow key={user.uid}>
-                    <TableCell>
-                        <Link onClick={() => { handleOpenEntryOf(user) }}>{user.email}
-                        </Link>
-                    </TableCell>
-                    <TableCell>
-                        <Checkbox   checked={user.registered} className={classes.checkbox}
-                                    onChange={e => { handleSetClaim(user.uid, 'reg', e.target.checked)}} 
-                                    name="registered" inputProps={{ 'aria-label': 'Registered' }} />
-                    </TableCell>
-                    <TableCell>
-                        <Checkbox   checked={user.admin} className={classes.checkbox}
-                                    onChange={e => { handleSetClaim(user.uid, 'adm', e.target.checked)}} 
-                                    name="admin" inputProps={{ 'aria-label': 'Admin' }} />
-                    </TableCell>
-                    <TableCell>
-                        <Button onClick={e => {handleOpenDeleteUser(user)}} >
-                            <DeleteIcon />
-                        </Button>
-                    </TableCell>
-                  </TableRow>
-              )}
-              </TableBody>
-          </Table>
+          <Sortable config={tableConfig} rows={users} rowKey={row => row.uid} stickyHeader padding="none"/>
 
           <Dialog   open={openDialog === "ArtEntry"} maxWidth="md" fullWidth={true} 
                     onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Artist - {artEntry.email}
-                <Button onClick={handleCloseDialog} color="primary">
-                    Close
-                </Button>
+                <OkButton onClick={handleCloseDialog}/>
             </DialogTitle>
             <DialogContent>
                 <ArtEntry uid={artEntry.uid} />
