@@ -168,8 +168,8 @@ export default function ArtGallery(props) {
         title = entry.title;
     }
 
-    const showBackdrop = moved !== 0 || entries.length <= 0;
     const showTabEmpty = props.collections.entries && entries.length <= 0;
+    const showBackdrop = moved !== 0 || showTabEmpty;
     const showNav = showBackdrop && entries.length > 0;
 
     return (
