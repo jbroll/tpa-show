@@ -90,7 +90,8 @@ export default function Catalog(props) {
 
     return (
         <div className={classes.galleryDiv}>
-          <Table>
+            <br />
+          <Table stickyHeader>
               <TableHead>
                   <TableRow>
                     <TableCell>Artist</TableCell>
