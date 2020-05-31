@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Catalog(props) { 
     const classes = useStyles();
     const [openArtist, setOpenArtist] = React.useState(false);
-    const [artistEntries, setArtistEntries] = React.useState([{}])
+    const [artistEntries, setArtistEntries] = React.useState(null);
 
     const mapToList = function(o, f) {
         var result = []
@@ -70,8 +70,7 @@ export default function Catalog(props) {
 
     const getArtist = (ekey) => {
         const akey = ekey.substr(0, ekey.length-2);
-        return artists[akey] == null ? null :
-            `${artists[akey].first} ${artists[akey].last}`
+        return artists[akey];
     }
 
     const data = mapToList(entries, (e, key) => 
@@ -86,7 +85,6 @@ export default function Catalog(props) {
     if (props.collections.entries && data.length <= 0) {
         return <TabGalleryEmpty />;
     }
-    console.log(entries.length);
 
     return (
         <div className={classes.galleryDiv}>
@@ -103,7 +101,7 @@ export default function Catalog(props) {
               {data.map(e => 
                   <TableRow key={e.key}>
                     <TableCell>
-                        <Link onClick={() => { handleOpenArtistN(e) }}>{e.artist}
+                        <Link onClick={() => { handleOpenArtistN(e) }}>{e.artist.first} {e.artist.last}
                         </Link>
                     </TableCell>
                     <TableCell>
@@ -116,7 +114,7 @@ export default function Catalog(props) {
               )}
               </TableBody>
           </Table>
-          <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={artistEntries} />
+          { artistEntries == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={artistEntries} />}
         </div>
     );
 }

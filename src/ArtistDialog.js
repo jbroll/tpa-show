@@ -13,7 +13,7 @@ export default function ArtistDialog(props) {
 
     return (
         <RDialog open={props.open} onClose={props.onClose} >
-        <DialogTitle>Artist - {artist}
+        <DialogTitle>Artist - {artist.first} {artist.last}
             <OkButton onClick={props.onClose}/>
         </DialogTitle>
         <DialogContent>
