@@ -12,6 +12,9 @@ export default function DocCheckbox(props) {
             {(context => {
                 const handleChange = (e) => {
                     context.fieldSave(props.field, e.target.checked);
+                    if (props.onSave != null) {
+                        props.onSave(props.field, e.target.checked, context);
+                    }
                 };
 
                 var checked = context.fieldValue(props.field);

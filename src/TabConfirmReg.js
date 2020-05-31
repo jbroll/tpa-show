@@ -6,6 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 
+import { MailToTPA } from './TabWelcome';
+
 export default function ConfirmRegistration(props) {
   const [open, setOpen] = React.useState(false);
 
@@ -30,7 +32,7 @@ export default function ConfirmRegistration(props) {
             We are sorry that the email address with which you have signed in is 
             not on the list of pre-registered artists.  To register and be approved
             to post your work to the show please contact the Twilight Park Artists show 
-            committee at xxxxxx@xxxxxx.com.  Thank you!
+            committee at&ensp; <MailToTPA />.  Thank you!
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

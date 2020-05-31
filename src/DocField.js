@@ -59,25 +59,32 @@ export default function DocField(props) {
 
     return (
         <DocContext.Consumer>
-            {(context => {
+            {(doc => {
+
+                const fieldSave = (field) => {
+                    doc.fieldSave(props.field);
+                    if (props.onSave != null) {
+                        props.onSave(props.field, doc.fieldValue(field), doc);
+                    }
+                } 
 
                 const handleKeyDown = (e) => {
                     if (e.keyCode === 13) {
-                        context.fieldSave(props.field);
+                        fieldSave(props.field);
                     }
                 }
                 const handleBlur = (e) => {
-                    context.fieldSave(props.field);
+                    fieldSave(props.field);
                 }
                 const handleChange = (e, value) => {
                     if (value == null) {
                         value = checkFormat(props.format, e.target.value);
                     }
-                    context.onChange(value, props.field);
+                    doc.onChange(value, props.field);
                 }
 
                 const {field, size, format, ...rest} = props; 
-                const value = checkFormat(format, context.fieldValue(props.field));
+                const value = checkFormat(format, doc.fieldValue(props.field));
 
                 const textfield = (
                     <TextField className={classes.textField}
