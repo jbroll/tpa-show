@@ -1,21 +1,10 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import MuiTableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ArtistDialog from './ArtistDialog';
 import TabGalleryEmpty from './TabGalleryEmpty';
-
-const TableCell = withStyles({
-    root: {
-      borderBottom: "none",
-      padding: "6px"
-    }
-  })(MuiTableCell);
+import Sortable from './Sortable';
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -76,6 +65,7 @@ export default function Catalog(props) {
     const data = mapToList(entries, (e, key) => 
         e.title == null ? null : (
             { artist: getArtist(key), 
+              last: getArtist(key).last,
               key: key,
               ...e
             }
@@ -88,35 +78,34 @@ export default function Catalog(props) {
         return <TabGalleryEmpty />;
     }
 
+    const renderArtist = (cell, index, cellConfig, row, rowConfig) => {
+        return (
+            <Link onClick={() => { handleOpenArtistN(row) }}>{row.artist.first} {row.artist.last}
+            </Link>
+        );
+    }
+    const renderTitle = (cell, index, cellConfig, row, rowConfig) => {
+        return (
+            <Link onClick={() => { handleOpenArtist1(row) }}>{cell}
+            </Link>
+        );
+    }
+    const renderSize = (cell, index, cellConfig, row, rowConfig) => {
+        return `${row.height || "?"} x ${row.width || "?"}`;
+    }
+
+    const tableConfig = [
+    { id: 'last',  label: 'Artist', sortable: true,  cellRender: renderArtist},
+    { id: 'title', label: 'Title',  sortable: true,  cellRender: renderTitle},
+    { id: 'media', label: 'Media',  sortable: true},
+    { id: 'width', label: 'Size',   sortable: false,  cellRender: renderSize},
+    { id: 'price', label: 'Price',  sortable: true},
+    ];
+
     return (
         <div className={classes.galleryDiv}>
             <br />
-          <Table stickyHeader>
-              <TableHead>
-                  <TableRow>
-                    <TableCell>Artist</TableCell>
-                    <TableCell>Title</TableCell>
-                    <TableCell>Media</TableCell>
-                    <TableCell>Price</TableCell>
-                  </TableRow>
-              </TableHead>
-              <TableBody>
-              {data.map(e => 
-                  <TableRow key={e.key}>
-                    <TableCell>
-                        <Link onClick={() => { handleOpenArtistN(e) }}>{e.artist.first} {e.artist.last}
-                        </Link>
-                    </TableCell>
-                    <TableCell>
-                        <Link onClick={() => { handleOpenArtist1(e) }}>{e.title}
-                        </Link>
-                    </TableCell>
-                    <TableCell>{e.media}</TableCell>
-                    <TableCell>{e.price}</TableCell>
-                  </TableRow>
-              )}
-              </TableBody>
-          </Table>
+          <Sortable config={tableConfig} rows={data} rowKey={row => row.key} stickyHeader padding="none"/>
           { artistEntries == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={artistEntries} />}
         </div>
     );
