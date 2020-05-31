@@ -174,8 +174,7 @@ export default function ArtGallery(props) {
 
     return (
         <div className={classes.galleryDiv}>
-            { showTabEmpty ?
-                <TabGalleryEmpty className={classes.img}/> :
+            { showTabEmpty ? null :
                 buffers.map((buff, i) => 
                     <Fade key={buff.key} in={buff.key === key} timeout={1500}>
                         <ScaledImage className={classes.img} src={buff.image} alt="Art Gallery"/>
@@ -185,6 +184,7 @@ export default function ArtGallery(props) {
             <Backdrop className={classes.backdrop} open={showBackdrop} invisible={true}>
                 { showNav ? <ArtGalleryNav playing={playing} onClick={handleNavClick}/> : null }
                 <AppNavBar position="static" onForceRender={props.onForceRender} />
+                { showTabEmpty ? <TabGalleryEmpty className={classes.img}/> : null }
                 { title == null ? null :
                     <Grid container justify='space-between' padding={4} className={classes.info}>
                         <Grid item>
