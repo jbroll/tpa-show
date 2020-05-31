@@ -1,8 +1,9 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { DocContext } from './DocEdit'
 import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+
+import { DocContext } from './DocEdit'
 
 const useStyles = makeStyles((theme) => ({
     textField: {

@@ -1,6 +1,4 @@
 import React from 'react';
-import ArtEntry from './ArtEntry';
-import DialogButton from './DialogButton';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -17,9 +15,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+
+import ArtEntry from './ArtEntry';
+import DialogButton from './DialogButton';
 import DocEdit from './DocEdit';
 import DocCheckbox from './DocCheckbox';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const TableCell = withStyles({
     root: {

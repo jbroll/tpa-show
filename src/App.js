@@ -1,15 +1,7 @@
 import React from 'react';
-import './App.css';
-import TabWelcome from './TabWelcome.js'
-import ArtCatalog from './ArtCatalog'
-import UserData from './UserData'
-import Users from './Users'
 import {Helmet} from "react-helmet";
-import { SignInPage } from './SignIn'
-import { IsAdmin, useAuth } from './ProvideAuth'
-import { useConfig } from "./DocConfig";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import grey from '@material-ui/core/colors/grey';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,18 +10,21 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-import {
-  createMuiTheme,
-  MuiThemeProvider
-} from "@material-ui/core/styles";
-
+import './App.css';
 import AppNavBar from './AppNavBar';
-import ProvideAuth from './ProvideAuth';
+import ArtCatalog from './ArtCatalog'
 import ArtGallery from './ArtGallery'
 import DocCollection from './DocCollection';
 import DocConfig from './DocConfig';
 import TabMainPage from './TabMainPage';
 import TabShowIsClosed from './TabShowIsClosed';
+import TabWelcome from './TabWelcome.js'
+import UserData from './UserData'
+import Users from './Users'
+import { SignInPage } from './SignIn'
+import ProvideAuth from './ProvideAuth';
+import { IsAdmin, useAuth } from './ProvideAuth'
+import { useConfig } from "./DocConfig";
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -65,6 +60,8 @@ function AppTabRoutes() {
       return false;
   }
 
+  const showGalleryAndCatalog = config.value.showIsOpen || (auth.claims && auth.claims.reg);
+
   return (
       <div className="App" style={styles.App}>
         <Helmet>
@@ -72,7 +69,7 @@ function AppTabRoutes() {
           <meta name="description" content="Twilight Park Artists Online Art Show - 2020" />
         </Helmet>
 
-        { useRouteMatch("/gallery") && (config.value.showIsOpen || (auth.claims && auth.claims.reg)) ? null :
+        { useRouteMatch("/gallery") && showGalleryAndCatalog ? null :
           <AppNavBar position="static" onForceRender={forceRender} />
         }
 
@@ -83,7 +80,7 @@ function AppTabRoutes() {
               <meta name="description" 
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
-            { config.value.showIsOpen || (auth.claims && auth.claims.reg) ?
+            { showGalleryAndCatalog ?
               <DocCollection key='gallery' collections={['artists', 'entries']} filter={uidFilter}>
                   { collections => (<ArtGallery collections={collections} onForceRender={forceRender}/>) }
               </DocCollection> :
@@ -96,7 +93,7 @@ function AppTabRoutes() {
               <meta name="description" 
                     content="A catalog of art show entries with links ot artist's pages and individual show entries" />
             </Helmet>
-            { config.value.showIsOpen || (auth.claims && auth.claims.reg) ?
+            { showGalleryAndCatalog ?
               <DocCollection key='catalog' collections={['artists', 'entries']} filter={uidFilter}>
                   { collections => (<ArtCatalog collections={collections} />) }
               </DocCollection> :

@@ -4,11 +4,11 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import MuiTableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import TabGalleryEmpty from './TabGalleryEmpty';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import ArtistDialog from './ArtistDialog';
+import TabGalleryEmpty from './TabGalleryEmpty';
 
 const TableCell = withStyles({
     root: {

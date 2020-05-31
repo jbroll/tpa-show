@@ -1,11 +1,11 @@
 
 import React from 'react';
-import Artist from './Artist';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import RDialog from './RDialog';
 
+import Artist from './Artist';
 import OkButton from './OkButton';
+import RDialog from './RDialog';
 
 export default function ArtistDialog(props) {
 

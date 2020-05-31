@@ -4,19 +4,21 @@ import Typography from '@material-ui/core/Typography';
 
 export default function TabGalleryEmpty(props) {
   return (
-      <Box maxWidth={200}>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
+        <Box display="grid" justifyContent="center" alignContent="flex-end" >
+            <Box maxWidth={500}>
+                <br />
+                <br />
+                <br />
+                <br />
                 <Typography variant="h6">
                     The galery is not open yet! 
                 </Typography>
                 <br />
                 <br />
                 <Typography variant="h6">
-                    Please return after August 1st to view the gallery.
+                    Please return after August 1st to view the show.
                 </Typography>
-      </Box>
+            </Box>
+        </Box>
   );
 }
