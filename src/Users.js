@@ -25,7 +25,7 @@ import DocCheckbox from './DocCheckbox';
 const TableCell = withStyles({
     root: {
       borderBottom: "none",
-      padding: "2px"
+      padding: 0
     }
   })(MuiTableCell);
 
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         heigth: "100%",
         width: "100%"
+    },
+    checkbox: {
+        padding: 2
     }
 }));
 
@@ -115,7 +118,7 @@ export default function Users(props) {
             <DocCheckbox label="Art Show is Open" field="showIsOpen" />
             <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
           </DocEdit>
-          <Table>
+          <Table stickyHeader>
               <TableHead>
                   <TableRow>
                     <TableCell>User</TableCell>
@@ -136,12 +139,12 @@ export default function Users(props) {
                         </Link>
                     </TableCell>
                     <TableCell>
-                        <Checkbox   checked={user.registered} 
+                        <Checkbox   checked={user.registered} className={classes.checkbox}
                                     onChange={e => { handleSetClaim(user.uid, 'reg', e.target.checked)}} 
                                     name="registered" inputProps={{ 'aria-label': 'Registered' }} />
                     </TableCell>
                     <TableCell>
-                        <Checkbox   checked={user.admin} 
+                        <Checkbox   checked={user.admin} className={classes.checkbox}
                                     onChange={e => { handleSetClaim(user.uid, 'adm', e.target.checked)}} 
                                     name="admin" inputProps={{ 'aria-label': 'Admin' }} />
                     </TableCell>
