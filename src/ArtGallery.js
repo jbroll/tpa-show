@@ -159,6 +159,11 @@ export default function ArtGallery(props) {
         setPlaying(wasPlaying);
     }
 
+    const getArtist = (ekey) => {
+        const akey = ekey.substr(0, ekey.length-2);
+        return artists[akey];
+    }
+
     const buffers = [];
     var entry;
     var key;
@@ -174,6 +179,7 @@ export default function ArtGallery(props) {
             }
         }
         entry = entries[current];
+        entry.artist = getArtist(entry.key);
         key = entry.key;
         title = entry.title;
     }
@@ -237,7 +243,7 @@ export default function ArtGallery(props) {
                         </Grid>
                     </Grid>
                 }
-                <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={[entry]} />
+                { entry == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={[entry]} />}
             </Backdrop>
         </div>
     );
