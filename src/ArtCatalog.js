@@ -62,13 +62,16 @@ export default function Catalog(props) {
         return artists[akey];
     }
 
-    const data = mapToList(entries, (e, key) => 
-        e.title == null ? null : (
-            { artist: getArtist(key), 
-              last: getArtist(key).last,
+    const data = mapToList(entries, (e, key) => {
+        const artist = getArtist(key);
+
+        return e.title == null ? null : (
+            { artist: artist, 
+              name: `${artist.first} ${artist.last}`,
               ...e
             }
         )
+    }
     ).filter(v => v != null);
 
     if (props.collections.entries == null) { return null }
@@ -83,7 +86,7 @@ export default function Catalog(props) {
         }
 
         return (
-            <Link onClick={() => { handleOpenArtistN(row) }}>{row.artist.first} {row.artist.last}
+            <Link onClick={() => { handleOpenArtistN(row) }}>{cell}
             </Link>
         );
     }
@@ -98,7 +101,7 @@ export default function Catalog(props) {
     }
 
     const tableConfig = [
-    { id: 'last',  label: 'Artist', sortable: true,  cellRender: renderArtist},
+    { id: 'name',  label: 'Artist', sortable: true,  cellRender: renderArtist},
     { id: 'title', label: 'Title',  sortable: true,  cellRender: renderTitle},
     { id: 'media', label: 'Media',  sortable: true},
     { id: 'width', label: 'Size',   sortable: false,  cellRender: renderSize},
@@ -108,7 +111,7 @@ export default function Catalog(props) {
     return (
         <div className={classes.galleryDiv}>
             <br />
-          <Sortable config={tableConfig} rows={data} rowKey={row => row.key} stickyHeader padding="none"/>
+          <Sortable config={tableConfig} rows={data} rowKey={row => row.key} stickyHeader search padding="none"/>
           { artistEntries == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={artistEntries} />}
         </div>
     );

@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
+import SearchBox from './SearchBox'
+
 const TableCell = withStyles({
   root: {
     borderBottom: "none",
@@ -42,13 +44,20 @@ function stableSort(array, comparator) {
 }
 
 function EnhancedTableHead(props) {
-  const { header, order, orderBy, onRequestSort } = props;
+  const { header, order, orderBy, onRequestSort, onRequestSearch } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
+      { !props.search ? null :
+        <TableRow>
+          <TableCell colSpan={header.length} align="right">
+            <SearchBox onChange={onRequestSearch}/>
+          </TableCell>
+        </TableRow>
+      }
       <TableRow>
         {header.map((headCell, index) => (
           <TableCell
@@ -82,28 +91,37 @@ EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
+  search: PropTypes.bool,
 };
 
 EnhancedTable.propTypes = {
   config: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
+  rowKey: PropTypes.func.isRequired,
+  rowRender: PropTypes.func,
+  search: PropTypes.bool,
   classes: PropTypes.object,
 };
 
 export default function EnhancedTable(props) {
-  var { config, rows, classes, rowKey, rowProps, rowRender, ...rest } = props;
+  var { config, rows, classes, rowKey, rowProps, rowRender, search, ...rest } = props;
 
   if (classes == null) {
     classes = {};
   }
 
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('');
+  const [searchFor, setSearchFor] = React.useState('');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+  };
+
+  const handleRequestSearch = (e) => {
+    setSearchFor(e.target.value);
   };
 
   return (
@@ -114,10 +132,29 @@ export default function EnhancedTable(props) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
+              search={search}
+              onRequestSearch={handleRequestSearch}
             />
             <TableBody>
               { 
                   stableSort(rows, getComparator(order, orderBy))
+                  .filter((row) => {
+                    if ( searchFor === '') {
+                      return true;
+                    }
+                    for (var term of searchFor.split(" ")) {
+                      if (term === '') { continue; }
+                      for (var i = 0; i < config.length; i++) {
+                        if (row[config[i].id] && row[config[i].id].indexOf(term) !== -1) {
+                          break;
+                        }
+                      }
+                      if (i === config.length) {
+                        return false;
+                      }
+                    }
+                    return true;
+                  })
                   .map((row, rowIndex, sortedRows) => {
                       if (rowRender != null) {
                           return rowRender(row, rowIndex, config);
