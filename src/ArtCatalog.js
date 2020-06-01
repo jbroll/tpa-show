@@ -66,7 +66,6 @@ export default function Catalog(props) {
         e.title == null ? null : (
             { artist: getArtist(key), 
               last: getArtist(key).last,
-              key: key,
               ...e
             }
         )
@@ -78,19 +77,23 @@ export default function Catalog(props) {
         return <TabGalleryEmpty />;
     }
 
-    const renderArtist = (cell, index, cellConfig, row, rowConfig) => {
+    const renderArtist = (cell, index, cellConfig, row, rowIndex, rowConfig, rows) => {
+        if (rowIndex > 0 && row.artist.key === rows[rowIndex-1].artist.key) {
+            return null;
+        }
+
         return (
             <Link onClick={() => { handleOpenArtistN(row) }}>{row.artist.first} {row.artist.last}
             </Link>
         );
     }
-    const renderTitle = (cell, index, cellConfig, row, rowConfig) => {
+    const renderTitle = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
         return (
             <Link onClick={() => { handleOpenArtist1(row) }}>{cell}
             </Link>
         );
     }
-    const renderSize = (cell, index, cellConfig, row, rowConfig) => {
+    const renderSize = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
         return `${row.height || "?"} x ${row.width || "?"}`;
     }
 

@@ -108,21 +108,21 @@ export default function Users(props) {
         )
     }
 
-    const renderArtEntry = (cell, index, cellConfig, row, rowConfig) => {
+    const renderArtEntry = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
         return (
             <Link onClick={() => { handleOpenEntryOf(row) }}>{cell}
             </Link>
         );
     }
 
-    const renderRegistered = (cell, index, cellConfig, row, rowConfig) => {
+    const renderRegistered = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
         return (
             <Checkbox checked={cell} className={classes.checkbox}
                 onChange={e => { handleSetClaim(row.uid, 'reg', e.target.checked) }}
                 name="registered" inputProps={{ 'aria-label': 'Registered' }} />
         );
     }
-    const renderAdmin = (cell, index, cellConfig, row, rowConfig) => {
+    const renderAdmin = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
         return (
             <Checkbox checked={cell} className={classes.checkbox}
                 onChange={e => { handleSetClaim(row.uid, 'adm', e.target.checked) }}
