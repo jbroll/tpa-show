@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default function IconLink(props) {
     const classes = useStyles();
     return <Link to={props.to} onClick={props.onClick} style={{textDecoration: "none"}}>
-        { props.icon ? <Box m={2} mr={3} className={classes.iconSM}><props.icon /></Box> : null}
+        { props.icon ? <Box m={0} mr={3} className={classes.iconSM}><props.icon fontSize="large"/></Box> : null}
 
         <Box mr={2} className={props.icon ? classes.titleMD : classes.title} >
         <Typography className={classes.title} variant="h6" noWrap>
