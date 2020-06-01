@@ -116,30 +116,32 @@ export default function EnhancedTable(props) {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .map((row, index) => {
+              { 
+                  stableSort(rows, getComparator(order, orderBy))
+                  .map((row, rowIndex, sortedRows) => {
+                      if (rowRender != null) {
+                          return rowRender(row, rowIndex, config);
+                      } 
 
-                    if (rowRender != null) {
-                        return rowRender(row, index, config);
-                    } 
-
-                    return (
-                        <TableRow key={rowKey(row)} {...rowProps} >
-                            { config.map((cellConfig, colNumber) => {
-                              return (
-                                <TableCell key={cellConfig.id} align={cellConfig.align}>
-                                  {
-                                      cellConfig.cellRender ?
-                                        cellConfig.cellRender(row[cellConfig.id], colNumber, cellConfig, row, config) :
-                                        (row[cellConfig.id] || "?")
-                                  }
-                                </TableCell>
-                              )
-                            })
-                          }
-                        </TableRow>
-                    );
-                })}
+                      return (
+                          <TableRow key={rowKey(row)} {...rowProps} >
+                              { config.map((cellConfig, colNumber) => {
+                                return (
+                                  <TableCell key={cellConfig.id} align={cellConfig.align}>
+                                    {
+                                        cellConfig.cellRender ?
+                                          cellConfig.cellRender(
+                                            row[cellConfig.id], colNumber, cellConfig, row, rowIndex, config, sortedRows) :
+                                          (row[cellConfig.id] || "?")
+                                    }
+                                  </TableCell>
+                                )
+                              })
+                            }
+                          </TableRow>
+                      );
+                  })
+              }
             </TableBody>
           </Table>
     </div>
