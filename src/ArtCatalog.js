@@ -68,6 +68,12 @@ export default function Catalog(props) {
         return e.title == null ? null : (
             { artist: artist, 
               name: `${artist.first} ${artist.last}`,
+              size: `${e.height || "?"} x ${e.width || "?"}`,
+              
+              // Sortable column data
+              NAME: `${artist.last.toLowerCase()}, ${artist.first.toLowerCase()}`,
+              TITLE: e.title.toLowerCase(),
+              PRICE: e.price && Number(e.price.replace(/[^-0-9.]/g, "")),
               ...e
             }
         )
@@ -96,16 +102,12 @@ export default function Catalog(props) {
             </Link>
         );
     }
-    const renderSize = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
-        return `${row.height || "?"} x ${row.width || "?"}`;
-    }
-
     const tableConfig = [
-    { id: 'name',  label: 'Artist', sortable: true,  cellRender: renderArtist},
-    { id: 'title', label: 'Title',  sortable: true,  cellRender: renderTitle},
-    { id: 'media', label: 'Media',  sortable: true},
-    { id: 'width', label: 'Size',   sortable: false,  cellRender: renderSize},
-    { id: 'price', label: 'Price',  sortable: true},
+    { id: 'name',  label: 'Artist', sort: "NAME",   cellRender: renderArtist},
+    { id: 'title', label: 'Title',  sort: "TITLE",  cellRender: renderTitle},
+    { id: 'media', label: 'Media',  sort: "media"},
+    { id: 'size',  label: 'Size'},
+    { id: 'price', label: 'Price',  sort: "PRICE",  align: "right"},
     ];
 
     return (

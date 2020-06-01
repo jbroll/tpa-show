@@ -18,12 +18,11 @@ const TableCell = withStyles({
 })(MuiTableCell);
 
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
+  a = a[orderBy];
+  b = b[orderBy];
+
+  if (b < a) { return -1; }
+  if (b > a) { return 1; }
   return 0;
 }
 
@@ -68,11 +67,11 @@ function EnhancedTableHead(props) {
           >
             { 
               headCell.headRender ? headCell.headRender(headCell, index) : (
-                headCell.sortable ? 
+                headCell.sort !== undefined ? 
                 <TableSortLabel
                   active={orderBy === headCell.id}
                   direction={orderBy === headCell.id ? order : 'asc'}
-                  onClick={createSortHandler(headCell.id)}
+                  onClick={createSortHandler(headCell.sort)}
                 >
                   {headCell.label}
                 </TableSortLabel> :
@@ -110,6 +109,14 @@ export default function EnhancedTable(props) {
     classes = {};
   }
 
+  config = config.map(row => {
+    return {
+      ...row,
+      sort: row.sort === true ? row.id : row.sort,
+      search: row.search === undefined ? row.id : row.search,
+    }
+  });
+
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [searchFor, setSearchFor] = React.useState('');
@@ -124,6 +131,7 @@ export default function EnhancedTable(props) {
     setSearchFor(e.target.value);
   };
 
+  console.log(config);
   return (
     <div className={classes.root}>
           <Table className={classes.table} {...rest} >
@@ -145,7 +153,7 @@ export default function EnhancedTable(props) {
                     for (var term of searchFor.split(" ")) {
                       if (term === '') { continue; }
                       for (var i = 0; i < config.length; i++) {
-                        if (row[config[i].id] && row[config[i].id].indexOf(term) !== -1) {
+                        if (config[i].search && row[config[i].search] && row[config[i].search].indexOf(term) !== -1) {
                           break;
                         }
                       }
