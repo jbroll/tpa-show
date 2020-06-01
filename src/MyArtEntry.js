@@ -45,7 +45,7 @@ export default function MyArtEntry(props) {
       </Typography>
       </Button>
       <RDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle >Twilight Park Art Show Entry 
+        <DialogTitle >Twilight Park Art Show Entry - {user.email}
           <OkButton onClick={handleClose} />
         </DialogTitle>
         <DialogContent>
