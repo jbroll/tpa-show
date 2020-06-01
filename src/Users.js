@@ -139,10 +139,10 @@ export default function Users(props) {
     }
 
     const tableConfig = [
-    { id: 'email',        label: 'EMail',         sortable: true,  cellRender: renderArtEntry},
-    { id: 'registered',   label: 'Registered',    sortable: true,  cellRender: renderRegistered},
-    { id: 'admin',        label: 'Admin',         sortable: true,  cellRender: renderAdmin},
-    { id: 'delete',       label: '',              sortable: false, cellRender: renderDelete, headRender: renderPlus},
+    { id: 'email',        label: 'EMail',      sort: true, cellRender: renderArtEntry},
+    { id: 'registered',   label: 'Registered', sort: true, cellRender: renderRegistered},
+    { id: 'admin',        label: 'Admin',      sort: true, cellRender: renderAdmin},
+    { id: 'delete',       label: '',                       cellRender: renderDelete, headRender: renderPlus},
     ];
 
     const users = props.users;
