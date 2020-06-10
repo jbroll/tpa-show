@@ -66,7 +66,11 @@ export const uiConfig = {
     "microsoft.com",
     firebase.auth.GoogleAuthProvider.PROVIDER_ID
   ],
-  credentialHelper: 'none'
+  credentialHelper: 'none',
+  // Terms of service url.
+  tosUrl: '/terms-of-service',
+  // Privacy policy url.
+  privacyPolicyUrl: 'privacy-policy'
 };
 
 export function SignInPage() {

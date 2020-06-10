@@ -129,6 +129,17 @@ export default function Users(props) {
                 name="admin" inputProps={{ 'aria-label': 'Admin' }} />
         );
     }
+    const renderTOS = (cell, index, cellConfig, row, rowIndex, rowConfig) => {
+        if (true) {
+            return cell ? "Yes" : "No";
+        } else {
+            return (
+                <Checkbox checked={cell} className={classes.checkbox}
+                    onChange={e => { handleSetClaim(row.uid, 'tos', e.target.checked) }}
+                    name="tos" inputProps={{ 'aria-label': 'TOS' }} />
+            );
+        }
+    }
 
     const renderDelete = (cell, index, cellConfig, row, rowConfig) => {
         return (
@@ -142,6 +153,7 @@ export default function Users(props) {
     { id: 'email',        label: 'EMail',      sort: true, cellRender: renderArtEntry},
     { id: 'registered',   label: 'Registered', sort: true, cellRender: renderRegistered},
     { id: 'admin',        label: 'Admin',      sort: true, cellRender: renderAdmin},
+    { id: 'tos',          label: 'TOS',        sort: true, cellRender: renderTOS},
     { id: 'delete',       label: '',                       cellRender: renderDelete, headRender: renderPlus},
     ];
 

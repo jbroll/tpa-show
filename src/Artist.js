@@ -63,7 +63,6 @@ I saw you work in the Twilight Park Online Art Show and I'm interest in knowing 
       if (value == null || value === "") {
           return null;
       }
-      console.log(wrap, value, width);
       return (
             <Grid item sx={12} md={width}>
                 <Typography variant="h6">

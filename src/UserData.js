@@ -39,6 +39,30 @@ export default class UserData extends React.Component {
             });
         });
     }
+    handleSetClaim = (uid, claim, value) => {
+        const data = {
+            uid: uid,
+            claims: {
+                ...this.state.users[uid].claims,
+                [claim]: value
+            }
+        }
+        this.setClaims(data).then(
+            (reply) => {
+                this.setState((state, props) => {
+                    return {
+                        users: {
+                        ...state.users,
+                        [reply.data.uid]: {
+                            'uid': uid,
+                            'email': state.users[reply.data.uid].email,
+                            'claims': reply.data.claims,
+                        }
+                    }
+                } 
+            });
+        });
+    }
 
     handleDeleteUser = (uid) => {
         return new Promise(resolve => {
@@ -80,7 +104,8 @@ export default class UserData extends React.Component {
             uid: e.uid,
             email: e.email,
             registered: !!(e.claims && e.claims.reg),
-            admin: !!(e.claims && e.claims.adm)
+            admin: !!(e.claims && e.claims.adm),
+            tos: !!(e.claims && e.claims.tos)
         }
     });
 

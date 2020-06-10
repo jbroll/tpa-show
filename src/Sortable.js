@@ -131,7 +131,6 @@ export default function EnhancedTable(props) {
     setSearchFor(e.target.value);
   };
 
-  console.log(config);
   return (
     <div className={classes.root}>
           <Table className={classes.table} {...rest} >

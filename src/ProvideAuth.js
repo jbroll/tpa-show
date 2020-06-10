@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from "react";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/functions";
 
 export const AuthContext = React.createContext();
 
@@ -57,6 +58,19 @@ function useProvideAuth() {
       });
   };
 
+  const fb_setTOS = firebase.functions().httpsCallable('setTOS');
+  const setTOS = (tos) => {
+    fb_setTOS({ uid: user.uid, tos: tos }).then(reply => {
+      if (reply.data.tos === undefined) {
+        return;
+      }
+      setClaims({
+        ...claims,
+        tos: reply.data.tos
+      });
+    });
+  }
+
   const signup = (email, password) => {
     return firebase
       .auth()
@@ -108,7 +122,8 @@ function useProvideAuth() {
           setUser(user);
           setClaims({
             adm: !!token.claims.adm,
-            reg: !!token.claims.reg
+            reg: !!token.claims.reg,
+            tos: !!token.claims.tos
           });
         });
       } else {
@@ -124,6 +139,7 @@ function useProvideAuth() {
   return {
     user,
     claims,
+    setTOS,
     signin,
     signup,
     signout,
