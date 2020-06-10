@@ -25,6 +25,9 @@ import { SignInPage } from './SignIn'
 import ProvideAuth from './ProvideAuth';
 import { IsAdmin, useAuth } from './ProvideAuth'
 import { useConfig } from "./DocConfig";
+import TabPrivacy from './TabPrivacy';
+import TabTOS from './TabTOS';
+import TabShowTOS from './TabShowTOS';
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -116,6 +119,15 @@ function AppTabRoutes() {
           </Route>
           <Route path="/signedIn">
             <Redirect to="/" />
+          </Route>
+          <Route path="/show-tos">
+            <TabShowTOS />
+          </Route>
+          <Route path="/terms-of-service">
+            <TabTOS />
+          </Route>
+          <Route path="/privacy-policy">
+            <TabPrivacy />
           </Route>
           <Route path="/">
             <TabMainPage />

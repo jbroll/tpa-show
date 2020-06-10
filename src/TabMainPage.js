@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
 import { Link, } from "react-router-dom";
+
 export default function(props) {
     return (
+        <div>
+
         <Container fixed>
         <br />
         <br />
@@ -39,5 +42,14 @@ export default function(props) {
         </Grid>
         </Grid>
         </Container>
+        <Box display="flex" justify="flex-start">
+            <Box ml={3} padding={2}>
+                <Link to="/terms-of-service"> <Typography variant="subtitle2"> Terms of Service </Typography> </Link>
+            </Box>
+            <Box padding={2}>
+                <Link to="/privacy-policy"> <Typography variant="subtitle2"> Privacy Policy </Typography> </Link>
+            </Box>
+        </Box>
+        </div>
     );
 }

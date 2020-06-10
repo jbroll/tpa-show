@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 
 import ArtEntry from './ArtEntry';
@@ -21,21 +22,26 @@ const useStyles = makeStyles((theme) => ({
     }, 
 }));
 
-export default function MyArtEntry(props) {
+export function MyArtEntry(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  const auth = useAuth();
+  const user = auth.user;
+  const uid = auth.user && auth.user.uid;
+  const tos = auth.user && auth.claims.tos
+
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpen(tos);
+    if (!tos) {
+      props.history.push("/show-tos");
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
     props.onClose();
   };
-
-  const user = useAuth().user;
-  const uid = user && user.uid;
 
   return (
     <div>
@@ -55,3 +61,5 @@ export default function MyArtEntry(props) {
     </div>
   );
 }
+
+export default withRouter(MyArtEntry);

@@ -14,6 +14,23 @@ function checkAuth(context) {
 
   return false;
 }
+
+exports.setTOS = functions.https.onCall((data, context) => {
+  if (context.auth.uid !== data.uid) {
+    return null;
+  }
+
+  return admin.auth().setCustomUserClaims(data.uid, {
+    adm: context.auth.token.adm,
+    reg: context.auth.token.reg,
+    tos: data.tos
+  }).then(() => {
+    return { uid: data.uid, tos: data.tos }
+  }).catch(err => {
+    return err;
+  });
+});
+
 exports.setClaims = functions.https.onCall((data, context) => {
   if (!checkAuth(context)) {
     return null;
