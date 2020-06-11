@@ -30,8 +30,6 @@ window.addEventListener("drop",function(e){
   e.preventDefault();
 },false);
 
-
-
 ReactDOM.render(
   <React.StrictMode>
     <App style={styles.App}/>
