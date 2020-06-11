@@ -164,6 +164,7 @@ export default function Users(props) {
           <DocEdit document="config/tpa-2020">
             <DocCheckbox label="Art Show is Open" field="showIsOpen" />
             <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
+            <DocCheckbox label="Admin Art Show All" field="showAll" />
           </DocEdit>
           <Sortable config={tableConfig} rows={users} rowKey={row => row.uid} stickyHeader padding="none"/>
 

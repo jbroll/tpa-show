@@ -59,6 +59,8 @@ function AppTabRoutes() {
       if (config.value.showIsEmpty) { return false; }
       if (config.value.showIsOpen) { return true; }
 
+      if (config.value.showAll && auth.claims.adm) { return true; }
+
       if (auth && auth.claims && auth.claims.reg && id.startsWith(auth.user.uid)) { return true; }
 
       return false;
