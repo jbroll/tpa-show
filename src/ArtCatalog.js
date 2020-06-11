@@ -65,6 +65,8 @@ export default function Catalog(props) {
     const data = mapToList(entries, (e, key) => {
         const artist = getArtist(key);
 
+        if (artist == null) { return null; }
+
         return e.title == null ? null : (
             { artist: artist, 
               name: `${artist.first} ${artist.last}`,
