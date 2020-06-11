@@ -22,9 +22,9 @@ export default function(props) {
             <p>
             This year the show is presented online in an effort to keep the
             spirit of Twilight Art alive. This show does not have and entry
-            fee and Twiliht will not take any commission on sales. We
+            fee and Twilight will not take any commission on sales. We
             encourage artists to include prices for thier work, but all sales
-            will be handeled by the artists. To facilitate this, entries will
+            will be handled by the artists. To facilitate this, entries will
             include the option to display the artists email and website as
             contact info.
             </p>
@@ -40,12 +40,15 @@ export default function(props) {
             <p>
             Each artist is allowed two entries as usual in our show. Please
             complete the information for each entry. An entry must have an
-            image and a title to be included in the gallery.
+            image and a title to be included in the gallery. After you have
+            created your entries you will be able to view them in the gallery
+            and catalog pages as they will appear to our guests when the show
+            opens.
             </p>
             <p>
-            We recomend uploading image of your work without including the
+            We recommend uploading images of your work without including the
             frame as these look nicer in our online format. Please remember to
-            indicate if the pieces are frmaed or unframed when negotiating
+            indicate if the pieces are framed or unframed when negotiating
             sales with possible buyers.
             </p>
         </Grid>

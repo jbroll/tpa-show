@@ -20,13 +20,15 @@ export default function(props) {
                 <b>Twilight Park Artists</b> Online Art Show 2020
             </Typography>
             <p>
-            We will miss seeing all of our friends this summer, but we want to support 
-            the artists and keep the spirit of the show strong for when we return to the club house.
+            We will miss seeing all of our friends this summer, but we want
+            to support the mountain top art community and keep the spirit of
+            the show strong for when we return to the club house.
             </p>
             <p>
-            Artists are invited to participate by uploading images of their works. 
-            If you have already received an email invitation to participate, please proceed to 
-            the <Link to="/welcome" >Welcome</Link> page to obtain your Art Show password.  
+            Artists are invited to participate by uploading images of their
+            works. If you have already received an email invitation to
+            participate, please proceed to the <Link to="/welcome"
+            >Welcome</Link> page to obtain your Art Show password.
             </p>
             <p>
             The show will be live on August 1, 2020. Please share this with your 
