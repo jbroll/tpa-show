@@ -167,7 +167,9 @@ export default function ArtGallery(props) {
         entry.artist = getArtist(entry.key);
         key = entry.key;
         title = entry.title;
-        artistName = `${entry.artist.first} ${entry.artist.last}`; 
+        if (entry.artist != null) {
+            artistName = `${entry.artist.first} ${entry.artist.last}`; 
+        }
     }
 
     const showTabEmpty = props.collections.entries && entries.length <= 0;
