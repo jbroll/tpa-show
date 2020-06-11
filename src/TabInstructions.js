@@ -29,11 +29,13 @@ export default function(props) {
             contact info.
             </p>
             <p>
-            Using the 'My Entry' dialog in the menu bar you should fill in the
-            information that will be presented to viewer of the gallery. This
-            can include your contact email adddress (the one used to log in
-            on this site), an optional Artists Website address and an optional
-            description of yourself and your work.
+            Use the 'My Entry' dialog in the menu bar to create your art show
+            entry. The first time you access 'My Entry' you will be asked to
+            agree to the Terms of Service for the website. The information
+            that you enter here will be presented to viewers of the gallery.
+            This can include your contact email adddress (the one used to log
+            in on this site), an optional Artists Website address and an
+            optional description of yourself and your work.
             </p>
             <p>
             Each artist is allowed two entries as usual in our show. Please
