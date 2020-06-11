@@ -10,7 +10,7 @@ export default function(props) {
     return (
         <div>
 
-        <Container fixed>
+        <Container fixed >
         <br />
         <br />
         <Grid container direction="row">
@@ -33,15 +33,23 @@ export default function(props) {
             fellow artists and art patrons.
             </p>
         </Grid>
-        <Grid md={6} height="100%" item>
-            <Link to="gallery" >
+        <Grid md={6} height="50%" container item>
+        <Grid xs={12} md={12} height="50%" item>
+            <Link to="/gallery" >
             <Typography variant="h6" noWrap>
                 View the Gallery
             </Typography>
             </Link>
         </Grid>
+        <Grid xs={12} md={12} height="50%" item>
+            <Link to="/instructions" >
+            <Typography variant="h6" noWrap>
+                Instructions for Artists
+            </Typography>
+            </Link>
         </Grid>
-        </Container>
+        </Grid>
+        </Grid>
         <Box display="flex" justify="flex-start">
             <Box ml={3} padding={2}>
                 <Link to="/terms-of-service"> <Typography variant="subtitle2"> Terms of Service </Typography> </Link>
@@ -50,6 +58,7 @@ export default function(props) {
                 <Link to="/privacy-policy"> <Typography variant="subtitle2"> Privacy Policy </Typography> </Link>
             </Box>
         </Box>
+        </Container>
         </div>
     );
 }

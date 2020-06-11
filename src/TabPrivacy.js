@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import grey from '@material-ui/core/colors/grey';
 
 export default function TabPrivacy() {
-    return <Box padding={2} ml={4} style={{ background: grey[200], textAlign: "left" }}> <pre >{`
+    return <Box padding={0} ml={4} style={{ background: grey[200], textAlign: "left" }}> <pre >{`
 Privacy policy
 
 This privacy policy describes how twiligthpart.art collects, protects and
