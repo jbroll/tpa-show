@@ -79,7 +79,7 @@ export default function ArtGallery(props) {
         if (entries.length > 0) {
             const timer = setTimeout(() => {
                 setMoved(0);
-            }, 5000)
+            }, 3000)
             return () => clearTimeout(timer);
         }
     }, [entries, moved]);
@@ -115,7 +115,7 @@ export default function ArtGallery(props) {
 
         const timer = setTimeout(() => {
             advance(1);
-        }, 5000)
+        }, 7000)
         return () => clearTimeout(timer);
     }, [advance, cbuffer, current, entries, playing]);
 
