@@ -17,7 +17,7 @@ export default class DocCollection extends React.Component {
                     const d = {};
                     reply.forEach(doc => {
                         const data = doc.data();
-                        if (this.props.filter(doc.id, data)) {
+                        if (this.props.filter(doc.id, data, collection)) {
                             d[doc.id] = {
                                 key: doc.id,
                                 ...data 

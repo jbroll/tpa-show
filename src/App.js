@@ -55,7 +55,15 @@ function AppTabRoutes() {
   const auth = useAuth();
   const config = useConfig(); 
 
-  const uidFilter = (id, doc) => {
+  const uidFilter = (id, doc, collection) => {
+      if (collection === 'artists') {
+        if(doc.first == null) { return false; }
+        if(doc.last == null) { return false; }
+      }
+      if (collection === 'entries') {
+        if(doc.title == null) { return false; }
+      }
+
       if (config.value.showIsEmpty) { return false; }
       if (config.value.showIsOpen) { return true; }
 
