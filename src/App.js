@@ -17,6 +17,7 @@ import ArtGallery from './ArtGallery'
 import DocCollection from './DocCollection';
 import DocConfig from './DocConfig';
 import TabMainPage from './TabMainPage';
+import TabInstructions from './TabInstructions';
 import TabShowIsClosed from './TabShowIsClosed';
 import TabWelcome from './TabWelcome.js'
 import UserData from './UserData'
@@ -113,6 +114,9 @@ function AppTabRoutes() {
           </Route>
           <Route path="/welcome">
             <TabWelcome />
+          </Route>
+          <Route path="/instructions">
+            <TabInstructions />
           </Route>
           <Route path="/signIn">
             <SignInPage />
