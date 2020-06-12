@@ -60,15 +60,18 @@ function useProvideAuth() {
 
   const fb_setTOS = firebase.functions().httpsCallable('setTOS');
   const setTOS = (tos) => {
-    fb_setTOS({ uid: user.uid, tos: tos }).then(reply => {
-      if (reply.data.tos === undefined) {
-        return;
-      }
-      setClaims({
-        ...claims,
-        tos: reply.data.tos
-      });
-    });
+    return new Promise((resolve, reject) => {
+      fb_setTOS({ uid: user.uid, tos: tos }).then(reply => {
+        if (reply.data.tos === undefined) {
+          reject();
+          return;
+        }
+        setClaims({
+          ...claims,
+          tos: reply.data.tos
+        });
+        resolve({ tos: reply.data.tos });
+      }) });
   }
 
   const signup = (email, password) => {

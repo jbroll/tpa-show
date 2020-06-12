@@ -40,7 +40,7 @@ const thisTheme = createMuiTheme({
 
 const styles = {
     App: {
-        height: "100vh",
+        minHeight: "100vh",
         background: grey[200],
     }
 };
