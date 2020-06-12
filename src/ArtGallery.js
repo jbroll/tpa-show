@@ -88,12 +88,13 @@ export default function ArtGallery(props) {
         if (props.collections.artists == null || props.collections.entries == null) {
             return;
         }
+        const artists = props.collections.artists;
 
         const entries = _.shuffle(_.map(props.collections.entries, (entry, key) => {
             return { ...entry, key: key }
-        }));
+        })).filter((e => artists[e.key.substr(0, e.key.length-2)]));
 
-        setArtists(props.collections.artists);
+        setArtists(artists);
         setEntries(entries);
     }, [props.collections.artists, props.collections.entries]);
 
@@ -167,9 +168,7 @@ export default function ArtGallery(props) {
         entry.artist = getArtist(entry.key);
         key = entry.key;
         title = entry.title;
-        if (entry.artist != null) {
-            artistName = `${entry.artist.first} ${entry.artist.last}`; 
-        }
+        artistName = `${entry.artist.first} ${entry.artist.last}`; 
     }
 
     const showTabEmpty = props.collections.entries && entries.length <= 0;
