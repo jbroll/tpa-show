@@ -29,6 +29,7 @@ import { useConfig } from "./DocConfig";
 import TabPrivacy from './TabPrivacy';
 import TabTOS from './TabTOS';
 import TabShowTOS from './TabShowTOS';
+import TabResetLink from './TabResetLink';
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -136,6 +137,9 @@ function AppTabRoutes() {
           </Route>
           <Route path="/show-tos">
             <TabShowTOS />
+          </Route>
+          <Route path="/reset-link">
+            <TabResetLink />
           </Route>
           <Route path="/terms-of-service">
             <TabTOS />

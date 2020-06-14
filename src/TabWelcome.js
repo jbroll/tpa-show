@@ -16,22 +16,11 @@ import { validateEmail, uiConfig } from './SignIn';
 
 const useStyles = makeStyles((theme) => ({
     title: {
-      color: "black",
-      flexGrow: .1,
-      display: 'block',
       "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
     },
-    spacer: {
-      flexGrow: .1,
-      display: 'none',
-      "text-align": 'left',
-      [theme.breakpoints.up('xs')]: {
-        display: 'block',
-      marginTop: "100%",
-      },
+    link: {
+      color: 'black',
+      background: 'lightblue',
     },
     textField: {
       width: 200,
@@ -107,7 +96,7 @@ export default function Welcome() {
             inputProps={{ size: 30 }}
           />
           </Box>
-          <Button variant="contained" color="primary" size="medium" onClick={handleClickReset} >
+          <Button variant="contained" size="medium" className={classes.link} onClick={handleClickReset} >
             <Typography className={classes.title} variant="h6" noWrap>
                Reset Password
             </Typography>

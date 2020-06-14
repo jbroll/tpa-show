@@ -39,10 +39,10 @@ export default function ArtItem(props) {
                 <DocField label="Media" field="media" options={config.value.media}/>
             </Grid>
             <Grid item xs={6} sm={3}>
-                <DocField label="Height" field="height" format={Format.NUMBER}/>
+                <DocField label="Height" field="height" />
             </Grid>
             <Grid item xs={6} sm={3}>
-                <DocField label="Width" field="width" format={Format.NUMBER}/>
+                <DocField label="Width" field="width" />
             </Grid>
             <Grid item xs={6} sm={3}>
                 <DocField label="Price" field="price" format={Format.DOLLAR}/>
