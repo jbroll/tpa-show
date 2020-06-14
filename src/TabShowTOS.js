@@ -40,18 +40,18 @@ export function TabShowTOS(props) {
         <div>
         <Box mt={3}>
             <Typography>
-                You must argee to the Terms of Serice before you 
+                You must agree to the Terms of Serice before you
                 may complete your entry.
             </Typography>
             <Box display="flex">
 
                 <Box flexGrow={1}>
-                    <FormControlLabel 
+                    <FormControlLabel
                         control={ waiting ?  <Box padding={1} ><CircularProgress size={25}/></Box>  :
-                            <Checkbox checked={tos} 
+                            <Checkbox checked={tos}
                                 onChange={handleSetTOS}
                                 name="tos" inputProps={{ 'aria-label': 'TOS' }} />
-                        } 
+                        }
                         label="I Accept the Terms of Service"
                         />
                 </Box>
@@ -75,7 +75,7 @@ export function TabShowTOS(props) {
             </TabPanel>
         </TabContext>
         </div>
-        
+
     );
 }
 
