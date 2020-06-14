@@ -99,10 +99,15 @@ function useProvideAuth() {
       });
   };
 
+  const actionCodeSettings = {
+    url: window.location.protocol + "//" + window.location.host,
+    handleCodeInApp: false
+  }
+
   const sendPasswordResetEmail = email => {
     return firebase
       .auth()
-      .sendPasswordResetEmail(email);
+      .sendPasswordResetEmail(email, actionCodeSettings);
   };
 
   const confirmPasswordReset = (code, password) => {
