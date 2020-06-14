@@ -21,11 +21,11 @@ export default function(props) {
             </Typography>
             <p>
             This year the show is presented online in an effort to keep the
-            spirit of Twilight Art alive. This show does not have and entry
+            spirit of Twilight Art alive. This show does not have an entry
             fee and Twilight will not take any commission on sales. We
-            encourage artists to include prices for thier work, but all sales
+            encourage artists to include prices for their work, but all sales
             will be handled by the artists. To facilitate this, entries will
-            include the option to display the artists email and website as
+            include the option to display the artist&apos;s email and website as
             contact info.
             </p>
             <p>
@@ -33,7 +33,7 @@ export default function(props) {
             entry. The first time you access 'My Entry' you will be asked to
             agree to the Terms of Service for the website. The information
             that you enter here will be presented to viewers of the gallery.
-            This can include your contact email adddress (the one used to log
+            This can include your contact email address (the one used to log
             in on this site), an optional Artists Website address and an
             optional description of yourself and your work.
             </p>
