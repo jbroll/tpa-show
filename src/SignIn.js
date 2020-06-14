@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Redirect } from "react-router-dom";
+import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import * as firebase from "firebase/app";
@@ -16,13 +17,11 @@ import IconLink from './IconLink';
 
 const useStyles = makeStyles((theme) => ({
     title: {
-      color: "black",
-      flexGrow: .1,
-      display: 'block',
       "text-align": 'left',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
+    },
+    link: {
+      color: 'black',
+      background: 'lightblue',
     },
     textField: {
       width: 200,
@@ -134,11 +133,15 @@ export function SignInPage() {
             inputProps={{ size: 30 }}
           />
           </Box>
-          <Button variant="contained" color="primary" size="medium" onClick={handleClickSignIn} >
+          <Button variant="contained" size="medium" className={classes.link} onClick={handleClickSignIn} >
             <Typography className={classes.title} variant="h6" noWrap>
                 Sign In
             </Typography>
           </Button>
+          <Box display="flex" justify="flex-start">
+            <Link href='/reset-link'> Forgot password?
+            </Link>
+          </Box>
         </Box>
 
         <br />
