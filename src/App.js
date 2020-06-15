@@ -58,11 +58,12 @@ function AppTabRoutes() {
 
   const uidFilter = (id, doc, collection) => {
       if (collection === 'artists') {
-        if(doc.first == null) { return false; }
-        if(doc.last == null) { return false; }
+        if(doc.first == null || doc.first === "" ) { return false; }
+        if(doc.last == null || doc.last === "" ) { return false; }
       }
       if (collection === 'entries') {
-        if(doc.title == null) { return false; }
+        if(doc.title == null || doc.title === "" ) { return false; }
+        if(doc.image == null || doc.image === "" ) { return false; }
       }
 
       if (config.value.showIsEmpty) { return false; }
