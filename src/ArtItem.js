@@ -23,6 +23,10 @@ export default function ArtItem(props) {
   const classes = useStyles();
   const config = useConfig();
 
+  const isTitleRequired = doc => {
+    return doc.fieldValue('image') !== "";
+  }
+
   const document = `entries/${props.uid}-${props.n}`
   const image = `${props.uid}-${props.n}`
 
@@ -33,7 +37,7 @@ export default function ArtItem(props) {
         </Grid>
         <Grid container spacing={4} direction="row">
             <Grid item xs={12}>
-                <DocField label="Title" field="title" required={true}/>
+                <DocField label="Title" field="title" required={isTitleRequired}/>
             </Grid>
             <Grid item xs={6} sm={3}>
                 <DocField label="Media" field="media" options={config.value.media}/>

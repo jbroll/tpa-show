@@ -86,6 +86,11 @@ export default function DocField(props) {
                 const {field, size, format, required, label, ...rest} = props; 
                 const value = checkFormat(format, doc.fieldValue(props.field));
 
+                var req = required;
+                if (typeof required === 'function') {
+                    req = required(doc);
+                }
+
                 if (props.options) {
                     return (
                         <Autocomplete
@@ -109,8 +114,8 @@ export default function DocField(props) {
                         inputProps={{ size: size }}
                         margin="dense"
                         type="text"
-                        error={required && value === ""}
-                        label={`${label}${required ? " - required" : ""}`}
+                        error={req && value === ""}
+                        label={`${label}${req ? " - required" : ""}`}
                         {...rest}
                     />);
                 }
