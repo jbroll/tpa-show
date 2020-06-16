@@ -3,17 +3,11 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Redirect } from "react-router-dom";
-import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import * as firebase from "firebase/app";
-import "firebase/auth";
 
-import { IsAuth, useAuth } from './ProvideAuth'
-
-import IconLink from './IconLink';
+import { useAuth } from './ProvideAuth'
 
 const useStyles = makeStyles((theme) => ({
     title: {

@@ -22,10 +22,10 @@ export default function ArtEntry(props) {
                 <Grid container spacing={4} direction="row">
                     <Grid container item spacing={1} xs={12} md={6}>
                         <Grid item xs={6}>
-                            <DocField label="First Name" field="first" size={30}/>
+                            <DocField label="First Name" field="first" size={30} required={true}/>
                         </Grid> <br />
                         <Grid item xs={6}>
-                            <DocField label="Last Name" field="last"  size={30}/>
+                            <DocField label="Last Name" field="last"  size={30} required={true}/>
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" 
