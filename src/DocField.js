@@ -83,18 +83,8 @@ export default function DocField(props) {
                     doc.onChange(value, props.field);
                 }
 
-                const {field, size, format, ...rest} = props; 
+                const {field, size, format, required, label, ...rest} = props; 
                 const value = checkFormat(format, doc.fieldValue(props.field));
-
-                const textfield = (
-                    <TextField className={classes.textField}
-                        onChange={handleChange} onBlur={handleBlur}
-                        value={value}
-                        inputProps={{ size: size }}
-                        margin="dense"
-                        type="text"
-                        {...rest}
-                    />);
 
                 if (props.options) {
                     return (
@@ -107,12 +97,22 @@ export default function DocField(props) {
                             <TextField {...params}  
                                     //inputProps={{ size: size }}
                                     margin="dense"
+                                    label={label}
                                     {...rest}
                             />
                             )}
                         />);
                 } else {
-                    return textfield;
+                    return (<TextField className={classes.textField}
+                        onChange={handleChange} onBlur={handleBlur}
+                        value={value}
+                        inputProps={{ size: size }}
+                        margin="dense"
+                        type="text"
+                        error={required && value === ""}
+                        label={`${label}${required ? " - required" : ""}`}
+                        {...rest}
+                    />);
                 }
             })}
         </DocContext.Consumer>
