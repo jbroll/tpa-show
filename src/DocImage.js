@@ -4,6 +4,8 @@ import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import IconButton from '@material-ui/core/IconButton';
 import * as firebase from "firebase/app";
 import "firebase/storage";
 
@@ -44,6 +46,16 @@ const useStyles = makeStyles((theme) => ({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         objectFit: 'scale-down',
+    },
+    delete: { 
+        position: 'absolute', 
+        top: -15, 
+        right: -15, 
+        zIndex: theme.zIndex.drawer + 3,
+    },
+    deleteIcon: { 
+        color: 'red', 
+        fontSize: 'large',
     },
     text: {
         position: 'absolute',
@@ -122,32 +134,44 @@ export default function DocImage(props) {
                 }
 
                 const storage = firebase.storage();
-                const uploadTask = storage.ref(`images/${image}`).put(filename);
-                uploadTask.on(
-                    "state_changed",
-                    snapshot => {
-                        // progress function ...
-                        setProgress(Math.round(
-                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        ));
-                    },
-                    error => {
-                        setProgress(-1);
-                    },
-                    () => {
-                        // complete function ...
-                        storage
-                            .ref("images")
-                            .child(image)
-                            .getDownloadURL()
-                            .then(url => {
-                                setProgress(100);
-                                context.fieldSave(props.field, url).then(() => {
-                                    setProgress(-1);
+                storage.ref(`images/${image}`).put(filename)
+                    .on(
+                        "state_changed",
+                        snapshot => {
+                            // progress function ...
+                            setProgress(Math.round(
+                                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                            ));
+                        },
+                        error => {
+                            setProgress(-1);
+                        },
+                        () => {
+                            // complete function ...
+                            storage
+                                .ref("images")
+                                .child(image)
+                                .getDownloadURL()
+                                .then(url => {
+                                    setProgress(100);
+                                    context.fieldSave(props.field, url).then(() => {
+                                        setProgress(-1);
+                                    });
                                 });
-                            });
-                    }
-                );
+                        }
+                    );
+            }
+
+            const handleDelete = () => {
+                const image = props.image;
+                const storage = firebase.storage();
+                storage.ref(`images/${image}`)
+                    .delete()
+                    .then(() => { context.fieldDelete(props.field).then(() => {}); })
+                    .catch((err) => { 
+                        console.log(err)
+                        context.fieldDelete(props.field).then(() => {}); 
+                    });
             }
 
             var hasImage = true;
@@ -159,13 +183,16 @@ export default function DocImage(props) {
 
             return (
                 <DragAndDrop onDrag={handleDrag} onDrop={handleFileChange}>
+                    {hasImage ? 
+                    <IconButton className={classes.delete} onClick={handleDelete}>
+                        <HighlightOffIcon style={{ color: 'red', fontSize: '150%'}} />
+                    </IconButton> : null}
                     <OpenFileButton 
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         onFileChange={handleFileChange}
                         className={classes.button}>
-                        <img 
-                            className={classes.img} src={value} alt="Art Entry" />
+                        <img className={classes.img} src={value} alt="Art Entry" />
                         {progress > 0 ? 
                             <CircularProgress size={100} variant="static" value={progress} className={classes.progress} /> :
                             <Fade in={fade} >
