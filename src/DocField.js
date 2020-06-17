@@ -2,12 +2,16 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import grey from '@material-ui/core/colors/grey';
 
 import { DocContext } from './DocEdit'
 
 const useStyles = makeStyles((theme) => ({
     textField: {
-      width: '100%'
+      width: '100%',
+      background: grey[100],
+      borderRadius: 10,
+      padding: 5,
     },
 }));
 

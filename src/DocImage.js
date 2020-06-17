@@ -185,7 +185,7 @@ export default function DocImage(props) {
                 <DragAndDrop onDrag={handleDrag} onDrop={handleFileChange}>
                     {hasImage ? 
                     <IconButton className={classes.delete} onClick={handleDelete}>
-                        <HighlightOffIcon style={{ color: 'red', fontSize: '150%'}} />
+                        <HighlightOffIcon style={{ color: 'red', fontSize: '125%'}} />
                     </IconButton> : null}
                     <OpenFileButton 
                         onMouseEnter={handleMouseEnter}
