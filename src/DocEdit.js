@@ -51,12 +51,22 @@ export function fieldValue(field, default_value) {
     return value;
 }
 
+export function fieldDelete(field) {
+    const [collection, document] = this.document.split('/');
+    const doc = firebase.firestore().collection(collection).doc(document);
+
+    return doc.update({
+      [field]: firebase.firestore.FieldValue.delete()
+  });
+}
+
 export function docContext(document, value) {
   const context = {};
   _.extend(context, {
       document: document,
       fieldSave: fieldSave.bind(context),
       fieldValue: fieldValue.bind(context),
+      fieldDelete: fieldDelete.bind(context),
       value: value
   });
   return context;
