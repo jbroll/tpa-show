@@ -36,7 +36,7 @@ export default function ArtEntry(props) {
                         </Grid> <br />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <DocField label="Artist Description" field="description" multiline={true} rows={7} rowsMax={7}/>
+                        <DocField label="Artist Bio" field="description" multiline={true} rows={7} rowsMax={7}/>
 
                     </Grid>
                 </Grid>
