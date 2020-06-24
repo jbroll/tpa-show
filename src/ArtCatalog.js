@@ -55,7 +55,7 @@ export default function Catalog(props) {
 
     const handleOpenEditEntry = (title, uid) => {
         setOpenDialog("Entry");
-        setTitle(title);
+        setTitle(title + " " + uid);
         setUid(uid);
     };
 
