@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       background: grey[100],
       borderRadius: 10,
-      padding: 5,
+      padding: 0,
     },
 }));
 
