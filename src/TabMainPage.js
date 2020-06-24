@@ -26,13 +26,15 @@ export default function(props) {
             </p>
             <p>
             Artists are invited to participate by uploading images of their
-            works. If you have already received an email invitation to
-            participate, please proceed to the <Link to="/welcome"
-            >Welcome</Link> page to obtain your Art Show password.
+            works.  Please proceed to the <Link to="/welcome"
+            ><b>Welcome</b></Link> page to obtain your Art Show password.
             </p>
             <p>
-            The show will be live on August 1, 2020. Please share this with your 
-            fellow artists and art patrons.
+            The show will be live on <b>August 1st</b> and run for the month.
+            </p>
+            <p>
+                <br/>
+            Please share this with your fellow artists and art patrons.
             </p>
         </Grid>
         <Grid md={6} height="50%" container item>

@@ -18,30 +18,31 @@ export default function(props) {
                 <b>Instructions for Artists</b>
             </Typography>
             <p>
-            This year the show is presented online in an effort to keep the
-            spirit of Twilight Art alive. This show does not have an entry
-            fee and Twilight will not take any commission on sales. We
-            encourage artists to include prices for their work, but all sales
-            will be handled by the artists. To facilitate this, entries will
-            include the option to display the artist&apos;s email and website as
-            contact info.
+            This year's online show does not have an entry fee and Twilight
+            will not take any commission on sales. We encourage artists to
+            include prices for their work. All sales will be handled directly
+            by the artists. To facilitate this, entries will include the
+            option to display the artist&apos;s email and website as contact
+            info.
+            </p>
+            <p>
+                Please complete your entry by <b>July 25th </b>.
             </p>
             <p>
             Use the 'My Entry' dialog in the menu bar to create your art show
-            entry. The first time you access 'My Entry' you will be asked to
-            agree to the Terms of Service for the website. The information
-            that you enter here will be presented to viewers of the gallery.
-            This can include your contact email address (the one used to log
-            in on this site), an optional Artists Website address and an
-            optional description of yourself and your work.
+            entry. As usual, each artist is allowed two entries in our show.
+            The information that you enter here will be presented to viewers
+            of the gallery. This can include your contact email address (the
+            one used to log in on this site), an optional Artists Website
+            address and an optional description of yourself and your work. An
+            entry must have an image and a title to be included in the
+            gallery. The first time you access 'My Entry' you will be asked
+            to agree to the Terms of Service.
             </p>
             <p>
-            Each artist is allowed two entries as usual in our show. Please
-            complete the information for each entry. An entry must have an
-            image and a title to be included in the gallery. After you have
-            created your entries you will be able to view them in the gallery
-            and catalog pages as they will appear to our guests when the show
-            opens.
+            After you have created your entries you will be able to view them
+            in the gallery and catalog pages as they will appear to our
+            guests when the show opens.
             </p>
             <p>
             We recommend uploading images of your work without including the
