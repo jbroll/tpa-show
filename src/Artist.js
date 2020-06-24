@@ -79,14 +79,15 @@ I saw you work in the Twilight Park Online Art Show and I'm interest in knowing 
                 {maybeItem(wrapContact, artist.email, 6)}
                 {maybeItem(wrapWebSite, artist.url, 6)}
             </Grid>
-            <Grid direction="row" item container spacing={0}>
+            <Grid direction="row" item container spacing={2}>
                 {entries.map((entry, i) => 
                     <Grid key={entry.key} item container xs={12} md={6} >
                         <Grid direction="row" item container>
-                            <Grid item xs={3} md={5} ><Typography> {entry.title} </Typography></Grid>
-                            <Grid item xs={3} md={2} ><Typography> {entry.media} </Typography></Grid>
-                            <Grid item xs={3} md={2} ><Typography> {entry.height} x {entry.width} </Typography></Grid>
-                            <Grid item xs={3} md={2} ><Typography> {entry.price} </Typography></Grid>
+                            <Grid item xs={6} md={6} ><Typography> {entry.title} </Typography></Grid>
+                            <Grid item xs={6} md={6} ><Typography> {entry.description} </Typography></Grid>
+                            <Grid item xs={4} md={4} ><Typography> {entry.media} </Typography></Grid>
+                            <Grid item xs={4} md={4} ><Typography> {entry.height} x {entry.width} </Typography></Grid>
+                            <Grid item xs={4} md={4} ><Typography> {entry.price} </Typography></Grid>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6}>
                             <div style={{width: tileSize, height: tileSize}} className={classes.imageDiv}>

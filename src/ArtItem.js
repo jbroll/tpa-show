@@ -35,9 +35,12 @@ export default function ArtItem(props) {
         <Grid item xs={6} sm={4} className={classes.imageBox}>
             <DocImage field="image" image={image} />
         </Grid>
-        <Grid container spacing={4} direction="row">
+        <Grid container spacing={2} direction="row">
             <Grid item xs={12}>
                 <DocField label="Title" field="title" required={isTitleRequired}/>
+            </Grid>
+            <Grid item xs={12}>
+                <DocField label="Item Description, Frame, Mat, etc. " field="description" />
             </Grid>
             <Grid item xs={6} sm={3}>
                 <DocField label="Media" field="media" options={config.value.media}/>
