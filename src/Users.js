@@ -12,11 +12,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ArtEntry from './ArtEntry';
+import ArtEntryDialog from './ArtEntryDialog';
 import DialogButton from './DialogButton';
 import DocEdit from './DocEdit';
 import DocCheckbox from './DocCheckbox';
-import OkButton from './OkButton';
 import Sortable from './Sortable';
 
 const useStyles = makeStyles((theme) => ({    
@@ -168,15 +167,8 @@ export default function Users(props) {
           </DocEdit>
           <Sortable config={tableConfig} rows={users} rowKey={row => row.uid} stickyHeader padding="none"/>
 
-          <Dialog   open={openDialog === "ArtEntry"} maxWidth="md" fullWidth={true} 
-                    onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Artist - {artEntry.email}
-                <OkButton onClick={handleCloseDialog}/>
-            </DialogTitle>
-            <DialogContent>
-                <ArtEntry uid={artEntry.uid} />
-            </DialogContent>
-          </Dialog>
+          <ArtEntryDialog open={openDialog === "ArtEntry"} onClose={handleCloseDialog} 
+            title={artEntry.email} uid={artEntry.uid} />
 
           <Dialog   open={openDialog === "DeleteUser"} maxWidth="md" 
                     onClose={handleCloseDialog} aria-labelledby="form-dialog-title">

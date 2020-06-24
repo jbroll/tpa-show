@@ -1,15 +1,11 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 
-import ArtEntry from './ArtEntry';
+import ArtEntryDialog from './ArtEntryDialog';
 import { useAuth } from './ProvideAuth'
-import OkButton from './OkButton';
-import RDialog from './RDialog';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -50,14 +46,7 @@ export function MyArtEntry(props) {
         My Entry
       </Typography>
       </Button>
-      <RDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle >Twilight Park Art Show Entry - {user.email}
-          <OkButton onClick={handleClose} />
-        </DialogTitle>
-        <DialogContent>
-          <ArtEntry uid={uid}/>
-        </DialogContent>
-      </RDialog>
+      <ArtEntryDialog open={open} onClose={handleClose} title={user.email} uid={uid} />
     </div>
   );
 }

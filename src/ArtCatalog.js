@@ -1,10 +1,14 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ArtistDialog from './ArtistDialog';
+import ArtEntryDialog from './ArtEntryDialog';
 import TabGalleryEmpty from './TabGalleryEmpty';
 import Sortable from './Sortable';
+import { useAuth } from './ProvideAuth'
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -19,8 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Catalog(props) { 
     const classes = useStyles();
-    const [openArtist, setOpenArtist] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState("");
     const [artistEntries, setArtistEntries] = React.useState(null);
+    const [title, setTitle] = React.useState(null);
+    const [uid, setUid] = React.useState(null);
+    const auth = useAuth();
+    const admin = auth && auth.claims.adm;
 
     const mapToList = function(o, f) {
         var result = []
@@ -31,18 +39,24 @@ export default function Catalog(props) {
     }
 
     const handleOpenArtist1 = (e) => {
-        setOpenArtist(true);
+        setOpenDialog("Artist");
         setArtistEntries([e]);
     };
 
     const handleOpenArtistN = (e) => {
-        setOpenArtist(true);
+        setOpenDialog("Artist");
         const akey = e.key.substr(0, e.key.length-2);
         setArtistEntries(data.filter(e => e.key.startsWith(akey)));
     };
 
-    const handleCloseArtist = () => {
-        setOpenArtist(false);
+    const handleCloseDialog = () => {
+        setOpenDialog("");
+    };
+
+    const handleOpenEditEntry = (title, uid) => {
+        setOpenDialog("Entry");
+        setTitle(title);
+        setUid(uid);
     };
 
     const [entries, setEntries] = React.useState([]);
@@ -104,6 +118,17 @@ export default function Catalog(props) {
             </Link>
         );
     }
+    const renderEdit = (cell, index, cellConfig, row, rowIndex, rowConfig, rows) => {
+        if (rowIndex > 0 && row.artist.key === rows[rowIndex-1].artist.key) {
+            return null;
+        }
+        
+        return (
+            <Button onClick={e => { handleOpenEditEntry(row.name, row.artist.key) }} >
+                <SettingsIcon />
+            </Button>
+        );
+    }
     const tableConfig = [
     { id: 'name',  label: 'Artist', sort: "NAME",   cellRender: renderArtist},
     { id: 'title', label: 'Title',  sort: "TITLE",  cellRender: renderTitle},
@@ -112,11 +137,18 @@ export default function Catalog(props) {
     { id: 'price', label: 'Price',  sort: "PRICE",  align: "right"},
     ];
 
+    if (admin) {
+        tableConfig.unshift(
+            { id: 'edit',  label: '',   cellRender: renderEdit},
+        )
+    }
+
     return (
         <div className={classes.galleryDiv}>
             <br />
           <Sortable config={tableConfig} rows={data} rowKey={row => row.key} stickyHeader search padding="none"/>
-          { artistEntries == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={artistEntries} />}
+          { artistEntries == null ? null : <ArtistDialog open={openDialog === "Artist"} onClose={handleCloseDialog} entries={artistEntries} />}
+          <ArtEntryDialog open={openDialog === "Entry"} onClose={handleCloseDialog} title={title} uid={uid} />
         </div>
     );
 }
