@@ -76,6 +76,30 @@ function AppTabRoutes() {
       return false;
   }
 
+  const uid = auth.user.uid;
+  const uidShow = !config.value.showIsOpen && auth.user && auth.claims.reg;
+  const uidAdmin = !(config.value.showAll && auth.claims.adm);
+  const uidOnly = uidShow && uidAdmin;
+
+  const a_where = [];
+  if (uidOnly) {
+    a_where.push(["__name__", "==", uid]);
+  } else {
+    a_where.push(["last", "!=", null]);
+  }
+
+
+  const e_where = [];
+  if (uidOnly) {
+    e_where.push(["__name__", "in", [uid + "-1", uid + "-2"]]);
+  } else {
+    e_where.push(["title", "!=", null]);
+  }
+  const where = {
+    artists: a_where,
+    entries: e_where,
+  }
+
   const showGalleryAndCatalog = config.value.showIsOpen || (auth.claims && auth.claims.reg);
 
   return (
@@ -97,7 +121,7 @@ function AppTabRoutes() {
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
             { showGalleryAndCatalog ?
-              <DocCollection key='gallery' collections={['artists', 'entries']} filter={uidFilter}>
+              <DocCollection key='gallery' collections={['artists', 'entries']} where={where} filter={uidFilter}>
                   { collections => (<ArtGallery collections={collections} onForceRender={forceRender}/>) }
               </DocCollection> :
               <TabShowIsClosed />
@@ -110,7 +134,7 @@ function AppTabRoutes() {
                     content="A catalog of art show entries with links ot artist's pages and individual show entries" />
             </Helmet>
             { showGalleryAndCatalog ?
-              <DocCollection key='catalog' collections={['artists', 'entries']} filter={uidFilter}>
+              <DocCollection key='catalog' collections={['artists', 'entries']} where={where} filter={uidFilter}>
                   { collections => (<ArtCatalog collections={collections} />) }
               </DocCollection> :
               <TabShowIsClosed />
