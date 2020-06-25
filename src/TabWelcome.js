@@ -11,6 +11,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 
 import MailTo from './MailTo'
+import ResetLinkAlert from './ResetLinkAlert';
 import { useAuth } from './ProvideAuth'
 import { validateEmail, uiConfig } from './SignIn';
 
@@ -50,12 +51,19 @@ export default function Welcome() {
   const classes = useStyles();
   const [email, setEmail] = React.useState("");
   const [emailOk, setEmailOk] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState("");
   const auth = useAuth();
 
   const handleClickReset = () => {
     auth.sendPasswordResetEmail(email).then(() => {
-      alert(`An email with a reset password link has been set to ${email}`)
-    });
+      setOpenDialog("SentOK");
+    }).catch(e => { 
+      setOpenDialog(e.code);
+      });
+  }
+
+  const handleOnClose = () => {
+    setOpenDialog("");
   }
 
   const handleEmailChange = (e) => {
@@ -114,7 +122,8 @@ export default function Welcome() {
           </Box>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
       </Grid>
-          </Container>
+      </Container>
+      <ResetLinkAlert type={openDialog} email={email} onClose={handleOnClose}  />
     </div>
   );
 }
