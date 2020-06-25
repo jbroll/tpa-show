@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from './ProvideAuth'
+import ResetLinkAlert from './ResetLinkAlert';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -31,12 +32,20 @@ export default function TabResetLink() {
   const classes = useStyles();
   const [email, setEmail] = React.useState("");
   const [emailOk, setEmailOk] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState("");
+
   const auth = useAuth();
 
   const handleClickReset = () => {
     auth.sendPasswordResetEmail(email).then(() => {
-      alert(`An email with a reset password link has been set to ${email}`)
-    });
+      setOpenDialog("SentOK");
+    }).catch(e => { 
+      setOpenDialog(e.code);
+      });
+  }
+
+  const handleOnClose = () => {
+    setOpenDialog("");
   }
 
   const handleEmailChange = (e) => {
@@ -75,6 +84,8 @@ export default function TabResetLink() {
             </Typography>
           </Button>
           </Container>
+
+          <ResetLinkAlert type={openDialog} email={email} onClose={handleOnClose}  />
     </div>
   );
 }
