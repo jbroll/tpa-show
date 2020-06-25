@@ -12,7 +12,19 @@ export default class DocCollection extends React.Component {
     componentDidMount() {
         this.props.collections.forEach(collection => {
 
-            firebase.firestore().collection(collection).get().then(
+            var c = firebase.firestore().collection(collection);
+            var w = this.props.where[collection];
+            if (w != null) {
+                for (var i = 0; i < w.length; i++) {
+                    if (w[i][1] === "!=" && w[i][2] == null) {
+                        c = c.orderBy(w[i][0]).startAfter(null);
+                    } else {
+                        c = c.where(w[i][0], w[i][1], w[i][2]);
+                    }
+                }
+            }
+            
+            c.get().then(
                 (reply) => {
                     const d = {};
                     reply.forEach(doc => {
