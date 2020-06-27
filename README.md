@@ -4,7 +4,7 @@ A simple interactive art gallery app using React, Material UI and Firebase.
 live site : www.twilightpark.art
 
 In addition the the major UI components that present the art gallery, catalog
-and instruciton, the pacakge hase some compenents that might be reused by
+and instructions, the pacakge has some compenents that might be reused by
 others.
 
 Firebase authentication work flows and some simple Firebase doc display and
