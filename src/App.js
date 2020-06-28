@@ -131,9 +131,7 @@ function AppTabRoutes() {
             { showGalleryAndCatalog ?
               <DocCollection key='gallery' collections={collections} where={where} filter={uidFilter}>
                   { collections => (
-                    <ArtGallery 
-                      collections={collections} 
-                      onForceRender={forceRender}/>) }
+                    <ArtGallery collections={collections} onForceRender={forceRender}/>) }
               </DocCollection> :
               <TabShowIsClosed />
             }
