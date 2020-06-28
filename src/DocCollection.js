@@ -1,4 +1,7 @@
 import React from 'react';
+import Box from '@material-ui/core/Box'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -45,6 +48,12 @@ export default class DocCollection extends React.Component {
     }
   
   render() {
-    return <div>{this.props.children(this.state)}</div>;
+    const loaded = Object.keys(this.state).length === this.props.collections.length;
+
+    return !loaded ? 
+          <Box display="grid" justifyContent="center" alignContent="flex-end" css={{ height: 300 }}  >
+            <CircularProgress /> 
+          </Box>
+        : <div>{this.props.children(this.state)}</div>
   } 
 }

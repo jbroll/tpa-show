@@ -1,4 +1,6 @@
 import React from 'react';
+import Box from '@material-ui/core/Box'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import * as firebase from "firebase/app";
 import _ from 'lodash';
 
@@ -73,7 +75,7 @@ export function docContext(document, value) {
 }
 
 export default function DocEdit(props) {
-  const [value, setValue] = React.useState({});
+  const [value, setValue] = React.useState();
 
   React.useEffect(() => {
     return loadCollection(props.document, setValue);
@@ -93,7 +95,11 @@ export default function DocEdit(props) {
 
   return (
     <DocContext.Provider value={context}>
-        {props.children}
+      { value == null ? 
+        <Box display="grid" justifyContent="center" alignContent="flex-end" css={{ height: 300 }}  >
+          <CircularProgress /> 
+        </Box>
+      : props.children }
     </DocContext.Provider>
   );
 }
