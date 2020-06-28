@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import MailTo from './MailTo';
 import ScaledImage from './ScaledImage';
+import { imageUrlResolver } from './DocImage';
 
 const useStyles = makeStyles((theme) => ({    
     imageDiv: {
@@ -72,6 +73,7 @@ I saw you work in the Twilight Park Online Art Show and I'm interest in knowing 
       );
   }
 
+  console.log(entries);
   return (
         <Grid direction="column" container spacing={1}>
             <Grid direction="row" item container spacing={1}>
@@ -91,7 +93,7 @@ I saw you work in the Twilight Park Online Art Show and I'm interest in knowing 
                         </Grid>
                         <Grid item xs={12} md={12} lg={6}>
                             <div style={{width: tileSize, height: tileSize}} className={classes.imageDiv}>
-                                <ScaledImage  className={classes.img} src={entry.image} alt={entry.title}/>
+                                <ScaledImage  className={classes.img} src={imageUrlResolver(entry.image)} alt={entry.title}/>
                             </div>
                         </Grid>
                     </Grid>

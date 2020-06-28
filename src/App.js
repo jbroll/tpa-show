@@ -20,6 +20,7 @@ import TabMainPage from './TabMainPage';
 import TabInstructions from './TabInstructions';
 import TabShowIsClosed from './TabShowIsClosed';
 import TabWelcome from './TabWelcome.js'
+import TabConfig from './TabConfig.js'
 import UserData from './UserData'
 import Users from './Users'
 import { SignInPage } from './SignIn'
@@ -76,6 +77,13 @@ function AppTabRoutes() {
       return false;
   }
 
+  var collections;
+  if (config.value.showIsOpen || (auth && auth.claims && auth.claims.adm && config.value.showSaved)) {
+    collections=['config/artists', 'config/entries'];
+  } else {
+    collections=['artists', 'entries'];
+  }
+
   const uid = auth.user.uid;
   const uidShow = !config.value.showIsOpen && auth.user && auth.claims.reg;
   const uidAdmin = !(config.value.showAll && auth.claims.adm);
@@ -85,7 +93,7 @@ function AppTabRoutes() {
   if (uidOnly) {
     a_where.push(["__name__", "==", uid]);
   } else {
-    a_where.push(["last", "!=", null]);
+      a_where.push(["last", "!=", null]);
   }
 
 
@@ -93,8 +101,8 @@ function AppTabRoutes() {
   if (uidOnly) {
     e_where.push(["__name__", "in", [uid + "-1", uid + "-2"]]);
   } else {
-    e_where.push(["title", "!=", null]);
-  }
+      e_where.push(["title", "!=", null]);
+    }
   const where = {
     artists: a_where,
     entries: e_where,
@@ -121,8 +129,11 @@ function AppTabRoutes() {
                     content="A slide show of images submitted by participating artists" />
             </Helmet>
             { showGalleryAndCatalog ?
-              <DocCollection key='gallery' collections={['artists', 'entries']} where={where} filter={uidFilter}>
-                  { collections => (<ArtGallery collections={collections} onForceRender={forceRender}/>) }
+              <DocCollection key='gallery' collections={collections} where={where} filter={uidFilter}>
+                  { collections => (
+                    <ArtGallery 
+                      collections={collections} 
+                      onForceRender={forceRender}/>) }
               </DocCollection> :
               <TabShowIsClosed />
             }
@@ -134,16 +145,25 @@ function AppTabRoutes() {
                     content="A catalog of art show entries with links ot artist's pages and individual show entries" />
             </Helmet>
             { showGalleryAndCatalog ?
-              <DocCollection key='catalog' collections={['artists', 'entries']} where={where} filter={uidFilter}>
-                  { collections => (<ArtCatalog collections={collections} />) }
+              <DocCollection key='catalog' collections={collections} where={where} filter={uidFilter}>
+                  { collections => ( <ArtCatalog collections={collections} />) }
               </DocCollection> :
               <TabShowIsClosed />
             }
           </Route>
-            <Route path="/users">
+          <Route path="/config">
+            <IsAdmin>
+              <DocCollection key='gallery' collections={['artists', 'entries']} where={where} filter={uidFilter}>
+                  { collections => ( <TabConfig collections={collections} /> ) }
+              </DocCollection>
+              <Redirect to="/" />
+            </IsAdmin>
+          </Route>
+          <Route path="/users">
             <IsAdmin>
               <UserData>
-                  { props => (<Users {...props} />) }
+                  { props => (<Users 
+                  {...props} />) }
               </UserData>
               <Redirect to="/" />
             </IsAdmin>

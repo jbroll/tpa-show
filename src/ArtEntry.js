@@ -5,7 +5,7 @@ import ArtItem from "./ArtItem";
 import DocEdit from "./DocEdit";
 import DocField from "./DocField";
 import DocCheckbox from "./DocCheckbox";
-import { useAuth } from './ProvideAuth';
+import { IsAdmin, useAuth } from './ProvideAuth'
 
 export default function ArtEntry(props) {
 
@@ -28,8 +28,11 @@ export default function ArtEntry(props) {
                             <DocField label="Last Name" field="last"  size={30} required={true}/>
                         </Grid>
                         <Grid item xs={12} md={12}>
-                            <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" 
-                                onSave={handleEMailSave} />
+                            <IsAdmin>
+                                <DocField label="Contact email?" field="email" />
+                                <DocCheckbox label={"show\u00A0email\u00A0as\u00A0contact"} field="showEMail" 
+                                    onSave={handleEMailSave} />
+                            </IsAdmin>
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <DocField label="Web Site" field="url" size={80}/>
@@ -42,8 +45,8 @@ export default function ArtEntry(props) {
                 </Grid>
             </DocEdit>
             <Grid container direction="column">
-                <ArtItem uid={props.uid} n={1} />
-                <ArtItem uid={props.uid} n={2} />
+                <ArtItem {...props} n={1} />
+                <ArtItem {...props} n={2} />
             </Grid>
           </Grid>
         </div>

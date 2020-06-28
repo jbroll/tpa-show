@@ -12,6 +12,7 @@ import ArtistDialog from './ArtistDialog'
 import ScaledImage from './ScaledImage';
 import TabGalleryEmpty from './TabGalleryEmpty';
 import ArtGalleryNav from './ArtGalleryNav';
+import { imageUrlResolver } from './DocImage';
 
 const useStyles = makeStyles((theme) => ({    
     galleryDiv: {
@@ -59,8 +60,8 @@ export default function ArtGallery(props) {
     const [moved, setMoved] = React.useState(0);
     const [openArtist, setOpenArtist] = React.useState(false);
     const [entries, setEntries] = React.useState([]);
-    const [artists, setArtists] = React.useState([]);
 
+    const artists = props.collections.artists;
 
     const movedEvent = () => {
         setMoved(Math.random()+1);
@@ -85,18 +86,12 @@ export default function ArtGallery(props) {
     }, [entries, moved]);
 
     React.useEffect(() => {
-        if (props.collections.artists == null || props.collections.entries == null) {
-            return;
-        }
-        const artists = props.collections.artists;
-
         const entries = _.shuffle(_.map(props.collections.entries, (entry, key) => {
             return { ...entry, key: key }
         })).filter((e => artists[e.key.substr(0, e.key.length-2)]));
 
-        setArtists(artists);
         setEntries(entries);
-    }, [props.collections.artists, props.collections.entries]);
+    }, [artists, props.collections.entries]);
 
     const wrap = (n, len) => {
         n = n % len;
@@ -159,9 +154,10 @@ export default function ArtGallery(props) {
             const nth = (current - 1 + i) % entries.length;
 
             const entry = _.nth(entries, nth);
+            entry.image = entry.key;
             buffers[i] = {
                 key: entry.key,
-                image: entry.image
+                image: imageUrlResolver(entry.image)
             }
         }
         entry = entries[current];
