@@ -30,6 +30,9 @@ export default function Catalog(props) {
     const auth = useAuth();
     const admin = auth && auth.claims.adm;
 
+    const artists = props.collections.artists;
+    const entries = props.collections.entries;
+
     const mapToList = function(o, f) {
         var result = []
         Object.keys(o).forEach(k => {
@@ -59,18 +62,6 @@ export default function Catalog(props) {
         setUid(uid);
     };
 
-    const [entries, setEntries] = React.useState([]);
-    const [artists, setArtists] = React.useState([]);
-
-    React.useEffect(() => {
-        if (props.collections.artists == null || props.collections.entries == null) {
-            return;
-        }
-        setArtists(props.collections.artists);
-        setEntries(props.collections.entries);
-
-    }, [props.collections.artists, props.collections.entries]);
-
     const getArtist = (ekey) => {
         const akey = ekey.substr(0, ekey.length-2);
         return artists[akey];
@@ -90,7 +81,8 @@ export default function Catalog(props) {
               NAME: `${artist.last.toLowerCase()}, ${artist.first.toLowerCase()}`,
               TITLE: e.title.toLowerCase(),
               PRICE: e.price && Number(e.price.replace(/[^-0-9.]/g, "")),
-              ...e
+              ...e,
+              image: e.key
             }
         )
     }

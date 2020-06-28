@@ -17,7 +17,12 @@ export function loadCollection(docpath, onSetValue) {
       const data = reply.data()
       if ( data ) {
           onSetValue(data);
+      } else {
+        onSetValue({});
       }
+    }, (error) => {
+      console.log(error);
+      onSetValue({});
     });
 }
 

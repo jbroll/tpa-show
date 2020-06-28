@@ -14,8 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import ArtEntryDialog from './ArtEntryDialog';
 import DialogButton from './DialogButton';
-import DocEdit from './DocEdit';
-import DocCheckbox from './DocCheckbox';
 import Sortable from './Sortable';
 
 const useStyles = makeStyles((theme) => ({    
@@ -160,11 +158,6 @@ export default function Users(props) {
 
     return (
         <div className={classes.galleryDiv}>
-          <DocEdit document="config/tpa-2020">
-            <DocCheckbox label="Art Show is Open" field="showIsOpen" />
-            <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
-            <DocCheckbox label="Admin Art Show All" field="showAll" />
-          </DocEdit>
           <Sortable config={tableConfig} rows={users} rowKey={row => row.uid} stickyHeader padding="none"/>
 
           <ArtEntryDialog open={openDialog === "ArtEntry"} onClose={handleCloseDialog} 

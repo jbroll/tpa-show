@@ -6,6 +6,7 @@ import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import PhotoLibraryTwoToneIcon from '@material-ui/icons/PhotoLibraryTwoTone';
 import ListTwoToneIcon from '@material-ui/icons/ListTwoTone';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import EditIcon from '@material-ui/icons/Edit';
 
 import IconLink from './IconLink'
 import { IsAuth, IsAdmin } from './ProvideAuth'
@@ -69,7 +70,11 @@ export default function AppNavBar(props) {
             <IconLink to="/gallery" icon={PhotoLibraryTwoToneIcon}  text="Gallery" />
             <IconLink to="/catalog" icon={ListTwoToneIcon}          text="Catalog" />
             <IsAdmin>
-              <IconLink to="/users" icon={PeopleAltIcon}            text="Users" />
+              <IconLink to="/config" icon={PeopleAltIcon}            text="Config" />
+              <Box />
+            </IsAdmin>
+            <IsAdmin>
+              <IconLink to="/users" icon={EditIcon}            text="Users" />
               <Box />
             </IsAdmin>
             <IsAuth>

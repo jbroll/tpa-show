@@ -9,14 +9,14 @@ import RDialog from './RDialog';
 
 export default function ArtEntryDialog(props) {
 
-    return (
-      <RDialog open={props.open} onClose={props.onClose} >
-        <DialogTitle >Twilight Park Art Show Entry - {props.title}
-            <OkButton onClick={props.onClose}/>
-        </DialogTitle>
-        <DialogContent>
-          <ArtEntry uid={props.uid}/>
-        </DialogContent>
-      </RDialog>
-    );
+  return (
+    <RDialog open={props.open} onClose={props.onClose} >
+      <DialogTitle >Twilight Park Art Show Entry - {props.title}
+        <OkButton onClick={props.onClose} />
+      </DialogTitle>
+      <DialogContent>
+        <ArtEntry uid={props.uid} />
+      </DialogContent>
+    </RDialog>
+  );
 }

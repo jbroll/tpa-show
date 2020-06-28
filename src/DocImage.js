@@ -12,15 +12,10 @@ import "firebase/storage";
 import { DocContext } from './DocEdit'
 import DragAndDrop from './DraqAndDrop';
 
-const getId = function() {
-    const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const ID_LENGTH = 8;
-
-  var rtn = '';
-  for (var i = 0; i < ID_LENGTH; i++) {
-    rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
-  }
-  return rtn;
+ export const imageUrlResolver = (image) => {
+    image = `https://firebasestorage.googleapis.com/v0/b/tpa-show-2020.appspot.com/o/images%2F${image}?alt=media`;
+  
+    return image;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -126,12 +121,7 @@ export default function DocImage(props) {
             }
             
             const handleUpload = (filename) => {
-                var image;
-                if (props.image == null) {
-                    image = getId();
-                }  else {
-                    image = props.image;
-                }
+                const image = props.image;
 
                 const storage = firebase.storage();
                 storage.ref(`images/${image}`).put(filename)
@@ -147,17 +137,10 @@ export default function DocImage(props) {
                             setProgress(-1);
                         },
                         () => {
-                            // complete function ...
-                            storage
-                                .ref("images")
-                                .child(image)
-                                .getDownloadURL()
-                                .then(url => {
-                                    setProgress(100);
-                                    context.fieldSave(props.field, url).then(() => {
-                                        setProgress(-1);
-                                    });
-                                });
+                            setProgress(100);
+                            context.fieldSave(props.field, image).then(() => {
+                                setProgress(-1);
+                            });
                         }
                     );
             }
@@ -178,7 +161,7 @@ export default function DocImage(props) {
             if (context.value == null || (context.value && context.value[props.field] == null) ) {
                 hasImage = false;
             }
-            const value = hasImage ? context.value[props.field] : "blue.png";
+            const url = hasImage ? imageUrlResolver(props.image) : "blue.png";
             const fade = here || drag || !hasImage;
 
             return (
@@ -192,7 +175,7 @@ export default function DocImage(props) {
                         onMouseLeave={handleMouseLeave}
                         onFileChange={handleFileChange}
                         className={classes.button}>
-                        <img className={classes.img} src={value} alt="Art Entry" />
+                        <img className={classes.img} src={url} alt="Art Entry" />
                         {progress > 0 ? 
                             <CircularProgress size={100} variant="static" value={progress} className={classes.progress} /> :
                             <Fade in={fade} >
