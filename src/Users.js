@@ -142,7 +142,7 @@ export default function Users(props) {
 
     const renderDelete = (cell, index, cellConfig, row, rowConfig) => {
         return (
-            <Button onClick={e => { handleOpenDeleteUser(user) }} >
+            <Button onClick={e => { handleOpenDeleteUser(row) }} >
                 <DeleteIcon />
             </Button>
         );
@@ -175,7 +175,7 @@ export default function Users(props) {
             <DialogTitle id="form-dialog-title">Delete User - {user.email}
             </DialogTitle>
             <DialogContent>
-                Are you sure you want to delete {user.email}?
+                Are you sure you want to delete <b>{user.email}</b>?
             </DialogContent>
             <DialogActions>
                 <DialogButton onClick={handleCloseDialog}>Cancel</DialogButton>
