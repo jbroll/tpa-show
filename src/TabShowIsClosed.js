@@ -11,7 +11,7 @@ export default function TabGalleryEmpty(props) {
                 <br />
                 <br />
                 <Typography variant="h6">
-                    The galery is not open yet! 
+                    The gallery is not open yet! 
                 </Typography>
                 <br />
                 <br />
