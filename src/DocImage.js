@@ -13,7 +13,13 @@ import { DocContext } from './DocEdit'
 import DragAndDrop from './DraqAndDrop';
 
  export const imageUrlResolver = (image) => {
-    image = `https://firebasestorage.googleapis.com/v0/b/tpa-show-2020.appspot.com/o/images%2F${image}?alt=media`;
+    const parts = image.split('.'); 
+    image = parts[0]
+    var ver = "0";
+    if (parts.length > 1) {
+        ver = parts[1];
+    } 
+    image = `https://firebasestorage.googleapis.com/v0/b/tpa-show-2020.appspot.com/o/images%2F${image}?alt=media&v=${ver}`;
   
     return image;
 }
@@ -121,7 +127,8 @@ export default function DocImage(props) {
             }
             
             const handleUpload = (filename) => {
-                const image = props.image;
+                var image = props.image;
+
 
                 const storage = firebase.storage();
                 storage.ref(`images/${image}`).put(filename)
@@ -138,6 +145,17 @@ export default function DocImage(props) {
                         },
                         () => {
                             setProgress(100);
+                            if (context.value[props.field] !== null) {
+                                image = context.value[props.field];
+                                const parts = image.split('.'); 
+                                image = parts[0]
+                                var ver = "0";
+                                if (parts.length > 1) {
+                                    ver = (parseInt(parts[1]) + 1).toString();
+                                } 
+                                image = image + "." + ver;
+                            }
+                            console.log("Image: ", image);
                             context.fieldSave(props.field, image).then(() => {
                                 setProgress(-1);
                             });
@@ -161,9 +179,14 @@ export default function DocImage(props) {
             if (context.value == null || (context.value && context.value[props.field] == null) ) {
                 hasImage = false;
             }
-            const url = hasImage ? imageUrlResolver(props.image) : "blue.png";
+            var imageName = props.image;
+            if (hasImage) {
+                imageName = context.value[props.field]; 
+            }
+            const url = hasImage ? imageUrlResolver(imageName) : "blue.png";
             const fade = here || drag || !hasImage;
 
+            console.log(url);
             return (
                 <DragAndDrop onDrag={handleDrag} onDrop={handleFileChange}>
                     {hasImage ? 

@@ -58,7 +58,8 @@ export default function ArtGallery(props) {
     const [playing, setPlaying] = React.useState(true);
     const [wasPlaying, setWasPlaying] = React.useState(false);
     const [moved, setMoved] = React.useState(0);
-    const [openArtist, setOpenArtist] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState(false);
+    const [artistEntries, setArtistEntries] = React.useState(null);
     const [entries, setEntries] = React.useState([]);
 
     const artists = props.collections.artists;
@@ -85,13 +86,20 @@ export default function ArtGallery(props) {
         }
     }, [entries, moved]);
 
+    const getArtist = React.useCallback((ekey) => {
+        const akey = ekey.substr(0, ekey.length-2);
+        return artists[akey];
+    }, [artists]);
+
     React.useEffect(() => {
         const entries = _.shuffle(_.map(props.collections.entries, (entry, key) => {
+            entry.image = entry.key;
+            entry.artist = getArtist(entry.key);
             return { ...entry, key: key }
-        })).filter((e => artists[e.key.substr(0, e.key.length-2)]));
+        })).filter(e => e.artist != null);
 
         setEntries(entries);
-    }, [artists, props.collections.entries]);
+    }, [artists, getArtist, props.collections.entries]);
 
     const wrap = (n, len) => {
         n = n % len;
@@ -129,19 +137,16 @@ export default function ArtGallery(props) {
         movedEvent();
     };
 
-    const handleOpenArtist = () => {
+    const handleOpenArtistN = (e) => {
         setWasPlaying(playing);
         setPlaying(false);
-        setOpenArtist(true);
-    }
+        setOpenDialog("Artist");
+        const akey = entry.key.substr(0, entry.key.length-2);
+        setArtistEntries(entries.filter(e => e.key.startsWith(akey)));
+    };
     const handleCloseArtist = () => {
-        setOpenArtist(false);
+        setOpenDialog("");
         setPlaying(wasPlaying);
-    }
-
-    const getArtist = (ekey) => {
-        const akey = ekey.substr(0, ekey.length-2);
-        return artists[akey];
     }
 
     const buffers = [];
@@ -154,14 +159,12 @@ export default function ArtGallery(props) {
             const nth = (current - 1 + i) % entries.length;
 
             const entry = _.nth(entries, nth);
-            entry.image = entry.key;
             buffers[i] = {
                 key: entry.key,
                 image: imageUrlResolver(entry.image)
             }
         }
         entry = entries[current];
-        entry.artist = getArtist(entry.key);
         key = entry.key;
         title = entry.title;
         artistName = `${entry.artist.first} ${entry.artist.last}`; 
@@ -193,11 +196,11 @@ export default function ArtGallery(props) {
                                 {entry.media}
                             </Typography>
                             <Typography variant='h6' >
-                                by <Link onClick={handleOpenArtist} >{artistName}</Link>
+                                by <Link onClick={handleOpenArtistN} >{artistName}</Link>
                             </Typography>
                     </Box>
                 }
-                { entry == null ? null : <ArtistDialog open={openArtist} onClose={handleCloseArtist} entries={[entry]} />}
+                { artistEntries == null ? null : <ArtistDialog open={openDialog === "Artist"} onClose={handleCloseArtist} entries={artistEntries} />}
             </Backdrop>
         </div>
     );
