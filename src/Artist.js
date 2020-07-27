@@ -50,8 +50,8 @@ I saw you work in the Twilight Park Online Art Show and I'm interest in knowing 
   }
 
   const wrapWebSite = (wsite) => {
-    if (!wsite.startsWith("http://")) {
-        wsite = "http://" + wsite;
+    if (!wsite.startsWith("http://") && !wsite.startsWith("https://")) {
+        wsite = "https://" + wsite;
     }
 
     return (
@@ -73,7 +73,6 @@ I saw you work in the Twilight Park Online Art Show and I'm interest in knowing 
       );
   }
 
-  console.log(entries);
   return (
         <Grid direction="column" container spacing={1}>
             <Grid direction="row" item container spacing={1}>
