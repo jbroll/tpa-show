@@ -129,7 +129,6 @@ export default function DocImage(props) {
             const handleUpload = (filename) => {
                 var image = props.image;
 
-
                 const storage = firebase.storage();
                 storage.ref(`images/${image}`).put(filename)
                     .on(
@@ -155,7 +154,6 @@ export default function DocImage(props) {
                                 } 
                                 image = image + "." + ver;
                             }
-                            console.log("Image: ", image);
                             context.fieldSave(props.field, image).then(() => {
                                 setProgress(-1);
                             });
@@ -182,11 +180,13 @@ export default function DocImage(props) {
             var imageName = props.image;
             if (hasImage) {
                 imageName = context.value[props.field]; 
+                if (imageName.startsWith("https://")) {
+                    imageName = props.image;
+                }
             }
             const url = hasImage ? imageUrlResolver(imageName) : "blue.png";
             const fade = here || drag || !hasImage;
 
-            console.log(url);
             return (
                 <DragAndDrop onDrag={handleDrag} onDrop={handleFileChange}>
                     {hasImage ? 
