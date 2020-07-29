@@ -144,7 +144,7 @@ export default function DocImage(props) {
                         },
                         () => {
                             setProgress(100);
-                            if (context.value[props.field] !== null) {
+                            if (context.value[props.field] != null) {
                                 image = context.value[props.field];
                                 const parts = image.split('.'); 
                                 image = parts[0]
