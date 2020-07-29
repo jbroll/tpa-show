@@ -13,6 +13,7 @@ import { IsAuth, IsAdmin } from './ProvideAuth'
 import MyArtEntry from './MyArtEntry'
 import TabConfirmReg from './TabConfirmReg';
 import { SignInOrOut } from './SignIn'
+import { useConfig } from "./DocConfig";
 
 /*
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AppNavBar(props) {
   //const classes = useStyles();
 
+  const config = useConfig(); 
   return (
     <div>
       <AppBar  color="default" position="static">
@@ -77,11 +79,13 @@ export default function AppNavBar(props) {
               <IconLink to="/users" icon={EditIcon}            text="Users" />
               <Box />
             </IsAdmin>
-            <IsAuth>
-              <Box />
-              <TabConfirmReg />
-              <Box mr={2}><MyArtEntry onClose={props.onForceRender}/> </Box>
-            </IsAuth>
+            {config.value.allowEntries ? 
+              <IsAuth>
+                <Box />
+                <TabConfirmReg />
+                <Box mr={2}><MyArtEntry onClose={props.onForceRender}/> </Box>
+              </IsAuth> : null
+            }
             <SignInOrOut/>
         </Toolbar>
       </AppBar>

@@ -6,7 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link, } from "react-router-dom";
 
+import { useConfig } from "./DocConfig";
+
 export default function(props) {
+  const config = useConfig(); 
     return (
         <div>
 
@@ -45,13 +48,15 @@ export default function(props) {
             </Typography>
             </Link>
         </Grid>
-        <Grid xs={12} md={12} height="50%" item>
-            <Link to="/instructions" >
-            <Typography variant="h6" noWrap>
-                Instructions for Artists
-            </Typography>
-            </Link>
-        </Grid>
+        { config.value.allowEntries ?
+            <Grid xs={12} md={12} height="50%" item>
+                <Link to="/instructions" >
+                <Typography variant="h6" noWrap>
+                    Instructions for Artists
+                </Typography>
+                </Link>
+            </Grid> : null
+        }
         </Grid>
         </Grid>
         <Box display="flex" justify="flex-start">

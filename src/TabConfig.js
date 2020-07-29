@@ -54,6 +54,9 @@ export default function TabConfig(props) {
                         <DocCheckbox label="Art Show is Open" field="showIsOpen" />
                     </li>
                     <li>
+                        <DocCheckbox label="Allow Entries" field="allowEntries" />
+                    </li>
+                    <li>
                         <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
                     </li>
                     <li>
