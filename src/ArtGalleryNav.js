@@ -46,8 +46,8 @@ export default function ArtGalleryNav(props) {
                 <Grid item >
                     <IconButton onClick={() => { handleOnClick(0); }}>
                         { props.playing ?
-                            <PlayCircleOutlineSharpIcon style={iconStyle}/> :
-                            <PauseCircleOutlineIcon style={iconStyle}/>
+                            <PauseCircleOutlineIcon style={iconStyle}/> :
+                            <PlayCircleOutlineSharpIcon style={iconStyle}/>
                         }
                     </IconButton>
                 </Grid>
