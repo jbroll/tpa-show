@@ -22,16 +22,48 @@ export default function(props) {
             <Typography variant="h6">
                 <b>Twilight Park Artists</b> Online Art Show 2020
             </Typography>
-            <p>
-            We will miss seeing all of our friends this summer, but we want
-            to support the mountain top art community and keep the spirit of
-            the show strong for when we return to the club house.
-            </p>
-            <p>
-            Artists are invited to participate by uploading images of their
-            works.  Please proceed to the <Link to="/welcome"
-            ><b>Welcome</b></Link> page to obtain your Art Show password.
-            </p>
+            { config.value.showIsOpen || config.value.showAll ?
+                <>
+                <p> We are pleased to present artwork from over 60 of our
+                    mountaintop community artists! 
+                </p>
+                <p> <ul>
+                    <li> <p align="left">
+                        Click <Link to="/gallery" > <b>View the Gallery</b> </Link>
+                        to start a slideshow of all pieces. 
+                        </p>
+                    </li>
+                    <li> <p align="left">
+                        Moving your cursor will show gallery controls and the title and artist of the displayed piece.
+                        </p>
+                    </li>
+                    <li> <p align="left">
+                        Clicking on the artist’s name will open a dialog with the artist's details.
+                        </p>
+                    </li>
+                    </ul>
+                </p>
+                <p align="left">
+                    If you would like to purchase a piece, please use the
+                    contact information on the artist’s page to send an email
+                    – all sales will be handled directly with the artist.
+                    Some artists have included web sites to view more of
+                    their works.
+             
+                    We hope you enjoy the show, and we look forward to gathering together to celebrate art in the future.
+                </p></>
+            : <>
+                <p>
+                    We will miss seeing all of our friends this summer, but we want
+                    to support the mountain top art community and keep the spirit of
+                    the show strong for when we return to the club house.
+                </p>
+                <p>
+                    Artists are invited to participate by uploading images of their
+                    works.  Please proceed to the <Link to="/welcome"
+                    ><b>Welcome</b></Link> page to obtain your Art Show password.
+                </p></>
+            }
             <p>
             The show will be live on <b>August 1st</b> and run for the month.
             </p>
