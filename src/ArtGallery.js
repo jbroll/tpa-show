@@ -151,6 +151,10 @@ export default function ArtGallery(props) {
             })
             play(audio, tracks[track.T]);
         }
+
+        return () => {
+            audio.pause();
+        }
     }, []);
 
     const handleNavClick = (n) => {
