@@ -61,7 +61,6 @@ export default function ArtGallery(props) {
     const [openDialog, setOpenDialog] = React.useState(false);
     const [artistEntries, setArtistEntries] = React.useState(null);
     const [entries, setEntries] = React.useState([]);
-    const [track, setTrack] = React.useState(0);
 
     const artists = props.collections.artists;
 
@@ -124,30 +123,35 @@ export default function ArtGallery(props) {
         return () => clearTimeout(timer);
     }, [advance, cbuffer, current, entries, playing]);
 
-    const tracks = _.shuffle([
-        "Polonais.mp3",
-        "Partita1.mp3",
-        "03.mp3",
-        "08.mp3",
-        "20.mp3"
-    ]);
-
-    const trackById = React.useCallback(() => {
-        return document.getElementById("track" + track);
-    }, [track]);
-
     React.useEffect(() => {
-        const t = trackById();
-        if (t != null) {
-            t.addEventListener("ended", () => {
-                setTrack(track + 1 % tracks.length);
-            })
-            t.currentTime = 0;
-            t.play().catch(() => {
-                console.log("Can't play audio :(");
-            });
+        const play = (audio, file) => {
+            audio.currentTime = 0;
+            audio.src = file;
+            audio.oncanplaythrough = () => {
+                audio.play().catch((x) => {
+                    console.log("Can't play audio :(", x);
+                });
+            }
+
         }
-    }, [track, trackById, tracks.length]);
+        const tracks = _.shuffle([  // This should really be in props...
+            "Polonais.mp3",
+            "Partita1.mp3",
+            "03.mp3",
+            "08.mp3",
+            "20.mp3"
+        ]);
+
+        const track = {T: 0};
+        const audio = document.getElementById("music");
+        if (audio != null) {
+            audio.addEventListener("ended", () => {
+                track.T = (track.T + 1) % tracks.length 
+                play(audio, tracks[track.T]);
+            })
+            play(audio, tracks[track.T]);
+        }
+    }, []);
 
     const handleNavClick = (n) => {
         if ( n === 0) {
@@ -202,10 +206,7 @@ export default function ArtGallery(props) {
 
     return (
         <div className={classes.galleryDiv}>
-            { tracks.map((track, i) => {
-                    return <audio key={i} id={"track" + i}> <source src={track}></source> </audio>
-                })
-            }
+            <audio key={i} id="music"></audio>
             { showTabEmpty ? null :
                 buffers.map((buff, i) => 
                     <Fade key={buff.key} in={buff.key === key} timeout={1500}>

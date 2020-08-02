@@ -12,7 +12,7 @@ editing components:
 
 * DocCollection - Render props component that provides a set of loaded Firebase collections.
 * DocConfig - Context.Provider whose value is a Firebase document.  Displays a spinner until the doc is available.
-* DocEdit - Context.Provider whos value is a Firebase document.  Works together with other components with other components to edit a Firebase doc.
+* DocEdit - Context.Provider whos value is a Firebase document.  Works together with other components to edit a Firebase doc.
 	* DocField - Edit a string field in a Firebase doc.
 	* DocCheckbox - Edit a boolean field in a Firebase doc.
 	* DocImage - drag and drop or browse image uploader.  The image is uploaded to storage and a Firebase storage URL is written to a doc field.
@@ -25,7 +25,7 @@ editing components:
 	* Add user
 	* Delete user
 	* Set boolean custom claims on user.
-* Users - A table compoment using UserData to provide UI access to Add/Delete/Set claims on user.
+* Users - A table component using UserData to provide UI access to Add/Delete/Set claims on user.
 
 Firebase functions:
 

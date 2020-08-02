@@ -167,10 +167,10 @@ function AppTabRoutes() {
             </IsAdmin>
           </Route>
           <Route path="/welcome">
-            <TabWelcome />
+              { config.value.showIsOpen ? <Redirect to="/" /> : <TabWelcome /> }
           </Route>
           <Route path="/instructions">
-            <TabInstructions />
+                { config.value.showIsOpen ? <Redirect to="/" /> : <TabInstructions /> }
           </Route>
           <Route path="/signIn">
             <SignInPage />
