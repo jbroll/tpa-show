@@ -27,7 +27,7 @@ export default function(props) {
                 <p> We are pleased to present artwork from over 60 of our
                     mountaintop community artists! 
                 </p>
-                <p> <ul>
+                <div> <ul>
                     <li> <p align="left">
                         Click <Link to="/gallery" > <b>View the Gallery</b> </Link>
                         to start a slideshow of all pieces. 
@@ -42,7 +42,7 @@ export default function(props) {
                         </p>
                     </li>
                     </ul>
-                </p>
+                </div>
                 <p align="left">
                     If you would like to purchase a piece, please use the
                     contact information on the artist’s page to send an email

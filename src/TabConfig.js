@@ -48,38 +48,43 @@ export default function TabConfig(props) {
 
     return (
         <Box>
+            <Button onClick={handleOpenSaveShow} > Save Show </Button>
+            <Dialog   open={openDialog === "SaveShow"} maxWidth="md" 
+                        onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Save Show
+                </DialogTitle>
+                <DialogContent>
+                    Are you sure you want save the Show?
+                </DialogContent>
+                <DialogActions>
+                    <DialogButton onClick={handleCloseDialog}>Cancel</DialogButton>
+                    <DialogButton onClick={e => { handleSaveShow()}}>Save</DialogButton>
+                </DialogActions>
+            </Dialog>
             <DocEdit document="config/tpa-2020">
                 <ul>
-                    <li>
+                    <li> <p align="left">
                         <DocCheckbox label="Art Show is Open" field="showIsOpen" />
+                        </p>
                     </li>
-                    <li>
+                    <li> <p align="left">
                         <DocCheckbox label="Allow Entries" field="allowEntries" />
+                        </p>
                     </li>
-                    <li>
+                    <li> <p align="left">
                         <DocCheckbox label="Force Art Show Empty" field="showIsEmpty" />
+                        </p>
                     </li>
-                    <li>
+                    <li> <p align="left">
                         <DocCheckbox label="Admin Art Show All entries" field="showAll" />
+                        </p>
                     </li>
-                    <li>
+                    <li> <p align="left">
                          <DocCheckbox label="Admin Art Show Saved" field="showSaved" />
+                        </p>
                     </li>
                 </ul>
             </DocEdit>
-            <Button onClick={handleOpenSaveShow} > Save Show </Button>
-          <Dialog   open={openDialog === "SaveShow"} maxWidth="md" 
-                    onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Save Show
-            </DialogTitle>
-            <DialogContent>
-                Are you sure you want save the Show?
-            </DialogContent>
-            <DialogActions>
-                <DialogButton onClick={handleCloseDialog}>Cancel</DialogButton>
-                <DialogButton onClick={e => { handleSaveShow()}}>Save</DialogButton>
-            </DialogActions>
-          </Dialog>
         </Box>
     );
 }
