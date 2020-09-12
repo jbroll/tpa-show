@@ -31,6 +31,7 @@ import TabPrivacy from './TabPrivacy';
 import TabTOS from './TabTOS';
 import TabShowTOS from './TabShowTOS';
 import TabResetLink from './TabResetLink';
+import TabShowIsOver from './TabShowIsOver';
 
 const thisTheme = createMuiTheme({
   typography: {
@@ -199,6 +200,10 @@ function AppTabRoutes() {
   );
 }
 export default function App() {
+  if (true) {
+    return (<TabShowIsOver />);
+  }
+
   return (
     <MuiThemeProvider theme={thisTheme}>
     <ProvideAuth>

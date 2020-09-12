@@ -2,22 +2,24 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-export default function TabShowIsClosed(props) {
+export default function TabShowIsOver(props) {
   return (
         <Box display="grid" justifyContent="center" alignContent="flex-end" >
             <Box maxWidth={500}>
                 <br />
                 <br />
+            <Typography variant="h6">
+                <b>Twilight Park Artists</b> Online Art Show 2020
+            </Typography>
                 <br />
                 <br />
                 <Typography variant="h6">
-                    The gallery is not open yet! 
+                    The show has ended and the gallery closed.  
+                    <br />
+                    <br />
+                    We hope to see you in person next year! 
                 </Typography>
                 <br />
-                <br />
-                <Typography variant="h6">
-                    Please return after August 1st to view the show.
-                </Typography>
             </Box>
         </Box>
   );
