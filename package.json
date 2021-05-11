@@ -13,7 +13,7 @@
     "googleapis": "^39.2.0",
     "image-thumbnail": "^1.0.9",
     "install": "^0.13.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "npm": "^6.14.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
