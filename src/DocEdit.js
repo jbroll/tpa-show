@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import _ from 'lodash';
 
 export const DocContext = React.createContext(null);

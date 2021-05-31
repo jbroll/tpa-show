@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/storage";
 
 import { DocContext } from './DocEdit'

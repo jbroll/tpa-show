@@ -7,8 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import firebase from "firebase/app"
 
 import MailTo from './MailTo'
 import ResetLinkAlert from './ResetLinkAlert';

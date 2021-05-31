@@ -8,11 +8,10 @@ import { Redirect } from "react-router-dom";
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import firebase from "firebase/app"
+import "firebase/auth"
 
 import { IsAuth, useAuth } from './ProvideAuth'
-
 import IconLink from './IconLink';
 
 const useStyles = makeStyles((theme) => ({

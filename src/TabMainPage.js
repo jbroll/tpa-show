@@ -8,7 +8,7 @@ import { Link, } from "react-router-dom";
 
 import { useConfig } from "./DocConfig";
 
-export default function(props) {
+export default function TabMainPage(props) {
   const config = useConfig(); 
     return (
         <div>
