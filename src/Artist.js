@@ -38,7 +38,7 @@ export default function Artist(props) {
         <span>
             Contact Artist&ensp;
                 <MailTo email={email} 
-                    subject="Art Work Refferal from Twilight Park Art Show 2020" 
+                    subject="Art Work Refferal from Twilight Park Art Show 2021" 
                     body={`
 ${artist.first} ${artist.last}, 
 

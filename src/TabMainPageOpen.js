@@ -8,7 +8,7 @@ import { Link, } from "react-router-dom";
 
 import { useConfig } from "./DocConfig";
 
-export default function TabMainPage(props) {
+export default function TabMainPageOpen(props) {
   const config = useConfig(); 
     return (
         <div>
@@ -20,7 +20,7 @@ export default function TabMainPage(props) {
 
         <Grid md={6} item>
             <Typography variant="h6">
-                <b>Twilight Park Artists</b> Online Art Show 2020
+                <b>Twilight Park Artists</b> Online Art Show 2021
             </Typography>
             { config.value.showIsOpen || config.value.showAll ?
                 <>

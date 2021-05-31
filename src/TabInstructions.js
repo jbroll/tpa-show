@@ -26,7 +26,7 @@ export default function tabinstructions(props) {
             info.
             </p>
             <p>
-                Please complete your entry by <b>July 25th </b>.
+                Please complete your entry by <b>July 23th </b>.
             </p>
             <p>
             Use the 'My Entry' dialog in the menu bar to create your art show

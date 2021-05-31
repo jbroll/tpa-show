@@ -22,7 +22,7 @@ export default function AppNavBar(props) {
     <div>
       <AppBar  color="default" position="static">
         <Toolbar>
-            <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2020" />
+            <IconLink to="/"        icon={HomeTwoToneIcon}          text="Twilight Park Art Show 2021" />
             <IconLink to="/gallery" icon={PhotoLibraryTwoToneIcon}  text="Gallery" />
             <IconLink to="/catalog" icon={ListTwoToneIcon}          text="Catalog" />
             <IsAdmin>

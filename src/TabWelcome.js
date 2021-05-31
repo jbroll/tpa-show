@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const body = `
-I'm interested in registering for the Twilight Park 2020 Online Art Show.  Here is my contact information:
+I'm interested in registering for the Twilight Park 2021 Online Art Show.  Here is my contact information:
 
 Name:
 EMail:
@@ -82,6 +82,13 @@ export default function Welcome() {
       <br />
       <br />
       <Typography className={classes.title} >
+        If you are a registered user from the 2020 show and you know your
+        password please go to the SignIn at the top of the page.
+      </Typography>
+      <br />
+      <Typography className={classes.title} >
+
+
         If you received our email invitation to participate in this years online show you should enter your 
         email address below and click "Reset Password".  You will be sent a reset password link which you can
         use to set an initial password and then use the normal "Sign In" menu option in the top right.  If you 

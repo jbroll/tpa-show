@@ -16,7 +16,8 @@ import ArtCatalog from './ArtCatalog'
 import ArtGallery from './ArtGallery'
 import DocCollection from './DocCollection';
 import DocConfig from './DocConfig';
-import TabMainPage from './TabMainPage';
+import TabMainPageOpen from './TabMainPageOpen';
+import TabMainPageClosed from './TabMainPageClosed';
 import TabInstructions from './TabInstructions';
 import TabShowIsClosed from './TabShowIsClosed';
 import TabWelcome from './TabWelcome.js'
@@ -114,8 +115,8 @@ function AppTabRoutes() {
   return (
       <div className="App" style={styles.App}>
         <Helmet>
-          <title>Art Show 2020</title>
-          <meta name="description" content="Twilight Park Artists Online Art Show - 2020" />
+          <title>{`${config.value.pageTitle}`}</title>
+          <meta name="description" content={`${config.value.pageDescription}`} />
         </Helmet>
 
         { useRouteMatch("/gallery") && showGalleryAndCatalog ? null :
@@ -192,7 +193,8 @@ function AppTabRoutes() {
             <TabPrivacy />
           </Route>
           <Route path="/">
-            <TabMainPage />
+            { config.value.showIsOver ? <TabShowIsOver /> :
+                config.value.showIsOpen ? <TabMainPageOpen /> : <TabMainPageClosed /> }
           </Route>
         </Switch>
       </div>
@@ -201,14 +203,11 @@ function AppTabRoutes() {
 }
 
 export default function App() {
-  //if (true) {
-  //  return (<TabShowIsOver />);
-  //}
 
   return (
     <MuiThemeProvider theme={thisTheme}>
     <ProvideAuth>
-      <DocConfig document="config/tpa-2020">
+      <DocConfig document="config/tpa-show">
         <Router>
           <AppTabRoutes />
         </Router>

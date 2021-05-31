@@ -9,7 +9,7 @@ export default function TabShowIsOver(props) {
                 <br />
                 <br />
             <Typography variant="h6">
-                <b>Twilight Park Artists</b> Online Art Show 2020
+                <b>Twilight Park Artists</b> Online Art Show 2021
             </Typography>
                 <br />
                 <br />

@@ -61,10 +61,14 @@ export default function TabConfig(props) {
                     <DialogButton onClick={e => { handleSaveShow()}}>Save</DialogButton>
                 </DialogActions>
             </Dialog>
-            <DocEdit document="config/tpa-2020">
+            <DocEdit document="config/tpa-show">
                 <ul>
                     <li> <p align="left">
                         <DocCheckbox label="Art Show is Open" field="showIsOpen" />
+                        </p>
+                    </li>
+                    <li> <p align="left">
+                        <DocCheckbox label="Art Show is OVER" field="showIsOver" />
                         </p>
                     </li>
                     <li> <p align="left">
