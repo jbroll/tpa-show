@@ -58,7 +58,7 @@ export default function Welcome() {
       setOpenDialog("SentOK");
     }).catch(e => { 
       setOpenDialog(e.code);
-      });
+    });
   }
 
   const handleOnClose = () => {

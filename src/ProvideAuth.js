@@ -100,7 +100,7 @@ function useProvideAuth() {
   };
 
   const actionCodeSettings = {
-    url: window.location.protocol + "//" + window.location.host,
+    url: window.location.protocol + "//" + window.location.host + "/signin",
     handleCodeInApp: false
   }
 
