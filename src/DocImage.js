@@ -5,7 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 import firebase from "firebase/app";
 import "firebase/storage";
 
@@ -19,6 +21,7 @@ import DragAndDrop from './DraqAndDrop';
     if (parts.length > 1) {
         ver = parts[1];
     } 
+    console.log("resolve", image, ver)
     image = `https://firebasestorage.googleapis.com/v0/b/tpa-show-2020.appspot.com/o/images%2F${image}?alt=media&v=${ver}`;
   
     return image;
@@ -56,6 +59,14 @@ const useStyles = makeStyles((theme) => ({
     },
     deleteIcon: { 
         color: 'red', 
+        fontSize: 'large',
+    },
+    download: { 
+        position: 'absolute', 
+        top:  0, 
+        left: -15, 
+        zIndex: theme.zIndex.drawer + 3,
+        color: 'blue', 
         fontSize: 'large',
     },
     text: {
@@ -144,16 +155,22 @@ export default function DocImage(props) {
                         },
                         () => {
                             setProgress(100);
+                            console.log("save val", context.value[props.field])
                             if (context.value[props.field] != null) {
                                 image = context.value[props.field];
+
+                            console.log("save img", image)
+
                                 const parts = image.split('.'); 
                                 image = parts[0]
                                 var ver = "0";
+                            console.log("save ver", ver)
                                 if (parts.length > 1) {
                                     ver = (parseInt(parts[1]) + 1).toString();
                                 } 
                                 image = image + "." + ver;
                             }
+                            console.log("save", image)
                             context.fieldSave(props.field, image).then(() => {
                                 setProgress(-1);
                             });
@@ -193,6 +210,9 @@ export default function DocImage(props) {
                     <IconButton className={classes.delete} onClick={handleDelete}>
                         <HighlightOffIcon style={{ color: 'red', fontSize: '125%'}} />
                     </IconButton> : null}
+                    {hasImage ? 
+                        <a href={url} target="_blank"><GetAppIcon className={classes.download} style={{ fontSize: '125%'}} /> </a>
+                    : null}
                     <OpenFileButton 
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
