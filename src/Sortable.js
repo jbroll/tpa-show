@@ -63,14 +63,14 @@ function EnhancedTableHead(props) {
             key={headCell.id}
             align={headCell.align}
             padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            sortDirection={orderBy === headCell.sort ? order : false}
           >
             { 
               headCell.headRender ? headCell.headRender(headCell, index) : (
                 headCell.sort !== undefined ? 
                 <TableSortLabel
-                  active={orderBy === headCell.id}
-                  direction={orderBy === headCell.id ? order : 'asc'}
+                  active={orderBy === headCell.sort}
+                  direction={orderBy === headCell.sort ? order : 'asc'}
                   onClick={createSortHandler(headCell.sort)}
                 >
                   {headCell.label}
@@ -109,11 +109,11 @@ export default function EnhancedTable(props) {
     classes = {};
   }
 
-  config = config.map(row => {
+  config = config.map(col => {
     return {
-      ...row,
-      sort: row.sort === true ? row.id : row.sort,
-      search: row.search === undefined ? row.id : row.search,
+      ...col,
+      sort: col.sort === true ? col.id : col.sort,
+      search: col.search === undefined ? col.id : col.search,
     }
   });
 
